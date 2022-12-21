@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en-us">
+
+  <head>
+  <link href="https://gmpg.org/xfn/11" rel="profile">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+  
+
+  <!-- Enable responsiveness on mobile devices-->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+
+  <title>
+    
+      Testing ASCII-unsafe encodings in Web browsers &middot; lookout.net
+    
+  </title>
+
+  <!-- CSS -->
+  <link rel="stylesheet" href="/css/poole.css">
+  <link rel="stylesheet" href="/css/syntax.css">
+  <link rel="stylesheet" href="/css/hyde.css">
+  <link rel="stylesheet" href="/css/my.css">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=PT+Sans:400,400italic,700|Abril+Fatface">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
+
+  <!-- Icons -->
+  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/apple-touch-icon-144-precomposed.png">
+                                 <link rel="shortcut icon" href="/favicon.ico">
+
+  <!-- RSS -->
+  <link rel="alternate" type="application/rss+xml" title="RSS" href="/atom.xml">
+</head>
+
+
+  <body>
+
+    <div class="sidebar">
+  <div class="container sidebar-sticky">
+    <div class="sidebar-about">
+      <h1>
+        <a href="/">
+          lookout.net
+        </a>
+      </h1>
+
+      <p class="lead">Chris Weber's personal homepage</p>
+    </div>
+
+    <nav class="sidebar-nav">
+        
+          
+            <a href="https://www.lookout.net/" class="sidebar-nav-item">Home</a>
+           
+        
+          
+            <a href="https://www.lookout.net/about" class="sidebar-nav-item">About</a>
+           
+        
+          
+            <a href="https://www.lookout.net/articles" class="sidebar-nav-item">Articles</a>
+           
+        
+          
+            <a href="https://www.lookout.net/test" class="sidebar-nav-item">Tests</a>
+           
+        
+          
+            <a href="https://www.casaba.com" class="sidebar-nav-item">Casaba</a>
+           
+        
+          
+            <a href="https://web.smugmug.com" class="sidebar-nav-item">Photos</a>
+           
+        
+          
+            <a href="https://encrypt.to/0x59c66c997002e847" class="sidebar-nav-item">Contact</a>
+           
+        
+      <div class="sidebar-footer">
+        <span>&copy; 2018 Chris Weber</span>
+        <div class="social-icons">
+        <a href="https://www.lookout.net/feed.xml" title="Atom/RSS feed"><i class="fa fa-rss fa-2x"></i></a>
+        <a href="https://twitter.com/w3be" title="Chris Weber on Twitter" target="_blank"><i class="fa fa-twitter fa-2x"></i></a>
+        
+        <a href="https://plus.google.com/ChrisWeber1" title="Chris Weber on Google+" target="_blank"><i class="fa fa-google-plus fa-1x"></i></a>
+        <a href="https://linkedin.com/in/chrisweber" title="Chris Weber on LinkedIn" target="_blank"><i class="fa fa-linkedin fa-2x"></i></a>
+        
+        
+        <a href="https://www.flickr.com/photos/cosmicweb" title="Chris Weber on Flickr" target="_blank"><i class="fa fa-flickr fa-2x"></i></a>
+        <a href="https://github.com/cweb" title="Chris Weber on Github" target="_blank"><i class="fa fa-github fa-2x"></i></a>
+        
+        </div><!-- /.social-icons -->
+      </div>
+    </nav>
+  </div>
+
+</div>
+
+
+    <div class="content container">
+      <div class="post">
+  <h1 class="post-title">Testing ASCII-unsafe encodings in Web browsers</h1>
+  <span class="post-date">06 Feb 2012</span>
+  <div class="css-full-post-content js-full-post-content">
+Note: To jump straight to test page click here&nbsp;<a href="http://lookout.net/test/charsets/ascii-unsafe/">http://lookout.net/test/charsets/ascii-unsafe/</a><br /><br />[UPDATE: Some <a href="https://plus.google.com/102891963682045703790/posts/TvKKdF4hstD">feedback </a>from Anne van Kesteren pointed to the fact that all browsers do support HZ-GB-2312, even though the test results showed IE and Firefox did not. The direct URL for that particular encoding test is <a href="http://lookout.net/test/charsets/ascii-unsafe/charset.php?alias=HZ-GB-2312">http://lookout.net/test/charsets/ascii-unsafe/charset.php?alias=HZ-GB-2312</a>. Looking closer it seems the ICU trancoding added a two-byte preamble to the string, which are 0x7E 0x7D, or '~}'. I'm not very familiar with HZ-GB-2312 but a quick look at RFC 1843 tells me that this two-byte sequence switches the context from GB-mode to ASCII-mode. So it seems that Firefox and IE do not recognize this mode-switching byte-sequence, or at least not in this context.] <br /><br />Web browsers support a variety of character set encodings which could be broadly categorized as either ASCII-safe [1] or ASCII-unsafe [2]. &nbsp;The goal of this test was to identify which ASCII-unsafe character encodings were supported by each Web browser.<br /><br />String encodings play an important role in testing Web applications for security vulnerability. &nbsp;If I can control some input's encoding then I will manipulate it in ways that might confuse a parsing process or bypass a defensive filter. &nbsp;To use a common example - imagine you input a string somewhere that includes the U+003E GREATER-THAN SIGN '&gt;' in a meager attempt at cross-site scripting. &nbsp;An XSS filter consumes the input as UTF-8 (which is ASCII-safe) and immediately recognizes the 0x3E byte sequences as something naughty, at which point it throws back an error message. &nbsp;Since you realize that a query string parameter (e.g. &amp;charset=utf-8) controls the page's output encoding you change the charset parameter's value to 'cp037' and encode the input string accordingly. &nbsp;In the cp037 encoding, the '&gt;' character is represented with the byte 0x6E, which in ASCII would be the 'n' character, two completely different characters. &nbsp;The character slips by the filter which assumes it was encoded as UTF-8, and makes its way on to the destination. &nbsp;The reason for the confusion was that the two encodings cp-037 and UTF-8 (ASCII-safe) are not compatible.<br /><br /><h2>How the testing was setup</h2>The <a href="http://lookout.net/test/charsets/ascii-unsafe/">test page</a> attempts to identify which ASCII-unsafe charset a Web browser supports by loading a string encoded in each charset, and testing if the browser decoded it as expected. &nbsp;The page uses the XmlHttpRequest to fetch each string from the server, which returns the string in an HTTP request that includes the Content-Type header, and the corresponding charset label for the test case. &nbsp;The test page then decodes the string according to the charset label, and tests it for equivalence with the following static control string.<br /><br /><pre> $%'()*+,-./&lt;&gt;:;=</pre><br />There are some potential pitfalls to this approach. &nbsp;The most obvious being that the browser may not officially support the given charset encoding under test, but it instead may be applying some intelligence (e.g. sniffing) to the string to try and figure out what it's encoding could be. &nbsp;For example, many of the ASCII-unsafe encodings share similar ranges of characters, where the '&gt;' may actually be represented with byte 0x6E in all of of them. &nbsp;So if you were to test using only a single character you might end up with false positives if the browser was sniffing and decided that the encoding was 'cp237' instead of the 'cp037'. &nbsp;Although these are both variants of EBCDIC, there are some differences. &nbsp;So the test ended up using a string of many characters, which still doesn't totally solve the challenge. &nbsp;However, it works okay and produces decent results. <br /><br />Because the testing uses the&nbsp;<a href="http://userguide.icu-project.org/conversion/converters">ICU project</a>&nbsp;to build the test strings, it's limited to only the character set tables that ICU includes. &nbsp;That's quite a lot mind you, but some other interesting <a href="http://unicode.org/Public/MAPPINGS/VENDORS/">variants and oddities</a> might not be included.<br /><br /><br /><h3>Transcoding the test string</h3>The test string shown above uses 17 characters with familiar names - this string gets transcoded into 417 different character set encodings (the recurring 17 is just coincidence, I think). &nbsp;Because most of the 417 labels are just aliases for a superset, they can be further grouped into a much smaller set of around 17 (just kidding) encodings. <br /><br />The <a href="http://userguide.icu-project.org/conversion/converters">ICU project's Converter API</a> was used to perform the transcoding. &nbsp;ICU also provided all of the <a href="http://demo.icu-project.org/icu-bin/convexp?">charset aliases/labels</a> used for testing. &nbsp;The code for transcoding is <a href="https://github.com/cweb/web-charset-tests/blob/master/src/transcode/transcode.c">available on github</a> for the curious. <br /><br /><h2>Test Results</h2>The following table, which can also be <a href="https://docs.google.com/spreadsheet/pub?hl=en_US&amp;hl=en_US&amp;key=0At1OFOiVqCrvdFo3aFc1elhXS2pnVkpxOFZORjQ1cUE&amp;output=html">opened in a new window</a>, lists all of the ASCII-unsafe charsets supported in each Web browser tested. <br /><iframe src="https://docs.google.com/spreadsheet/pub?hl=en_US&amp;hl=en_US&amp;key=0At1OFOiVqCrvdFo3aFc1elhXS2pnVkpxOFZORjQ1cUE&amp;single=true&amp;gid=3&amp;output=html&amp;widget=true" style="border: 0px; height: 800px; width: 100%;"></iframe><br /><h2>Notes</h2>[1] ascii-safe An ASCII-compatible character encoding is a single-byte or variable-length  encoding in which the bytes 0x09, 0x0A, 0x0C, 0x0D, 0x20 - 0x22, 0x26, 0x27,  0x2C - 0x3F, 0x41 - 0x5A, and 0x61 - 0x7A, ignoring bytes that are the second  and later bytes of multibyte sequences, all correspond to single-byte sequences  that map to the same Unicode characters as those bytes in  ANSI_X3.4-1968 (US-ASCII). [RFC1345] <br /><br />[2] ascii-unsafe ASCII-compatible bytes do not map.
+</div>
+</div>
+    
+
+<!-- <div class="related">
+  <h2>Related Posts</h2>
+  <ul class="related-posts">
+    
+      <li>
+        <h3>
+          <a href="/articles/spring-break-road-trip-washington.html">
+            Spring break road trip - Palouse, Stonehenge, Skamania, Ape Caves
+            <small>15 Apr 2018</small>
+          </a>
+        </h3>
+      </li>
+    
+      <li>
+        <h3>
+          <a href="/articles/children-online-privacy-and-security-guide.html">
+            Children, devices, and going online.  A guide to security and privacy.
+            <small>06 Apr 2017</small>
+          </a>
+        </h3>
+      </li>
+    
+      <li>
+        <h3>
+          <a href="/articles/Building-SDL-Program-Part-1.html">
+            Building an SDL Program - Part 1 - Where to start?
+            <small>15 Mar 2017</small>
+          </a>
+        </h3>
+      </li>
+    
+  </ul>
+</div> -->
+
+    </div>
+    <script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-1741389-10', 'auto');
+  ga('send', 'pageview');
+
+</script>
+  </body>
+</html>

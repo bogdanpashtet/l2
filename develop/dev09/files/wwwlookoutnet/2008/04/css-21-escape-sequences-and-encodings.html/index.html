@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en-us">
+
+  <head>
+  <link href="https://gmpg.org/xfn/11" rel="profile">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+  
+
+  <!-- Enable responsiveness on mobile devices-->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+
+  <title>
+    
+      CSS 2.1 escape sequences and encodings &middot; lookout.net
+    
+  </title>
+
+  <!-- CSS -->
+  <link rel="stylesheet" href="/css/poole.css">
+  <link rel="stylesheet" href="/css/syntax.css">
+  <link rel="stylesheet" href="/css/hyde.css">
+  <link rel="stylesheet" href="/css/my.css">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=PT+Sans:400,400italic,700|Abril+Fatface">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
+
+  <!-- Icons -->
+  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/apple-touch-icon-144-precomposed.png">
+                                 <link rel="shortcut icon" href="/favicon.ico">
+
+  <!-- RSS -->
+  <link rel="alternate" type="application/rss+xml" title="RSS" href="/atom.xml">
+</head>
+
+
+  <body>
+
+    <div class="sidebar">
+  <div class="container sidebar-sticky">
+    <div class="sidebar-about">
+      <h1>
+        <a href="/">
+          lookout.net
+        </a>
+      </h1>
+
+      <p class="lead">Chris Weber's personal homepage</p>
+    </div>
+
+    <nav class="sidebar-nav">
+        
+          
+            <a href="https://www.lookout.net/" class="sidebar-nav-item">Home</a>
+           
+        
+          
+            <a href="https://www.lookout.net/about" class="sidebar-nav-item">About</a>
+           
+        
+          
+            <a href="https://www.lookout.net/articles" class="sidebar-nav-item">Articles</a>
+           
+        
+          
+            <a href="https://www.lookout.net/test" class="sidebar-nav-item">Tests</a>
+           
+        
+          
+            <a href="https://www.casaba.com" class="sidebar-nav-item">Casaba</a>
+           
+        
+          
+            <a href="https://web.smugmug.com" class="sidebar-nav-item">Photos</a>
+           
+        
+          
+            <a href="https://encrypt.to/0x59c66c997002e847" class="sidebar-nav-item">Contact</a>
+           
+        
+      <div class="sidebar-footer">
+        <span>&copy; 2018 Chris Weber</span>
+        <div class="social-icons">
+        <a href="https://www.lookout.net/feed.xml" title="Atom/RSS feed"><i class="fa fa-rss fa-2x"></i></a>
+        <a href="https://twitter.com/w3be" title="Chris Weber on Twitter" target="_blank"><i class="fa fa-twitter fa-2x"></i></a>
+        
+        <a href="https://plus.google.com/ChrisWeber1" title="Chris Weber on Google+" target="_blank"><i class="fa fa-google-plus fa-1x"></i></a>
+        <a href="https://linkedin.com/in/chrisweber" title="Chris Weber on LinkedIn" target="_blank"><i class="fa fa-linkedin fa-2x"></i></a>
+        
+        
+        <a href="https://www.flickr.com/photos/cosmicweb" title="Chris Weber on Flickr" target="_blank"><i class="fa fa-flickr fa-2x"></i></a>
+        <a href="https://github.com/cweb" title="Chris Weber on Github" target="_blank"><i class="fa fa-github fa-2x"></i></a>
+        
+        </div><!-- /.social-icons -->
+      </div>
+    </nav>
+  </div>
+
+</div>
+
+
+    <div class="content container">
+      <div class="post">
+  <h1 class="post-title">CSS 2.1 escape sequences and encodings</h1>
+  <span class="post-date">19 Apr 2008</span>
+  <div class="css-full-post-content js-full-post-content">
+I know there's plenty of good work being done over at places like http://ha.ckers.com, and http://www.thespanner.co.uk/.  I have been researching CSS 2.1 and testing some very thorough and complex HTML and CSS filters myself, and trying to find the stuff that gets through.  These are the type of filters that want to <strong>consume </strong>a stream of HTML or CSS, parse it, and <strong>return </strong>a safe version without executable script.  This approach usually involves some complex lexical parsing with whitelisting and blacklisting combined.<br/><br/>I found the following exploits really useful in bypassing filters:<br/><blockquote><code>body { margin: expression\(alert\(\'xss')\) }<br/>body { margin: \65\78\70\72\65\73\73\69\6F\6E\28\61\6C\65\72\74\28'\78\73\73\49'\29\29 }</code></blockquote><br/>Most of the CSS parsing was being done well and according to the lexical model at <a href="http://www.w3.org/TR/CSS21/grammar.html">http://www.w3.org/TR/CSS21/grammar.html.</a><br/><br/>For testing this of course I had to reference the <strong>escaping characters </strong>allowed in the CSS 2.1 spec at <a href="http://www.w3.org/TR/REC-CSS2/syndata.html#escaped-characters">http://www.w3.org/TR/REC-CSS2/syndata.html#escaped-characters</a>.<br/><br/>Some of the more interesting details I found were in the CSS 2.1 Syntax and basic data types portion of the spec, especially <a href="http://www.w3.org/TR/CSS21/syndata.html#rule-sets">http://www.w3.org/TR/CSS21/syndata.html#rule-sets</a><br/><br/>For example I hadn't seen much like this being used before:<br/><blockquote><code>Here is a more complex example. The first two pairs of curly braces are inside a string, and do not mark the end of the selector. This is a valid CSS 2.1 rule.</code><br/><pre><code class="css"><br/>p[example="public class foo\<br/>{\<br/>private int x;\<br/>\<br/>foo(int x) {\<br/>this.x = x;\<br/>}\<br/>\<br/>}"] { color: red }<br/></code></pre><br/></blockquote><br/>This is sort of similar to the <strong>'content' attribute</strong> and property which should treat their properties as literal text, but in some cases I'm seeing values get interpreted by most browsers.  More on that later if it proves useful.  <a href="http://msdn2.microsoft.com/en-us/library/cc196962(VS.85).aspx">http://msdn2.microsoft.com/en-us/library/cc196962(VS.85).aspx</a><br/><br/><hr /><strong>So what worked?</strong><br/><br/>Well the HTML filter held up pretty well, I threw everything on the http://ha.ckers.org/xssAttacks.xml list at it, plus a ton of other razor-sharp modifications.<br/><br/>The CSS 2.1 test cases at <a title="CSS 2.1 test cases" href="http://www.w3.org/Style/CSS/Test/CSS2.1/20061011/">http://www.w3.org/Style/CSS/Test/CSS2.1/20061011/</a> came in very handy.  Especially the escape sequences like:<br/><blockquote><code><br/></code><br/><pre id="line17">p.class\#id { background\: red; \}<br/>p.c\lass { bac\kground: g\reen; }<br/>p.c\00006Cas\000073 { back\000067round: gr\000065en; }<br/>p.c\06C ass { back\67 round: gr\000065 en; }</pre><br/></blockquote><br/>This is the stuff that really screws with filters.  This stuff confirms what the spec defines for <a href="http://www.w3.org/TR/REC-CSS2/syndata.html#escaped-characters">escaping characters</a>.  Basically:<br/><ul><br/> <li>Backslashes are allowed anywhere in attribute names or property names to indicate character escapes</li><br/> <li>A special CSS character's meaning gets canceled with a backslash for example:<br/><ul><br/> <li>\" or \# or \{</li><br/></ul><br/></li><br/>  <li>Any ISO 10646 character (any unicode character basically) can be represented with up to 6 hexadecimal digits.  So the following sequences all represent a double quote:<br/><ul><br/> <li>\22</li><br/> <li>\0022</li><br/> <li>\000022</li><br/></ul><br/></li><br/> <li>So the neat thing to remember is that unless the backslash is followed by a hexadecimal character (A-F0-9) then it's treated just as a special character escape.  If the character has no special meaning, then the backslash escape is just ignored.  So the following stuff gets treated as an escaping, but really is just ignored by the preprocessor because there's no special character being escaped:<br/><ul><br/> <li>ex\pression</li><br/> <li>expres\sion\(alert())</li><br/></ul><br/></li><br/></ul><br/>You can see where this is going.  The end result of bypassing some of these filters that weren't allowing the special <strong>expression </strong>property through:<br/><br/><code>body { margin: expre\ssion(alert()) }</code><br/><br/>But that wasn't enough, it turned out that the filter didn't allow <strong>anything followed by a open parenthesis</strong>.  So this would never get through:<br/><br/><code>body { margin: any\thing() }</code><br/><br/>However, escaping worked here too, the ending exploits were:<br/><blockquote><code>body { margin: expression\(alert\(\'xss')\) }<br/>body { margin: \65\78\70\72\65\73\73\69\6F\6E\28\61\6C\65\72\74\28'\78\73\73\49'\29\29 }</code></blockquote>
+</div>
+</div>
+    
+
+<!-- <div class="related">
+  <h2>Related Posts</h2>
+  <ul class="related-posts">
+    
+      <li>
+        <h3>
+          <a href="/articles/spring-break-road-trip-washington.html">
+            Spring break road trip - Palouse, Stonehenge, Skamania, Ape Caves
+            <small>15 Apr 2018</small>
+          </a>
+        </h3>
+      </li>
+    
+      <li>
+        <h3>
+          <a href="/articles/children-online-privacy-and-security-guide.html">
+            Children, devices, and going online.  A guide to security and privacy.
+            <small>06 Apr 2017</small>
+          </a>
+        </h3>
+      </li>
+    
+      <li>
+        <h3>
+          <a href="/articles/Building-SDL-Program-Part-1.html">
+            Building an SDL Program - Part 1 - Where to start?
+            <small>15 Mar 2017</small>
+          </a>
+        </h3>
+      </li>
+    
+  </ul>
+</div> -->
+
+    </div>
+    <script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-1741389-10', 'auto');
+  ga('send', 'pageview');
+
+</script>
+  </body>
+</html>

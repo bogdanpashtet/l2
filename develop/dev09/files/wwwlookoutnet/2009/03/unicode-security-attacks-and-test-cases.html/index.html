@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en-us">
+
+  <head>
+  <link href="https://gmpg.org/xfn/11" rel="profile">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+  
+
+  <!-- Enable responsiveness on mobile devices-->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+
+  <title>
+    
+      Unicode security attacks and test cases: character mappings and normalization for testing &middot; lookout.net
+    
+  </title>
+
+  <!-- CSS -->
+  <link rel="stylesheet" href="/css/poole.css">
+  <link rel="stylesheet" href="/css/syntax.css">
+  <link rel="stylesheet" href="/css/hyde.css">
+  <link rel="stylesheet" href="/css/my.css">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=PT+Sans:400,400italic,700|Abril+Fatface">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
+
+  <!-- Icons -->
+  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/apple-touch-icon-144-precomposed.png">
+                                 <link rel="shortcut icon" href="/favicon.ico">
+
+  <!-- RSS -->
+  <link rel="alternate" type="application/rss+xml" title="RSS" href="/atom.xml">
+</head>
+
+
+  <body>
+
+    <div class="sidebar">
+  <div class="container sidebar-sticky">
+    <div class="sidebar-about">
+      <h1>
+        <a href="/">
+          lookout.net
+        </a>
+      </h1>
+
+      <p class="lead">Chris Weber's personal homepage</p>
+    </div>
+
+    <nav class="sidebar-nav">
+        
+          
+            <a href="https://www.lookout.net/" class="sidebar-nav-item">Home</a>
+           
+        
+          
+            <a href="https://www.lookout.net/about" class="sidebar-nav-item">About</a>
+           
+        
+          
+            <a href="https://www.lookout.net/articles" class="sidebar-nav-item">Articles</a>
+           
+        
+          
+            <a href="https://www.lookout.net/test" class="sidebar-nav-item">Tests</a>
+           
+        
+          
+            <a href="https://www.casaba.com" class="sidebar-nav-item">Casaba</a>
+           
+        
+          
+            <a href="https://web.smugmug.com" class="sidebar-nav-item">Photos</a>
+           
+        
+          
+            <a href="https://encrypt.to/0x59c66c997002e847" class="sidebar-nav-item">Contact</a>
+           
+        
+      <div class="sidebar-footer">
+        <span>&copy; 2018 Chris Weber</span>
+        <div class="social-icons">
+        <a href="https://www.lookout.net/feed.xml" title="Atom/RSS feed"><i class="fa fa-rss fa-2x"></i></a>
+        <a href="https://twitter.com/w3be" title="Chris Weber on Twitter" target="_blank"><i class="fa fa-twitter fa-2x"></i></a>
+        
+        <a href="https://plus.google.com/ChrisWeber1" title="Chris Weber on Google+" target="_blank"><i class="fa fa-google-plus fa-1x"></i></a>
+        <a href="https://linkedin.com/in/chrisweber" title="Chris Weber on LinkedIn" target="_blank"><i class="fa fa-linkedin fa-2x"></i></a>
+        
+        
+        <a href="https://www.flickr.com/photos/cosmicweb" title="Chris Weber on Flickr" target="_blank"><i class="fa fa-flickr fa-2x"></i></a>
+        <a href="https://github.com/cweb" title="Chris Weber on Github" target="_blank"><i class="fa fa-github fa-2x"></i></a>
+        
+        </div><!-- /.social-icons -->
+      </div>
+    </nav>
+  </div>
+
+</div>
+
+
+    <div class="content container">
+      <div class="post">
+  <h1 class="post-title">Unicode security attacks and test cases: character mappings and normalization for testing</h1>
+  <span class="post-date">12 Mar 2009</span>
+  <div class="css-full-post-content js-full-post-content">
+<strong>Point: Normalizing strings after validation is dangerous</strong><br/><br/><strong>Impact</strong>: filter evasion, enabling code execution<br/><br/>Are you testing a Web or other application in attempt to bypass restrictions on domain names? For example, what if you were testing a phishing filter and looking for ways to bypass the URL/IRI restrictions<br/><br/>Browsers today normalize a URL/IRI using for <strong>NFKC</strong>, in line with IDNA and Nameprep specifications. This is a composite decomposition <strong>normalization form</strong>, meaning that certain characters get mapped to other characters while applying a recursive canonical mapping pass and by a compatibility mapping pass. Following string decomposition, a canonical recomposition and reordering is applied. Ya, nothing to it.<br/><br/>In one sense, this can seem almost like a best-fit mapping, and it’s why certain characters like the horizontal ellipsis … (highlight it, there’s just one character there), will get mapped to three periods.<br/><br/>That is, U+2026 == U+002E U+002E U+002E.<br/><br/>It’s why the FULLWIDTH SOLIDUS ‘／’ gets mapped to a SOLIDUS ‘/’: U+FFOF == U+002F<br/><br/>Unicode provides the mapping tables for these operations, there’s no magic and there shouldn’t be anything vendor or platform specific happening to change those tables.<br/><br/>Some <a href="http://www.lookout.net/tag/tools/">Unicode tools </a>are available to help generate these characters.<br/><br/>If youre testing an application to verify it works as expected, try some of these characters in place of your typical ASCII characters. If the app normalizes with a compatibility form NFKC or NFKD, then these will get reduced to their ASCII equivalents somewhere along the way.<br/><br/>U+1D400 MATHEMATICAL BOLD CAPITAL A U+0041<br/>U+1D401 MATHEMATICAL BOLD CAPITAL B U+0042<br/>U+1D402 MATHEMATICAL BOLD CAPITAL C U+0043<br/>U+1D403 MATHEMATICAL BOLD CAPITAL D U+0044<br/>U+1D404 MATHEMATICAL BOLD CAPITAL E U+0045<br/>U+1D405 MATHEMATICAL BOLD CAPITAL F U+0046<br/>U+1D406 MATHEMATICAL BOLD CAPITAL G U+0047<br/>U+1D407 MATHEMATICAL BOLD CAPITAL H U+0048<br/>U+1D408 MATHEMATICAL BOLD CAPITAL I U+0049<br/>U+1D409 MATHEMATICAL BOLD CAPITAL J U+004A<br/>U+1D40A MATHEMATICAL BOLD CAPITAL K U+004B<br/>U+1D40B MATHEMATICAL BOLD CAPITAL L U+004C<br/>U+1D40C MATHEMATICAL BOLD CAPITAL M U+004D<br/>U+1D40D MATHEMATICAL BOLD CAPITAL N U+004E<br/>U+1D40E MATHEMATICAL BOLD CAPITAL O U+004F<br/>U+1D40F MATHEMATICAL BOLD CAPITAL P U+0050<br/>U+1D410 MATHEMATICAL BOLD CAPITAL Q U+0051<br/>U+1D411 MATHEMATICAL BOLD CAPITAL R U+0052<br/>U+1D412 MATHEMATICAL BOLD CAPITAL S U+0053<br/>U+1D413 MATHEMATICAL BOLD CAPITAL T U+0054<br/>U+1D414 MATHEMATICAL BOLD CAPITAL U U+0055<br/>U+1D415 MATHEMATICAL BOLD CAPITAL V U+0056<br/>U+1D416 MATHEMATICAL BOLD CAPITAL W U+0057<br/>U+1D417 MATHEMATICAL BOLD CAPITAL X U+0058<br/>U+1D418 MATHEMATICAL BOLD CAPITAL Y U+0059<br/>U+1D419 MATHEMATICAL BOLD CAPITAL Z U+005A<br/><br/><strong>Bonus character!</strong>: Sometimes compatibility mappings aren’t good enough for testing, maybe the app performs an NFC or NFD normalization instead. Here’s a character you can try that maps canonically to the ASCII/Latin letter ‘K’ in any of the four Unicode normalization forms:<br/><br/>U+212A KELVIN SIGN U+004B
+</div>
+</div>
+    
+
+<!-- <div class="related">
+  <h2>Related Posts</h2>
+  <ul class="related-posts">
+    
+      <li>
+        <h3>
+          <a href="/articles/spring-break-road-trip-washington.html">
+            Spring break road trip - Palouse, Stonehenge, Skamania, Ape Caves
+            <small>15 Apr 2018</small>
+          </a>
+        </h3>
+      </li>
+    
+      <li>
+        <h3>
+          <a href="/articles/children-online-privacy-and-security-guide.html">
+            Children, devices, and going online.  A guide to security and privacy.
+            <small>06 Apr 2017</small>
+          </a>
+        </h3>
+      </li>
+    
+      <li>
+        <h3>
+          <a href="/articles/Building-SDL-Program-Part-1.html">
+            Building an SDL Program - Part 1 - Where to start?
+            <small>15 Mar 2017</small>
+          </a>
+        </h3>
+      </li>
+    
+  </ul>
+</div> -->
+
+    </div>
+    <script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-1741389-10', 'auto');
+  ga('send', 'pageview');
+
+</script>
+  </body>
+</html>

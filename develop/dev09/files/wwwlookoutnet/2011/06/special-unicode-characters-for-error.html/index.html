@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en-us">
+
+  <head>
+  <link href="https://gmpg.org/xfn/11" rel="profile">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+  
+
+  <!-- Enable responsiveness on mobile devices-->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+
+  <title>
+    
+      Special Unicode characters for testing, fuzzing, and controllingthe visual display of text &middot; lookout.net
+    
+  </title>
+
+  <!-- CSS -->
+  <link rel="stylesheet" href="/css/poole.css">
+  <link rel="stylesheet" href="/css/syntax.css">
+  <link rel="stylesheet" href="/css/hyde.css">
+  <link rel="stylesheet" href="/css/my.css">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=PT+Sans:400,400italic,700|Abril+Fatface">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
+
+  <!-- Icons -->
+  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/apple-touch-icon-144-precomposed.png">
+                                 <link rel="shortcut icon" href="/favicon.ico">
+
+  <!-- RSS -->
+  <link rel="alternate" type="application/rss+xml" title="RSS" href="/atom.xml">
+</head>
+
+
+  <body>
+
+    <div class="sidebar">
+  <div class="container sidebar-sticky">
+    <div class="sidebar-about">
+      <h1>
+        <a href="/">
+          lookout.net
+        </a>
+      </h1>
+
+      <p class="lead">Chris Weber's personal homepage</p>
+    </div>
+
+    <nav class="sidebar-nav">
+        
+          
+            <a href="https://www.lookout.net/" class="sidebar-nav-item">Home</a>
+           
+        
+          
+            <a href="https://www.lookout.net/about" class="sidebar-nav-item">About</a>
+           
+        
+          
+            <a href="https://www.lookout.net/articles" class="sidebar-nav-item">Articles</a>
+           
+        
+          
+            <a href="https://www.lookout.net/test" class="sidebar-nav-item">Tests</a>
+           
+        
+          
+            <a href="https://www.casaba.com" class="sidebar-nav-item">Casaba</a>
+           
+        
+          
+            <a href="https://web.smugmug.com" class="sidebar-nav-item">Photos</a>
+           
+        
+          
+            <a href="https://encrypt.to/0x59c66c997002e847" class="sidebar-nav-item">Contact</a>
+           
+        
+      <div class="sidebar-footer">
+        <span>&copy; 2018 Chris Weber</span>
+        <div class="social-icons">
+        <a href="https://www.lookout.net/feed.xml" title="Atom/RSS feed"><i class="fa fa-rss fa-2x"></i></a>
+        <a href="https://twitter.com/w3be" title="Chris Weber on Twitter" target="_blank"><i class="fa fa-twitter fa-2x"></i></a>
+        
+        <a href="https://plus.google.com/ChrisWeber1" title="Chris Weber on Google+" target="_blank"><i class="fa fa-google-plus fa-1x"></i></a>
+        <a href="https://linkedin.com/in/chrisweber" title="Chris Weber on LinkedIn" target="_blank"><i class="fa fa-linkedin fa-2x"></i></a>
+        
+        
+        <a href="https://www.flickr.com/photos/cosmicweb" title="Chris Weber on Flickr" target="_blank"><i class="fa fa-flickr fa-2x"></i></a>
+        <a href="https://github.com/cweb" title="Chris Weber on Github" target="_blank"><i class="fa fa-github fa-2x"></i></a>
+        
+        </div><!-- /.social-icons -->
+      </div>
+    </nav>
+  </div>
+
+</div>
+
+
+    <div class="content container">
+      <div class="post">
+  <h1 class="post-title">Special Unicode characters for testing, fuzzing, and controllingthe visual display of text</h1>
+  <span class="post-date">02 Jun 2011</span>
+  <div class="css-full-post-content js-full-post-content">
+<strong>WARNING</strong>: Some of these characters may cause strange things to happen in your software.<br/><br/>Of course, that's the point right?  Here's a minimal set of special Unicode characters I like to use in application testing.  This bit is from a small Unicode generation library I use for a fetching things like:<br/><ul><br/> <li>best fit mappings</li><br/> <li>Unicode normalization mappings</li><br/> <li>ill-formed byte sequences</li><br/> <li>overlong-utf8</li><br/> <li>non-characters</li><br/> <li>private use area (PUA)</li><br/> <li>unassigned code points</li><br/> <li>code points with special meaning such as the BOM and RLO</li><br/> <li>half-surrogate values</li><br/> <li>invisible characters</li><br/></ul><br/>Some of these (the RLO and MVS) are useful for visual spoofing or controlling the visual appearance of text in modal dialog boxes or other user-controlled content.  For example, through the RLO character in the middle of a string to switch the reading order so the characters run right-to-left.  Like so:<br/><br/>The site www.example.com‮‮ is known to host malware, continue?<br/><br/>A lame example I know but the point is as a software developer you should never let the override characters into your code.  Other characters have caused weird (often exploitable) errors in Web applications, Web browsers, Web servers and other software I've come across.  For example, if an ASP.NET application is passing user-controlled input to a StreamWriter it will enter an irrecoverable error condition leading to a permanent (until restarted) <a href="http://blogs.msdn.com/bclteam/archive/2005/03/15/396389.aspx">denial of service when an illegal surrogate</a> (a single low surrogate without a matching high or vice versa) is encountered.<br/><br/><code> /// The Byte Order Mark U+FEFF is a special character defining the byte order and endianess<br/>/// of text data.<br/>/// </code><code><br/>public static readonly string uBOM = "\uFEFF";<br/>///<br/>/// The Right to Left Override U+202E defines special meaning to re-order the<br/>/// display of text for right-to-left reading.<br/>///<br/>public static readonly string uRLO = "\u202E";<br/>///<br/>/// Mongolian Vowel Separator U+180E is invisible and has the whitespace property.<br/>///<br/>public static readonly string uMVS = "\u180E";<br/>///<br/>/// Word Joiner U+2060 is an invisible zero-width character.<br/>///<br/>public static readonly string uWordJoiner = "\u2060";<br/>///<br/>/// A reserved code point U+FEFE<br/>///<br/>public static readonly string uReservedCodePoint = "\uFEFE";<br/>///<br/>/// The code point U+FFFF is guaranteed to not be a Unicode character at all<br/>///<br/>public static readonly string uNotACharacter = "\uFFFF";<br/>///<br/>/// An unassigned code point U+0FED<br/>///<br/>public static readonly string uUnassigned = "\u0FED";<br/>///<br/>///  An illegal low half-surrogate U+DEAD<br/>///<br/>public static readonly string uDEAD = "\uDEAD";<br/>///<br/>/// An illegal high half-surrogate U+DAAD<br/>///<br/>public static readonly string uDAAD = "\uDAAD";<br/>///<br/>/// A Private Use Area code point U+F8FF which Apple happens to use for its logo.<br/>///<br/>public static readonly string uPrivate = "\uF8FF";<br/>///<br/>/// U+FF0F FULLWIDTH SOLIDUS should normalize to / in a hostname<br/>///<br/>public static readonly string uFullwidthSolidus = "\uFF0F";<br/>///<br/>/// Code point with a numerical mapping and value U+1D7D6 MATHEMATICAL BOLD DIGIT EIGHT<br/>///<br/>public static readonly string uBoldEight = char.ConvertFromUtf32(0x1D7D6);<br/>///<br/>/// IDNA2003/2008 Deviant - U+00DF normalizes to "ss" during IDNA2003's mapping phase,<br/>/// different from its IDNA2008 mapping.<br/>/// See http://www.unicode.org/reports/tr46/<br/>///<br/>public static readonly string uIdnaSs = "\u00DF";<br/>///<br/>/// U+FDFD expands by 11x (UTF-8) and 18x (UTF-16) under NFKC/NFKC<br/>///<br/>public static readonly string uFDFA = "\uFDFA";<br/>///<br/>/// U+0390 expands by 3x (UTF-8) under NFD<br/>///<br/>public static readonly string u0390 = "\u0390";<br/>///<br/>/// U+1F82 expands by 4x (UTF-16) under NFD<br/>///<br/>public static readonly string u1F82 = "\u1F82";<br/>///<br/>/// U+FB2C expands by 3x (UTF-16) under NFC<br/>///<br/>public static readonly string uFB2C = "\uFB2C";<br/>///<br/>/// U+1D160 expands by 3x (UTF-8) under NFC<br/>///<br/>public static readonly string u1D160 = char.ConvertFromUtf32(0x1D160);</code><br/><br/>&nbsp;
+</div>
+</div>
+    
+
+<!-- <div class="related">
+  <h2>Related Posts</h2>
+  <ul class="related-posts">
+    
+      <li>
+        <h3>
+          <a href="/articles/spring-break-road-trip-washington.html">
+            Spring break road trip - Palouse, Stonehenge, Skamania, Ape Caves
+            <small>15 Apr 2018</small>
+          </a>
+        </h3>
+      </li>
+    
+      <li>
+        <h3>
+          <a href="/articles/children-online-privacy-and-security-guide.html">
+            Children, devices, and going online.  A guide to security and privacy.
+            <small>06 Apr 2017</small>
+          </a>
+        </h3>
+      </li>
+    
+      <li>
+        <h3>
+          <a href="/articles/Building-SDL-Program-Part-1.html">
+            Building an SDL Program - Part 1 - Where to start?
+            <small>15 Mar 2017</small>
+          </a>
+        </h3>
+      </li>
+    
+  </ul>
+</div> -->
+
+    </div>
+    <script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-1741389-10', 'auto');
+  ga('send', 'pageview');
+
+</script>
+  </body>
+</html>

@@ -1,0 +1,1197 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head><meta charset="UTF-8"><script>if(navigator.userAgent.match(/MSIE|Internet Explorer/i)||navigator.userAgent.match(/Trident\/7\..*?rv:11/i)){var href=document.location.href;if(!href.match(/[?&]nowprocket/)){if(href.indexOf("?")==-1){if(href.indexOf("#")==-1){document.location.href=href+"?nowprocket=1"}else{document.location.href=href.replace("#","?nowprocket=1#")}}else{if(href.indexOf("#")==-1){document.location.href=href+"&nowprocket=1"}else{document.location.href=href.replace("#","&nowprocket=1#")}}}}</script><script>class RocketLazyLoadScripts{constructor(){this.triggerEvents=["keydown","mousedown","mousemove","touchmove","touchstart","touchend","wheel"],this.userEventHandler=this._triggerListener.bind(this),this.touchStartHandler=this._onTouchStart.bind(this),this.touchMoveHandler=this._onTouchMove.bind(this),this.touchEndHandler=this._onTouchEnd.bind(this),this.clickHandler=this._onClick.bind(this),this.interceptedClicks=[],window.addEventListener("pageshow",(e=>{this.persisted=e.persisted})),window.addEventListener("DOMContentLoaded",(()=>{this._preconnect3rdParties()})),this.delayedScripts={normal:[],async:[],defer:[]},this.allJQueries=[]}_addUserInteractionListener(e){document.hidden?e._triggerListener():(this.triggerEvents.forEach((t=>window.addEventListener(t,e.userEventHandler,{passive:!0}))),window.addEventListener("touchstart",e.touchStartHandler,{passive:!0}),window.addEventListener("mousedown",e.touchStartHandler),document.addEventListener("visibilitychange",e.userEventHandler))}_removeUserInteractionListener(){this.triggerEvents.forEach((e=>window.removeEventListener(e,this.userEventHandler,{passive:!0}))),document.removeEventListener("visibilitychange",this.userEventHandler)}_onTouchStart(e){"HTML"!==e.target.tagName&&(window.addEventListener("touchend",this.touchEndHandler),window.addEventListener("mouseup",this.touchEndHandler),window.addEventListener("touchmove",this.touchMoveHandler,{passive:!0}),window.addEventListener("mousemove",this.touchMoveHandler),e.target.addEventListener("click",this.clickHandler),this._renameDOMAttribute(e.target,"onclick","rocket-onclick"))}_onTouchMove(e){window.removeEventListener("touchend",this.touchEndHandler),window.removeEventListener("mouseup",this.touchEndHandler),window.removeEventListener("touchmove",this.touchMoveHandler,{passive:!0}),window.removeEventListener("mousemove",this.touchMoveHandler),e.target.removeEventListener("click",this.clickHandler),this._renameDOMAttribute(e.target,"rocket-onclick","onclick")}_onTouchEnd(e){window.removeEventListener("touchend",this.touchEndHandler),window.removeEventListener("mouseup",this.touchEndHandler),window.removeEventListener("touchmove",this.touchMoveHandler,{passive:!0}),window.removeEventListener("mousemove",this.touchMoveHandler)}_onClick(e){e.target.removeEventListener("click",this.clickHandler),this._renameDOMAttribute(e.target,"rocket-onclick","onclick"),this.interceptedClicks.push(e),e.preventDefault(),e.stopPropagation(),e.stopImmediatePropagation()}_replayClicks(){window.removeEventListener("touchstart",this.touchStartHandler,{passive:!0}),window.removeEventListener("mousedown",this.touchStartHandler),this.interceptedClicks.forEach((e=>{e.target.dispatchEvent(new MouseEvent("click",{view:e.view,bubbles:!0,cancelable:!0}))}))}_renameDOMAttribute(e,t,n){e.hasAttribute&&e.hasAttribute(t)&&(event.target.setAttribute(n,event.target.getAttribute(t)),event.target.removeAttribute(t))}_triggerListener(){this._removeUserInteractionListener(this),"loading"===document.readyState?document.addEventListener("DOMContentLoaded",this._loadEverythingNow.bind(this)):this._loadEverythingNow()}_preconnect3rdParties(){let e=[];document.querySelectorAll("script[type=rocketlazyloadscript]").forEach((t=>{if(t.hasAttribute("src")){const n=new URL(t.src).origin;n!==location.origin&&e.push({src:n,crossOrigin:t.crossOrigin||"module"===t.getAttribute("data-rocket-type")})}})),e=[...new Map(e.map((e=>[JSON.stringify(e),e]))).values()],this._batchInjectResourceHints(e,"preconnect")}async _loadEverythingNow(){this.lastBreath=Date.now(),this._delayEventListeners(),this._delayJQueryReady(this),this._handleDocumentWrite(),this._registerAllDelayedScripts(),this._preloadAllScripts(),await this._loadScriptsFromList(this.delayedScripts.normal),await this._loadScriptsFromList(this.delayedScripts.defer),await this._loadScriptsFromList(this.delayedScripts.async);try{await this._triggerDOMContentLoaded(),await this._triggerWindowLoad()}catch(e){}window.dispatchEvent(new Event("rocket-allScriptsLoaded")),this._replayClicks()}_registerAllDelayedScripts(){document.querySelectorAll("script[type=rocketlazyloadscript]").forEach((e=>{e.hasAttribute("src")?e.hasAttribute("async")&&!1!==e.async?this.delayedScripts.async.push(e):e.hasAttribute("defer")&&!1!==e.defer||"module"===e.getAttribute("data-rocket-type")?this.delayedScripts.defer.push(e):this.delayedScripts.normal.push(e):this.delayedScripts.normal.push(e)}))}async _transformScript(e){return await this._littleBreath(),new Promise((t=>{const n=document.createElement("script");[...e.attributes].forEach((e=>{let t=e.nodeName;"type"!==t&&("data-rocket-type"===t&&(t="type"),n.setAttribute(t,e.nodeValue))})),e.hasAttribute("src")?(n.addEventListener("load",t),n.addEventListener("error",t)):(n.text=e.text,t());try{e.parentNode.replaceChild(n,e)}catch(e){t()}}))}async _loadScriptsFromList(e){const t=e.shift();return t?(await this._transformScript(t),this._loadScriptsFromList(e)):Promise.resolve()}_preloadAllScripts(){this._batchInjectResourceHints([...this.delayedScripts.normal,...this.delayedScripts.defer,...this.delayedScripts.async],"preload")}_batchInjectResourceHints(e,t){var n=document.createDocumentFragment();e.forEach((e=>{if(e.src){const i=document.createElement("link");i.href=e.src,i.rel=t,"preconnect"!==t&&(i.as="script"),e.getAttribute&&"module"===e.getAttribute("data-rocket-type")&&(i.crossOrigin=!0),e.crossOrigin&&(i.crossOrigin=e.crossOrigin),n.appendChild(i)}})),document.head.appendChild(n)}_delayEventListeners(){let e={};function t(t,n){!function(t){function n(n){return e[t].eventsToRewrite.indexOf(n)>=0?"rocket-"+n:n}e[t]||(e[t]={originalFunctions:{add:t.addEventListener,remove:t.removeEventListener},eventsToRewrite:[]},t.addEventListener=function(){arguments[0]=n(arguments[0]),e[t].originalFunctions.add.apply(t,arguments)},t.removeEventListener=function(){arguments[0]=n(arguments[0]),e[t].originalFunctions.remove.apply(t,arguments)})}(t),e[t].eventsToRewrite.push(n)}function n(e,t){let n=e[t];Object.defineProperty(e,t,{get:()=>n||function(){},set(i){e["rocket"+t]=n=i}})}t(document,"DOMContentLoaded"),t(window,"DOMContentLoaded"),t(window,"load"),t(window,"pageshow"),t(document,"readystatechange"),n(document,"onreadystatechange"),n(window,"onload"),n(window,"onpageshow")}_delayJQueryReady(e){let t=window.jQuery;Object.defineProperty(window,"jQuery",{get:()=>t,set(n){if(n&&n.fn&&!e.allJQueries.includes(n)){n.fn.ready=n.fn.init.prototype.ready=function(t){e.domReadyFired?t.bind(document)(n):document.addEventListener("rocket-DOMContentLoaded",(()=>t.bind(document)(n)))};const t=n.fn.on;n.fn.on=n.fn.init.prototype.on=function(){if(this[0]===window){function e(e){return e.split(" ").map((e=>"load"===e||0===e.indexOf("load.")?"rocket-jquery-load":e)).join(" ")}"string"==typeof arguments[0]||arguments[0]instanceof String?arguments[0]=e(arguments[0]):"object"==typeof arguments[0]&&Object.keys(arguments[0]).forEach((t=>{delete Object.assign(arguments[0],{[e(t)]:arguments[0][t]})[t]}))}return t.apply(this,arguments),this},e.allJQueries.push(n)}t=n}})}async _triggerDOMContentLoaded(){this.domReadyFired=!0,await this._littleBreath(),document.dispatchEvent(new Event("rocket-DOMContentLoaded")),await this._littleBreath(),window.dispatchEvent(new Event("rocket-DOMContentLoaded")),await this._littleBreath(),document.dispatchEvent(new Event("rocket-readystatechange")),await this._littleBreath(),document.rocketonreadystatechange&&document.rocketonreadystatechange()}async _triggerWindowLoad(){await this._littleBreath(),window.dispatchEvent(new Event("rocket-load")),await this._littleBreath(),window.rocketonload&&window.rocketonload(),await this._littleBreath(),this.allJQueries.forEach((e=>e(window).trigger("rocket-jquery-load"))),await this._littleBreath();const e=new Event("rocket-pageshow");e.persisted=this.persisted,window.dispatchEvent(e),await this._littleBreath(),window.rocketonpageshow&&window.rocketonpageshow({persisted:this.persisted})}_handleDocumentWrite(){const e=new Map;document.write=document.writeln=function(t){const n=document.currentScript,i=document.createRange(),r=n.parentElement;let o=e.get(n);void 0===o&&(o=n.nextSibling,e.set(n,o));const s=document.createDocumentFragment();i.setStart(s,0),s.appendChild(i.createContextualFragment(t)),r.insertBefore(s,o)}}async _littleBreath(){Date.now()-this.lastBreath>45&&(await this._requestAnimFrame(),this.lastBreath=Date.now())}async _requestAnimFrame(){return document.hidden?new Promise((e=>setTimeout(e))):new Promise((e=>requestAnimationFrame(e)))}static run(){const e=new RocketLazyLoadScripts;e._addUserInteractionListener(e)}}RocketLazyLoadScripts.run();</script>
+<meta name="viewport" content="width=device-width">
+<meta name='robots' content='index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1' />
+<script data-cfasync="false" data-pagespeed-no-defer>
+	var gtm4wp_datalayer_name = "dataLayer";
+	var dataLayer = dataLayer || [];
+</script>
+<title>How to Use wget Command With Examples | PhoenixNAP KB</title><style id="rocket-critical-css">.wp-block-image{margin:0 0 1em}.wp-block-image img{height:auto;max-width:100%;vertical-align:bottom}.wp-block-image:not(.is-style-rounded) img{border-radius:inherit}.wp-block-image .aligncenter{display:table}.wp-block-image .aligncenter{margin-left:auto;margin-right:auto}.wp-block-image figure{margin:0}ol,ul{box-sizing:border-box}:root{--wp--preset--font-size--normal:16px;--wp--preset--font-size--huge:42px}.aligncenter{clear:both}.screen-reader-text{border:0;clip:rect(1px,1px,1px,1px);-webkit-clip-path:inset(50%);clip-path:inset(50%);height:1px;margin:-1px;overflow:hidden;padding:0;position:absolute;width:1px;word-wrap:normal!important}.screen-reader-text{clip:rect(1px,1px,1px,1px);height:1px;overflow:hidden;position:absolute!important;width:1px;word-wrap:normal!important;border:0}header{position:relative;-webkit-box-shadow:0 0 20px rgba(0,0,0,.05);box-shadow:0 0 20px rgba(0,0,0,.05)}#menu-primary .fas.fa-search{font-size:16px}.genesis-nav-menu{clear:both;line-height:1;width:100%;padding-left:0;margin-top:0;margin-bottom:0}.genesis-nav-menu .menu-item{display:block;float:none;position:relative}.genesis-nav-menu a{padding-top:20px;padding-left:20px;padding-right:20px;padding-bottom:20px;text-transform:uppercase;font-weight:700;color:#fff;font-size:12px;font-family:Roboto;letter-spacing:.6px}.genesis-responsive-menu{display:none;padding-bottom:15px;position:relative}.nav-primary{clear:left;width:100%}@media only screen and (min-width:960px){.genesis-nav-menu .menu-item{display:inline-block;text-align:center;padding-top:20px;padding-left:20px;padding-right:20px;padding-bottom:20px}.genesis-responsive-menu{display:block;padding-top:15px}.nav-primary{clear:none;float:right;width:auto;position:static;padding:15px 0;border-bottom:none;background-color:transparent}.nav-primary .genesis-nav-menu a{padding-left:15px;padding-right:15px}}@media only screen and (max-width:960px){.mobile-hidden{display:none!important}.nav-button a{border:1px solid #fff;border-radius:3px}.genesis-nav-menu .menu-item{text-align:center;padding-top:15px;padding-left:20px;padding-right:20px;padding-bottom:15px;margin-bottom:10px}.genesis-nav-menu .menu-item a{padding-top:15px;padding-left:20px;padding-right:20px;padding-bottom:15px}.mobile-search #searchform input[type=text]{height:36px;line-height:1}.mobile-search #searchform input[type="submit"]{-webkit-appearance:unset;background-color:#0074db;height:36px;border:none;padding:5px 10px;color:#fff;line-height:1}}button,input{overflow:visible}html{line-height:1.15;-ms-text-size-adjust:100%;-webkit-text-size-adjust:100%}body,h1{margin:0}figure,header,nav,section{display:block}figure{margin:1em 40px}code{font-family:monospace,monospace;font-size:1em}a{background-color:transparent;-webkit-text-decoration-skip:objects}strong{font-weight:bolder}img{border-style:none}svg:not(:root){overflow:hidden}button,input{font-size:100%;line-height:1.15;margin:0}button{text-transform:none}[type="submit"],button,html [type="button"]{-webkit-appearance:button}[type="button"]::-moz-focus-inner,[type="submit"]::-moz-focus-inner,button::-moz-focus-inner{border-style:none;padding:0}[type="button"]:-moz-focusring,[type="submit"]:-moz-focusring,button:-moz-focusring{outline:ButtonText dotted 1px}::-webkit-file-upload-button{-webkit-appearance:button;font:inherit}html{box-sizing:border-box}body{font-size:16px;color:rgba(64,64,64,1)}*,::after,::before{box-sizing:inherit}.ct-section-inner-wrap{margin-left:auto;margin-right:auto;height:100%}div.ct-fancy-icon{display:inline-flex;border-radius:50%}.ct-fancy-icon>svg{fill:currentColor}.oxy-nav-menu-list{display:flex;padding:0;margin:0}.oxy-nav-menu .oxy-nav-menu-list li.menu-item{list-style-type:none;display:flex;flex-direction:column}.oxy-nav-menu .oxy-nav-menu-list li.menu-item a{text-decoration:none;border-style:solid;border-width:0;border-color:transparent}.oxy-nav-menu .menu-item,.oxy-nav-menu .sub-menu{position:relative}.oxy-nav-menu .menu-item .sub-menu{padding:0;flex-direction:column;white-space:nowrap;visibility:hidden;opacity:0;display:flex;position:absolute;top:100%}.oxy-nav-menu .sub-menu li.menu-item{flex-direction:column}.oxy-menu-toggle{display:none}.oxy-nav-menu:not(.oxy-nav-menu-open) .sub-menu{background-color:#fff;z-index:2147483641}.oxy-nav-menu-hamburger-wrap{display:flex;align-items:center;justify-content:center}.oxy-nav-menu-hamburger{display:flex;justify-content:space-between;flex-direction:column}.oxy-nav-menu-hamburger-line{border-radius:2px}.oxy-nav-menu .menu-item a{display:flex;align-items:center}.oxy-nav-menu-dropdowns.oxy-nav-menu-dropdown-arrow .menu-item-has-children>a::after{width:.35em;height:.35em;margin-left:.5em;border-right:.1em solid;border-top:.1em solid;transform:rotate(135deg);content:""}.oxy-stock-content-styles .aligncenter{margin-left:auto;margin-right:auto}.oxy-stock-content-styles img{max-width:100%}.oxy-modal-backdrop{display:flex;align-items:center;justify-content:center}body:not(.oxygen-builder-body) .oxy-modal-backdrop{display:none}.oxy-modal-backdrop .ct-modal{background-color:#fff;max-height:100vh;overflow-y:auto}.fas{-moz-osx-font-smoothing:grayscale;-webkit-font-smoothing:antialiased;display:inline-block;font-style:normal;font-variant:normal;text-rendering:auto;line-height:1}.fa-search:before{content:"\f002"}@font-face{font-family:"font awesome 5 free";font-style:normal;font-weight:400;font-display:swap;src:url(https://use.fontawesome.com/releases/v5.15.3/css/../webfonts/fa-regular-400.eot);src:url(https://use.fontawesome.com/releases/v5.15.3/css/../webfonts/fa-regular-400.eot?#iefix) format("embedded-opentype"),url(https://use.fontawesome.com/releases/v5.15.3/css/../webfonts/fa-regular-400.woff2) format("woff2"),url(https://use.fontawesome.com/releases/v5.15.3/css/../webfonts/fa-regular-400.woff) format("woff"),url(https://use.fontawesome.com/releases/v5.15.3/css/../webfonts/fa-regular-400.ttf) format("truetype"),url(https://use.fontawesome.com/releases/v5.15.3/css/../webfonts/fa-regular-400.svg#fontawesome) format("svg")}@font-face{font-family:"font awesome 5 free";font-style:normal;font-weight:900;font-display:swap;src:url(https://use.fontawesome.com/releases/v5.15.3/css/../webfonts/fa-solid-900.eot);src:url(https://use.fontawesome.com/releases/v5.15.3/css/../webfonts/fa-solid-900.eot?#iefix) format("embedded-opentype"),url(https://use.fontawesome.com/releases/v5.15.3/css/../webfonts/fa-solid-900.woff2) format("woff2"),url(https://use.fontawesome.com/releases/v5.15.3/css/../webfonts/fa-solid-900.woff) format("woff"),url(https://use.fontawesome.com/releases/v5.15.3/css/../webfonts/fa-solid-900.ttf) format("truetype"),url(https://use.fontawesome.com/releases/v5.15.3/css/../webfonts/fa-solid-900.svg#fontawesome) format("svg")}.fas{font-family:"font awesome 5 free"}.fas{font-weight:900}@font-face{font-display:swap;src:url(https://phoenixnap.com/kb/wp-content/plugins/fixed-toc/frontend/assets/fonts/icons.eot?45335921);src:url(https://phoenixnap.com/kb/wp-content/plugins/fixed-toc/frontend/assets/fonts/icons.eot?45335921#iefix) format("embedded-opentype"),url(https://phoenixnap.com/kb/wp-content/plugins/fixed-toc/frontend/assets/fonts/icons.woff2?45335921) format("woff2"),url(https://phoenixnap.com/kb/wp-content/plugins/fixed-toc/frontend/assets/fonts/icons.woff?45335921) format("woff"),url(https://phoenixnap.com/kb/wp-content/plugins/fixed-toc/frontend/assets/fonts/icons.ttf?45335921) format("truetype"),url(https://phoenixnap.com/kb/wp-content/plugins/fixed-toc/frontend/assets/fonts/icons.svg?45335921#fontello) format("svg");font-family:"ftwp-icon"}#ftwp-container.ftwp-wrap,#ftwp-container.ftwp-wrap a,#ftwp-container.ftwp-wrap a:link,#ftwp-container.ftwp-wrap a:visited,#ftwp-container.ftwp-wrap button,#ftwp-container.ftwp-wrap header,#ftwp-container.ftwp-wrap li,#ftwp-container.ftwp-wrap li::after,#ftwp-container.ftwp-wrap li::before,#ftwp-container.ftwp-wrap nav,#ftwp-container.ftwp-wrap ol,#ftwp-container.ftwp-wrap span{margin:0;padding:0;line-height:inherit;font:inherit;color:inherit;background:0 0;box-shadow:none;text-shadow:none;text-decoration:none;text-align:inherit;border:0;outline:0;box-sizing:border-box;border-radius:0;clear:none}#ftwp-container.ftwp-wrap button{min-height:initial}#ftwp-container.ftwp-wrap li{list-style:none}#ftwp-container.ftwp-wrap header::before,#ftwp-container.ftwp-wrap li::after,#ftwp-container.ftwp-wrap li::before,#ftwp-container.ftwp-wrap nav::before{display:none}#ftwp-container.ftwp-wrap{font-family:inherit;font-size:12px}#ftwp-container.ftwp-wrap #ftwp-list .ftwp-anchor::before,#ftwp-container.ftwp-wrap .ftwp-icon-collapse,#ftwp-container.ftwp-wrap .ftwp-icon-expand,#ftwp-container.ftwp-wrap .ftwp-icon-menu{display:inline-block;font-family:"ftwp-icon";font-style:normal;font-weight:400;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale}#ftwp-container.ftwp-wrap .ftwp-icon-menu::before{content:""}#ftwp-container.ftwp-wrap .ftwp-icon-expand::before{content:""}#ftwp-container.ftwp-wrap .ftwp-icon-collapse::before{content:""}#ftwp-container.ftwp-wrap #ftwp-trigger{display:inline-block;width:50px;height:50px;background:rgba(238,238,238,.95);color:#333;font-size:30px;position:relative}#ftwp-container.ftwp-wrap #ftwp-trigger .ftwp-trigger-icon{position:absolute;top:50%;left:50%;-webkit-transform:translate(-50%,-50%);-ms-transform:translate(-50%,-50%);transform:translate(-50%,-50%)}#ftwp-container.ftwp-wrap #ftwp-contents{width:250px;max-width:100%;overflow:hidden;height:auto;max-height:100%}#ftwp-container.ftwp-wrap #ftwp-header{color:#333;background:rgba(238,238,238,.95);padding:10px;font-size:19.2px;line-height:1.5}#ftwp-container.ftwp-wrap #ftwp-header-control{float:left;margin-right:5px}#ftwp-container.ftwp-wrap #ftwp-header-title{font-weight:700;display:block;overflow:hidden;width:auto}#ftwp-container.ftwp-wrap #ftwp-header-minimize{float:right;margin-left:5px;width:25px;text-align:center;opacity:.5}#ftwp-container.ftwp-wrap #ftwp-header::after{content:"";display:table;clear:both}#ftwp-container.ftwp-wrap #ftwp-list{color:#333;font-size:12px;background:rgba(238,238,238,.95);line-height:1.2;overflow-y:auto;width:100%}#ftwp-container.ftwp-wrap #ftwp-list .ftwp-item{text-indent:0}#ftwp-container.ftwp-wrap #ftwp-list .ftwp-anchor{display:block;padding:5px 10px;z-index:10;overflow:hidden;position:relative}#ftwp-container #ftwp-contents.ftwp-border-thin,#ftwp-container #ftwp-trigger.ftwp-border-thin{border-color:rgba(51,51,51,.95);border-style:solid;border-width:1px}#ftwp-container #ftwp-trigger.ftwp-border-thin{font-size:29.5px}#ftwp-container.ftwp-wrap .ftwp-shape-round{border-radius:7px}#ftwp-container #ftwp-list .ftwp-anchor::before{float:left;font-size:4.8px;line-height:3;margin-right:10px}#ftwp-container #ftwp-list .ftwp-text{display:block;overflow:hidden}#ftwp-container #ftwp-list.ftwp-list-nest.ftwp-liststyle-decimal ol,#ftwp-container #ftwp-list.ftwp-liststyle-decimal{counter-reset:List}#ftwp-container #ftwp-list.ftwp-liststyle-decimal .ftwp-item{counter-increment:List}#ftwp-container #ftwp-list.ftwp-liststyle-decimal .ftwp-anchor::before{font-size:12px;line-height:1.2;font-family:inherit;content:counters(List,".")}#ftwp-container #ftwp-list.ftwp-list-nest .ftwp-sub .ftwp-anchor::before{margin-left:20px}#ftwp-container #ftwp-list.ftwp-list-nest.ftwp-colexp-icon .ftwp-anchor{padding-left:32px}#ftwp-container #ftwp-list.ftwp-list-nest.ftwp-colexp .ftwp-has-sub{position:relative}#ftwp-container #ftwp-list.ftwp-list-nest.ftwp-colexp .ftwp-icon-expand{position:absolute;left:0;top:0;padding:5px 10px;box-sizing:content-box;opacity:.5;z-index:20}#ftwp-container #ftwp-list.ftwp-strong-first.ftwp-liststyle-decimal>.ftwp-item>.ftwp-anchor::before,#ftwp-container #ftwp-list.ftwp-strong-first>.ftwp-item>.ftwp-anchor .ftwp-text{font-size:13.2px;font-weight:700}.ftwp-in-post#ftwp-container-outer{margin-bottom:20px;max-width:100%}.ftwp-in-post#ftwp-container-outer,.ftwp-in-post#ftwp-container-outer #ftwp-contents{height:auto;overflow-y:hidden;position:relative;z-index:1}.ftwp-in-post#ftwp-container-outer.ftwp-float-none,.ftwp-in-post#ftwp-container-outer.ftwp-float-none #ftwp-contents{width:100%}.ftwp-in-post#ftwp-container-outer #ftwp-trigger{position:absolute;top:-9999px;z-index:-10;visibility:hidden}#ftwp-container.ftwp-hidden-state{opacity:0;visibility:hidden;z-index:-9999;position:absolute;top:0;left:0}#div_block-6-156{position:fixed;right:0;bottom:0}#div_block-8-156{position:fixed;bottom:55px;right:50px;padding-top:5px;padding-left:5px;padding-right:5px;padding-bottom:5px;background-color:rgba(0,116,219,.5);border-radius:50%}@media (max-width:991px){#div_block-6-156{display:none}}@media (max-width:991px){#div_block-8-156{display:none}}#link-9-156{url-encoded:true}#fancy_icon-10-156{color:rgba(255,255,255,.5)}#fancy_icon-10-156>svg{width:36px;height:36px}#_nav_menu-133-7 .oxy-nav-menu-hamburger-line{background-color:rgba(255,255,255,.7)}#_nav_menu-133-7 .oxy-nav-menu-hamburger-wrap{width:40px;height:40px;margin-top:10px;margin-bottom:10px}#_nav_menu-133-7 .oxy-nav-menu-hamburger{width:40px;height:32px}#_nav_menu-133-7 .oxy-nav-menu-hamburger-line{height:6px}#_nav_menu-11-156 .oxy-nav-menu-hamburger-line{background-color:rgba(255,255,255,.7)}#_nav_menu-11-156 .oxy-nav-menu-hamburger-wrap{width:40px;height:40px;margin-top:10px;margin-bottom:10px}#_nav_menu-11-156 .oxy-nav-menu-hamburger{width:40px;height:32px}#_nav_menu-11-156 .oxy-nav-menu-hamburger-line{height:6px}#_nav_menu-36-155 .oxy-nav-menu-hamburger-line{background-color:#00a7e0}#_nav_menu-36-155 .oxy-nav-menu-hamburger-wrap{width:40px;height:40px;margin-top:10px;margin-bottom:10px}#_nav_menu-36-155 .oxy-nav-menu-hamburger{width:40px;height:32px}#_nav_menu-36-155 .oxy-nav-menu-hamburger-line{height:6px}#section-164-137>.ct-section-inner-wrap{max-width:100%;padding-top:5px;padding-right:0;padding-bottom:5px;padding-left:0;display:flex;flex-direction:row;align-items:center;justify-content:flex-end}#section-164-137{background-color:#f7f7f7;text-align:right}@media (max-width:991px){#section-164-137>.ct-section-inner-wrap{display:none;flex-direction:unset}}#_nav_menu-9-7 .oxy-nav-menu-hamburger-line{background-color:#000}#_nav_menu-9-7 .oxy-nav-menu-hamburger-wrap{width:40px;height:40px;margin-top:10px;margin-bottom:10px}#_nav_menu-9-7 .oxy-nav-menu-hamburger{width:40px;height:32px}#_nav_menu-9-7 .oxy-nav-menu-hamburger-line{height:6px}#_nav_menu-9-7{z-index:9999}#_nav_menu-9-7 .menu-item a{padding-top:4px;padding-left:8px;padding-right:8px;padding-bottom:4px;color:#000;font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:1px}#_nav_menu-9-7.oxy-nav-menu:not(.oxy-nav-menu-open) .sub-menu{background-color:#fff}#_nav_menu-9-7.oxy-nav-menu:not(.oxy-nav-menu-open) .sub-menu .menu-item a{border:0;padding-top:4px;padding-bottom:4px;color:#1d7cb1;padding-top:10px;padding-left:5px;padding-right:5px;padding-bottom:10px}#section-205-157>.ct-section-inner-wrap{max-width:100%;padding-top:0;padding-right:0;padding-bottom:0;padding-left:0;display:flex;flex-direction:column;align-items:center;justify-content:space-between}#section-205-157{text-align:center;background-color:#08557f}#section-78-157>.ct-section-inner-wrap{max-width:100%;padding-top:10px;padding-bottom:10px;align-items:center}#section-78-157{text-align:center}@media (max-width:991px){#section-205-157>.ct-section-inner-wrap{padding-top:0;padding-right:0;padding-bottom:0;padding-left:0}}#div_block-206-157{width:100%;padding-left:36px;padding-right:36px;flex-direction:row;display:flex;align-items:center;justify-content:space-between;text-align:justify;border-bottom-color:#fff;border-bottom-width:1px;border-bottom-style:solid}#div_block-210-157{margin-top:36px;margin-bottom:36px;align-items:center;text-align:center;flex-direction:column;display:flex}#div_block-213-157{flex-direction:row;display:flex;justify-content:space-between;text-align:justify;align-items:flex-start}#div_block-81-157{width:20%}#div_block-82-157{width:60%}#div_block-83-157{width:20%}@media (max-width:991px){#div_block-206-157{display:block;padding-left:0;padding-right:0}}@media (max-width:767px){#div_block-210-157{width:100%;padding-left:36px;padding-right:36px;flex-direction:column;display:flex}}@media (max-width:767px){#div_block-213-157{flex-direction:column;display:flex;align-items:center;text-align:center}}@media (max-width:991px){#new_columns-80-157>.ct-div-block{width:100%!important}}#new_columns-80-157{width:100%;max-width:1320px}#headline-211-157{color:#fff;font-size:38px;font-weight:700;margin-bottom:36px}@media (max-width:767px){#headline-211-157{font-size:28px;word-break:break-word}}#text_block-214-157{color:#fff;font-family:'Roboto';font-size:16px;margin-right:18px}#text_block-86-157{text-align:left}#link-207-157{url-encoded:true}@media (max-width:991px){#link-207-157{float:left;margin-top:10px;margin-left:20px}}#shortcode-181-157{width:100%}@media (max-width:991px){#shortcode-209-157{background-color:rgba(0,0,0,.7)}}#modal-203-157{width:70%;background-color:rgba(255,255,255,0);flex-direction:column;display:flex;text-align:center;align-items:center;justify-content:center;modal-position:center;backdrop-color:rgba(0,0,0,.7)}div.ct-section-inner-wrap{max-width:1600px}.ct-section{width:100%;background-size:cover;background-repeat:repeat}.ct-section>.ct-section-inner-wrap{display:flex;flex-direction:column;align-items:flex-start}.ct-div-block{display:flex;flex-wrap:nowrap;flex-direction:column;align-items:flex-start}.ct-new-columns{display:flex;width:100%;flex-direction:row;align-items:stretch;justify-content:center;flex-wrap:wrap}.ct-link{display:flex;flex-wrap:wrap;text-align:center;text-decoration:none;flex-direction:column;align-items:center;justify-content:center}.ct-image{max-width:100%}.ct-fancy-icon>svg{width:55px;height:55px}.ct-modal{flex-direction:column;align-items:flex-start}.ct-span{display:inline-block;text-decoration:inherit}@media screen and (-ms-high-contrast:active),(-ms-high-contrast:none){.ct-div-block,.ct-text-block,.ct-headline{max-width:100%}img{flex-shrink:0}body *{min-height:1px}}.ct-section-inner-wrap{max-width:1600px}body{font-family:roboto}body{line-height:1.6;font-size:16px;font-weight:400;color:#404040}.oxy-nav-menu-hamburger-line{background-color:#404040}h1{font-family:poppins;font-size:38px;font-weight:700}a{color:#0074db;text-decoration:none}.ct-link{text-decoration:}.ct-section-inner-wrap{padding-top:75px;padding-right:20px;padding-bottom:75px;padding-left:20px}.ct-new-columns>.ct-div-block{padding-top:20px;padding-right:20px;padding-bottom:20px;padding-left:20px}h1{font-family:poppins,sans-serif;word-break:break-word}p{font-family:roboto,sans-serif;word-break:break-word;margin-block-start:0;margin-block-end:1em}li{word-break:break-word}p.h3{font-size:24px;font-weight:900}code{background-color:#f7f7f7;overflow:auto;white-space:pre-wrap;word-wrap:break-word;word-break:break-all}ul{display:block;list-style-type:disc;margin-block-start:0;margin-block-end:20px;margin-inline-start:0;margin-inline-end:0;padding-inline-start:20px}li.widget{list-style:none}img{height:auto;max-width:100%}figure{margin:0}a{word-break:break-word}.ct-span{display:block}.ct-code-block{word-break:break-all}#menu-top-menu li.bordered-top-nav{border:1px solid #000;line-height:1.5;border-radius:.2rem;margin-right:10px;will-change:box-shadow,transform}.tag-wrapper a{font-size:11px;padding:2px 5px;display:inline-block;border:1px solid;border-radius:4px;margin:0 5px 9px 0;text-transform:uppercase;font-weight:600;color:#fff}#menu-top-menu ul.sub-menu{padding:5px 10px!important;background-color:#fff!important}#menu-top-menu ul.sub-menu .menu-item a{font-weight:400;text-transform:capitalize;color:##212529;font-size:14px!important;background-color:#fff!important}.single-post .single-post-header .ct-section-inner-wrap{padding-left:0!important;padding-right:0!important}@media (min-width:1025px){.desktop-hidden{display:none!important}}@media (max-width:767px){.oxy-nav-menu-hamburger-line{height:3px!important}}@font-face{font-family:Roboto;font-style:normal;font-weight:400;font-display:swap;src:local("Roboto"),local("Roboto-Regular"),url(/wp-content/themes/pnap-cpt/dist/fonts/roboto-v20-latin-regular_479970ff.woff2) format("woff2")}@font-face{font-family:Roboto;font-style:normal;font-weight:700;font-display:swap;src:local("Roboto Bold"),local("Roboto-Bold"),url(/wp-content/themes/pnap-cpt/dist/fonts/roboto-v20-latin-700_2735a3a6.woff2) format("woff2")}</style>
+<meta name="description" content="Explore wget dowload configurations and learn 12 essential wget commands. Start downloading files using wget, a free GNU command-line utility." />
+<link rel="canonical" href="https://phoenixnap.com/kb/wget-command-with-examples" />
+<meta property="og:locale" content="en_US" />
+<meta property="og:type" content="article" />
+<meta property="og:title" content="How to Use wget Command With Examples | PhoenixNAP KB" />
+<meta property="og:description" content="Explore wget dowload configurations and learn 12 essential wget commands. Start downloading files using wget, a free GNU command-line utility." />
+<meta property="og:url" content="https://phoenixnap.com/kb/wget-command-with-examples" />
+<meta property="og:site_name" content="Knowledge Base by phoenixNAP" />
+<meta property="article:publisher" content="https://www.facebook.com/phoenixnap" />
+<meta property="article:published_time" content="2019-10-22T13:04:33+00:00" />
+<meta property="article:modified_time" content="2022-11-07T09:50:09+00:00" />
+<meta property="og:image" content="https://phoenixnap.com/kb/wp-content/uploads/2021/04/how-to-use-wget-commands-with-examples.png" />
+<meta name="author" content="Sofija Simic" />
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:creator" content="@phoenixNAP" />
+<meta name="twitter:site" content="@phoenixNAP" />
+<meta name="twitter:label1" content="Written by" />
+<meta name="twitter:data1" content="Sofija Simic" />
+<meta name="twitter:label2" content="Est. reading time" />
+<meta name="twitter:data2" content="7 minutes" />
+<script type="application/ld+json" class="yoast-schema-graph">{"@context":"https://schema.org","@graph":[{"@type":"Article","@id":"https://phoenixnap.com/kb/wget-command-with-examples#article","isPartOf":{"@id":"https://phoenixnap.com/kb/wget-command-with-examples"},"author":{"name":"Sofija Simic","@id":"https://phoenixnap.com/kb/#/schema/person/7e705ff0dcd3af981debc836e5afd6b9"},"headline":"How to Use wget Command With Examples","datePublished":"2019-10-22T13:04:33+00:00","dateModified":"2022-11-07T09:50:09+00:00","mainEntityOfPage":{"@id":"https://phoenixnap.com/kb/wget-command-with-examples"},"wordCount":1180,"publisher":{"@id":"https://phoenixnap.com/kb/#organization"},"image":{"@id":"https://phoenixnap.com/kb/wget-command-with-examples#primaryimage"},"thumbnailUrl":"https://phoenixnap.com/kb/wp-content/uploads/2021/04/how-to-use-wget-commands-with-examples.png","keywords":["commands","linux"],"articleSection":["SysAdmin","Web Servers"],"inLanguage":"en-US"},{"@type":"WebPage","@id":"https://phoenixnap.com/kb/wget-command-with-examples","url":"https://phoenixnap.com/kb/wget-command-with-examples","name":"How to Use wget Command With Examples | PhoenixNAP KB","isPartOf":{"@id":"https://phoenixnap.com/kb/#website"},"primaryImageOfPage":{"@id":"https://phoenixnap.com/kb/wget-command-with-examples#primaryimage"},"image":{"@id":"https://phoenixnap.com/kb/wget-command-with-examples#primaryimage"},"thumbnailUrl":"https://phoenixnap.com/kb/wp-content/uploads/2021/04/how-to-use-wget-commands-with-examples.png","datePublished":"2019-10-22T13:04:33+00:00","dateModified":"2022-11-07T09:50:09+00:00","description":"Explore wget dowload configurations and learn 12 essential wget commands. Start downloading files using wget, a free GNU command-line utility.","breadcrumb":{"@id":"https://phoenixnap.com/kb/wget-command-with-examples#breadcrumb"},"inLanguage":"en-US","potentialAction":[{"@type":"ReadAction","target":["https://phoenixnap.com/kb/wget-command-with-examples"]}]},{"@type":"ImageObject","inLanguage":"en-US","@id":"https://phoenixnap.com/kb/wget-command-with-examples#primaryimage","url":"https://phoenixnap.com/kb/wp-content/uploads/2021/04/how-to-use-wget-commands-with-examples.png","contentUrl":"https://phoenixnap.com/kb/wp-content/uploads/2021/04/how-to-use-wget-commands-with-examples.png","width":800,"height":400},{"@type":"BreadcrumbList","@id":"https://phoenixnap.com/kb/wget-command-with-examples#breadcrumb","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://phoenixnap.com/kb/"},{"@type":"ListItem","position":2,"name":"SysAdmin","item":"https://phoenixnap.com/kb/category/sysadmin"},{"@type":"ListItem","position":3,"name":"How to Use wget Command With Examples"}]},{"@type":"WebSite","@id":"https://phoenixnap.com/kb/#website","url":"https://phoenixnap.com/kb/","name":"Knowledge Base by phoenixNAP","description":"","publisher":{"@id":"https://phoenixnap.com/kb/#organization"},"potentialAction":[{"@type":"SearchAction","target":{"@type":"EntryPoint","urlTemplate":"https://phoenixnap.com/kb/?s={search_term_string}"},"query-input":"required name=search_term_string"}],"inLanguage":"en-US"},{"@type":"Organization","@id":"https://phoenixnap.com/kb/#organization","name":"phoenixNAP","url":"https://phoenixnap.com/kb/","logo":{"@type":"ImageObject","inLanguage":"en-US","@id":"https://phoenixnap.com/kb/#/schema/logo/image/","url":"https://phoenixnap.com/kb/wp-content/uploads/2021/04/pnap-authors.png","contentUrl":"https://phoenixnap.com/kb/wp-content/uploads/2021/04/pnap-authors.png","width":200,"height":200,"caption":"phoenixNAP"},"image":{"@id":"https://phoenixnap.com/kb/#/schema/logo/image/"},"sameAs":["https://www.linkedin.com/company/phoenix-nap/","https://www.youtube.com/user/PhoenixNAPdatacenter","https://www.facebook.com/phoenixnap","https://twitter.com/phoenixNAP"]},{"@type":"Person","@id":"https://phoenixnap.com/kb/#/schema/person/7e705ff0dcd3af981debc836e5afd6b9","name":"Sofija Simic","image":{"@type":"ImageObject","inLanguage":"en-US","@id":"https://phoenixnap.com/kb/#/schema/person/image/","url":"https://secure.gravatar.com/avatar/f294f4ff5c2ada61b6f006327af47bfc?s=96&d=mm&r=g","contentUrl":"https://secure.gravatar.com/avatar/f294f4ff5c2ada61b6f006327af47bfc?s=96&d=mm&r=g","caption":"Sofija Simic"},"description":"Sofija Simic is an experienced Technical Writer. Alongside her educational background in teaching and writing, she has had a lifelong passion for information technology. She is committed to unscrambling confusing IT concepts and streamlining intricate software installations."}]}</script>
+<link rel='dns-prefetch' href='//use.fontawesome.com' />
+<link rel='dns-prefetch' href='//load.sumo.com' />
+<link data-minify="1" rel='preload' href='https://phoenixnap.com/kb/wp-content/cache/min/1/kb/wp-content/plugins/gtranslate/gtranslate-style24.css?ver=1669117671' data-rocket-async="style" as="style" onload="this.onload=null;this.rel='stylesheet'" onerror="this.removeAttribute('data-rocket-async')" type='text/css' media='all' />
+<link rel='preload' href='https://phoenixnap.com/kb/wp-includes/css/dist/block-library/style.min.css?ver=6.0' data-rocket-async="style" as="style" onload="this.onload=null;this.rel='stylesheet'" onerror="this.removeAttribute('data-rocket-async')" type='text/css' media='all' />
+<style id='global-styles-inline-css' type='text/css'>
+body{--wp--preset--color--black: #000000;--wp--preset--color--cyan-bluish-gray: #abb8c3;--wp--preset--color--white: #ffffff;--wp--preset--color--pale-pink: #f78da7;--wp--preset--color--vivid-red: #cf2e2e;--wp--preset--color--luminous-vivid-orange: #ff6900;--wp--preset--color--luminous-vivid-amber: #fcb900;--wp--preset--color--light-green-cyan: #7bdcb5;--wp--preset--color--vivid-green-cyan: #00d084;--wp--preset--color--pale-cyan-blue: #8ed1fc;--wp--preset--color--vivid-cyan-blue: #0693e3;--wp--preset--color--vivid-purple: #9b51e0;--wp--preset--gradient--vivid-cyan-blue-to-vivid-purple: linear-gradient(135deg,rgba(6,147,227,1) 0%,rgb(155,81,224) 100%);--wp--preset--gradient--light-green-cyan-to-vivid-green-cyan: linear-gradient(135deg,rgb(122,220,180) 0%,rgb(0,208,130) 100%);--wp--preset--gradient--luminous-vivid-amber-to-luminous-vivid-orange: linear-gradient(135deg,rgba(252,185,0,1) 0%,rgba(255,105,0,1) 100%);--wp--preset--gradient--luminous-vivid-orange-to-vivid-red: linear-gradient(135deg,rgba(255,105,0,1) 0%,rgb(207,46,46) 100%);--wp--preset--gradient--very-light-gray-to-cyan-bluish-gray: linear-gradient(135deg,rgb(238,238,238) 0%,rgb(169,184,195) 100%);--wp--preset--gradient--cool-to-warm-spectrum: linear-gradient(135deg,rgb(74,234,220) 0%,rgb(151,120,209) 20%,rgb(207,42,186) 40%,rgb(238,44,130) 60%,rgb(251,105,98) 80%,rgb(254,248,76) 100%);--wp--preset--gradient--blush-light-purple: linear-gradient(135deg,rgb(255,206,236) 0%,rgb(152,150,240) 100%);--wp--preset--gradient--blush-bordeaux: linear-gradient(135deg,rgb(254,205,165) 0%,rgb(254,45,45) 50%,rgb(107,0,62) 100%);--wp--preset--gradient--luminous-dusk: linear-gradient(135deg,rgb(255,203,112) 0%,rgb(199,81,192) 50%,rgb(65,88,208) 100%);--wp--preset--gradient--pale-ocean: linear-gradient(135deg,rgb(255,245,203) 0%,rgb(182,227,212) 50%,rgb(51,167,181) 100%);--wp--preset--gradient--electric-grass: linear-gradient(135deg,rgb(202,248,128) 0%,rgb(113,206,126) 100%);--wp--preset--gradient--midnight: linear-gradient(135deg,rgb(2,3,129) 0%,rgb(40,116,252) 100%);--wp--preset--duotone--dark-grayscale: url('#wp-duotone-dark-grayscale');--wp--preset--duotone--grayscale: url('#wp-duotone-grayscale');--wp--preset--duotone--purple-yellow: url('#wp-duotone-purple-yellow');--wp--preset--duotone--blue-red: url('#wp-duotone-blue-red');--wp--preset--duotone--midnight: url('#wp-duotone-midnight');--wp--preset--duotone--magenta-yellow: url('#wp-duotone-magenta-yellow');--wp--preset--duotone--purple-green: url('#wp-duotone-purple-green');--wp--preset--duotone--blue-orange: url('#wp-duotone-blue-orange');--wp--preset--font-size--small: 13px;--wp--preset--font-size--medium: 20px;--wp--preset--font-size--large: 36px;--wp--preset--font-size--x-large: 42px;}.has-black-color{color: var(--wp--preset--color--black) !important;}.has-cyan-bluish-gray-color{color: var(--wp--preset--color--cyan-bluish-gray) !important;}.has-white-color{color: var(--wp--preset--color--white) !important;}.has-pale-pink-color{color: var(--wp--preset--color--pale-pink) !important;}.has-vivid-red-color{color: var(--wp--preset--color--vivid-red) !important;}.has-luminous-vivid-orange-color{color: var(--wp--preset--color--luminous-vivid-orange) !important;}.has-luminous-vivid-amber-color{color: var(--wp--preset--color--luminous-vivid-amber) !important;}.has-light-green-cyan-color{color: var(--wp--preset--color--light-green-cyan) !important;}.has-vivid-green-cyan-color{color: var(--wp--preset--color--vivid-green-cyan) !important;}.has-pale-cyan-blue-color{color: var(--wp--preset--color--pale-cyan-blue) !important;}.has-vivid-cyan-blue-color{color: var(--wp--preset--color--vivid-cyan-blue) !important;}.has-vivid-purple-color{color: var(--wp--preset--color--vivid-purple) !important;}.has-black-background-color{background-color: var(--wp--preset--color--black) !important;}.has-cyan-bluish-gray-background-color{background-color: var(--wp--preset--color--cyan-bluish-gray) !important;}.has-white-background-color{background-color: var(--wp--preset--color--white) !important;}.has-pale-pink-background-color{background-color: var(--wp--preset--color--pale-pink) !important;}.has-vivid-red-background-color{background-color: var(--wp--preset--color--vivid-red) !important;}.has-luminous-vivid-orange-background-color{background-color: var(--wp--preset--color--luminous-vivid-orange) !important;}.has-luminous-vivid-amber-background-color{background-color: var(--wp--preset--color--luminous-vivid-amber) !important;}.has-light-green-cyan-background-color{background-color: var(--wp--preset--color--light-green-cyan) !important;}.has-vivid-green-cyan-background-color{background-color: var(--wp--preset--color--vivid-green-cyan) !important;}.has-pale-cyan-blue-background-color{background-color: var(--wp--preset--color--pale-cyan-blue) !important;}.has-vivid-cyan-blue-background-color{background-color: var(--wp--preset--color--vivid-cyan-blue) !important;}.has-vivid-purple-background-color{background-color: var(--wp--preset--color--vivid-purple) !important;}.has-black-border-color{border-color: var(--wp--preset--color--black) !important;}.has-cyan-bluish-gray-border-color{border-color: var(--wp--preset--color--cyan-bluish-gray) !important;}.has-white-border-color{border-color: var(--wp--preset--color--white) !important;}.has-pale-pink-border-color{border-color: var(--wp--preset--color--pale-pink) !important;}.has-vivid-red-border-color{border-color: var(--wp--preset--color--vivid-red) !important;}.has-luminous-vivid-orange-border-color{border-color: var(--wp--preset--color--luminous-vivid-orange) !important;}.has-luminous-vivid-amber-border-color{border-color: var(--wp--preset--color--luminous-vivid-amber) !important;}.has-light-green-cyan-border-color{border-color: var(--wp--preset--color--light-green-cyan) !important;}.has-vivid-green-cyan-border-color{border-color: var(--wp--preset--color--vivid-green-cyan) !important;}.has-pale-cyan-blue-border-color{border-color: var(--wp--preset--color--pale-cyan-blue) !important;}.has-vivid-cyan-blue-border-color{border-color: var(--wp--preset--color--vivid-cyan-blue) !important;}.has-vivid-purple-border-color{border-color: var(--wp--preset--color--vivid-purple) !important;}.has-vivid-cyan-blue-to-vivid-purple-gradient-background{background: var(--wp--preset--gradient--vivid-cyan-blue-to-vivid-purple) !important;}.has-light-green-cyan-to-vivid-green-cyan-gradient-background{background: var(--wp--preset--gradient--light-green-cyan-to-vivid-green-cyan) !important;}.has-luminous-vivid-amber-to-luminous-vivid-orange-gradient-background{background: var(--wp--preset--gradient--luminous-vivid-amber-to-luminous-vivid-orange) !important;}.has-luminous-vivid-orange-to-vivid-red-gradient-background{background: var(--wp--preset--gradient--luminous-vivid-orange-to-vivid-red) !important;}.has-very-light-gray-to-cyan-bluish-gray-gradient-background{background: var(--wp--preset--gradient--very-light-gray-to-cyan-bluish-gray) !important;}.has-cool-to-warm-spectrum-gradient-background{background: var(--wp--preset--gradient--cool-to-warm-spectrum) !important;}.has-blush-light-purple-gradient-background{background: var(--wp--preset--gradient--blush-light-purple) !important;}.has-blush-bordeaux-gradient-background{background: var(--wp--preset--gradient--blush-bordeaux) !important;}.has-luminous-dusk-gradient-background{background: var(--wp--preset--gradient--luminous-dusk) !important;}.has-pale-ocean-gradient-background{background: var(--wp--preset--gradient--pale-ocean) !important;}.has-electric-grass-gradient-background{background: var(--wp--preset--gradient--electric-grass) !important;}.has-midnight-gradient-background{background: var(--wp--preset--gradient--midnight) !important;}.has-small-font-size{font-size: var(--wp--preset--font-size--small) !important;}.has-medium-font-size{font-size: var(--wp--preset--font-size--medium) !important;}.has-large-font-size{font-size: var(--wp--preset--font-size--large) !important;}.has-x-large-font-size{font-size: var(--wp--preset--font-size--x-large) !important;}
+</style>
+<link data-minify="1" rel='preload' href='https://phoenixnap.com/kb/wp-content/cache/min/1/kb/wp-content/plugins/copy-the-code/assets/css/copy-the-code.css?ver=1669117671' data-rocket-async="style" as="style" onload="this.onload=null;this.rel='stylesheet'" onerror="this.removeAttribute('data-rocket-async')" type='text/css' media='all' />
+<link data-minify="1" rel='preload' href='https://phoenixnap.com/kb/wp-content/cache/min/1/kb/wp-content/plugins/oxygen-responsive-menu-master/assets/css/main.css?ver=1669117671' data-rocket-async="style" as="style" onload="this.onload=null;this.rel='stylesheet'" onerror="this.removeAttribute('data-rocket-async')" type='text/css' media='all' />
+<link data-minify="1" rel='preload' href='https://phoenixnap.com/kb/wp-content/cache/min/1/kb/wp-content/plugins/oxygen/component-framework/oxygen.css?ver=1669117671' data-rocket-async="style" as="style" onload="this.onload=null;this.rel='stylesheet'" onerror="this.removeAttribute('data-rocket-async')" type='text/css' media='all' />
+<link data-minify="1" rel='preload' href='https://phoenixnap.com/kb/wp-content/cache/min/1/kb/wp-content/plugins/scriptless-social-sharing/includes/css/scriptlesssocialsharing-style.css?ver=1669117671' data-rocket-async="style" as="style" onload="this.onload=null;this.rel='stylesheet'" onerror="this.removeAttribute('data-rocket-async')" type='text/css' media='all' />
+<style id='scriptlesssocialsharing-inline-css' type='text/css'>
+.scriptlesssocialsharing__buttons a.button { padding: 12px; flex: 1; }@media only screen and (max-width: 767px) { .scriptlesssocialsharing .sss-name { position: absolute; clip: rect(1px, 1px, 1px, 1px); height: 1px; width: 1px; border: 0; overflow: hidden; } }
+</style>
+<link data-minify="1" rel='preload' href='https://phoenixnap.com/kb/wp-content/cache/min/1/kb/wp-content/plugins/was-this-article-helpful/css/style.css?ver=1669117671' data-rocket-async="style" as="style" onload="this.onload=null;this.rel='stylesheet'" onerror="this.removeAttribute('data-rocket-async')" type='text/css' media='all' />
+<link data-minify="1" rel='preload' href='https://phoenixnap.com/kb/wp-content/cache/min/1/releases/v5.15.3/css/all.css?ver=1669117671' data-rocket-async="style" as="style" onload="this.onload=null;this.rel='stylesheet'" onerror="this.removeAttribute('data-rocket-async')" type='text/css' media='all' crossorigin="anonymous" />
+<link data-minify="1" rel='preload' href='https://phoenixnap.com/kb/wp-content/cache/min/1/kb/wp-content/plugins/oxygen-block-lab-support-master/block_lab_templates/blocks/block-notice.css?ver=1669117671' data-rocket-async="style" as="style" onload="this.onload=null;this.rel='stylesheet'" onerror="this.removeAttribute('data-rocket-async')" type='text/css' media='all' />
+<link data-minify="1" rel='preload' href='https://phoenixnap.com/kb/wp-content/cache/min/1/kb/wp-content/plugins/fixed-toc/frontend/assets/css/ftoc.min.css?ver=1669117671' data-rocket-async="style" as="style" onload="this.onload=null;this.rel='stylesheet'" onerror="this.removeAttribute('data-rocket-async')" type='text/css' media='all' />
+<style id='fixedtoc-style-inline-css' type='text/css'>
+.ftwp-in-post#ftwp-container-outer { height: auto; } #ftwp-container.ftwp-wrap #ftwp-contents { width: 250px; height: auto; } .ftwp-in-post#ftwp-container-outer #ftwp-contents { height: auto; } .ftwp-in-post#ftwp-container-outer.ftwp-float-none #ftwp-contents { width: 250px; } #ftwp-container.ftwp-wrap #ftwp-trigger { width: 56px; height: 56px; font-size: 33.6px; } #ftwp-container #ftwp-trigger.ftwp-border-thin { font-size: 33.1px; } #ftwp-container.ftwp-wrap #ftwp-header { font-size: 18px; font-family: inherit; } #ftwp-container.ftwp-wrap #ftwp-header-title { font-weight: bold; } #ftwp-container.ftwp-wrap #ftwp-list { font-size: 14px; font-family: inherit; } #ftwp-container #ftwp-list.ftwp-liststyle-decimal .ftwp-anchor::before { font-size: 14px; } #ftwp-container #ftwp-list.ftwp-strong-first>.ftwp-item>.ftwp-anchor .ftwp-text { font-size: 15.4px; } #ftwp-container #ftwp-list.ftwp-strong-first.ftwp-liststyle-decimal>.ftwp-item>.ftwp-anchor::before { font-size: 15.4px; } #ftwp-container.ftwp-wrap #ftwp-trigger { color: #af2028; background: rgba(255,255,255,0.95); } #ftwp-container.ftwp-wrap #ftwp-trigger { border-color: rgba(227,227,227,0.95); } #ftwp-container.ftwp-wrap #ftwp-contents { border-color: rgba(227,227,227,0.95); } #ftwp-container.ftwp-wrap #ftwp-header { color: #777777; background: rgba(255,255,255,0.95); } #ftwp-container.ftwp-wrap #ftwp-contents:hover #ftwp-header { background: #ffffff; } #ftwp-container.ftwp-wrap #ftwp-list { color: #999999; background: rgba(255,255,255,0.95); } #ftwp-container.ftwp-wrap #ftwp-contents:hover #ftwp-list { background: #ffffff; } #ftwp-container.ftwp-wrap #ftwp-list .ftwp-anchor:hover { color: #555555; } #ftwp-container.ftwp-wrap #ftwp-list .ftwp-anchor:focus, #ftwp-container.ftwp-wrap #ftwp-list .ftwp-active, #ftwp-container.ftwp-wrap #ftwp-list .ftwp-active:hover { color: #555555; } #ftwp-container.ftwp-wrap #ftwp-list .ftwp-text::before { background: rgba(227,227,227,0.95); } .ftwp-heading-target::before { background: rgba(85,85,85,0.95); } #ftwp-container #ftwp-list.ftwp-effect-fade .ftwp-anchor.ftwp-active, #ftwp-container #ftwp-list.ftwp-effect-fade .ftwp-anchor:focus { background: rgba(227,227,227,0.95); }
+.ftwp-in-post#ftwp-container-outer.ftwp-float-none #ftwp-contents { width: 100%; } #ftwp-container.ftwp-wrap #ftwp-header-title { text-align: left; } #ftwp-container #ftwp-list .ftwp-text { text-align: left; }
+</style>
+<link data-minify="1" rel='preload' href='https://phoenixnap.com/kb/wp-content/cache/min/1/releases/v5.15.3/css/v4-shims.css?ver=1669117672' data-rocket-async="style" as="style" onload="this.onload=null;this.rel='stylesheet'" onerror="this.removeAttribute('data-rocket-async')" type='text/css' media='all' crossorigin="anonymous" />
+<style id='font-awesome-official-v4shim-inline-css' type='text/css'>
+@font-face {
+font-family: "FontAwesome";
+font-display: block;
+src: url("https://use.fontawesome.com/releases/v5.15.3/webfonts/fa-brands-400.eot"),
+		url("https://use.fontawesome.com/releases/v5.15.3/webfonts/fa-brands-400.eot?#iefix") format("embedded-opentype"),
+		url("https://use.fontawesome.com/releases/v5.15.3/webfonts/fa-brands-400.woff2") format("woff2"),
+		url("https://use.fontawesome.com/releases/v5.15.3/webfonts/fa-brands-400.woff") format("woff"),
+		url("https://use.fontawesome.com/releases/v5.15.3/webfonts/fa-brands-400.ttf") format("truetype"),
+		url("https://use.fontawesome.com/releases/v5.15.3/webfonts/fa-brands-400.svg#fontawesome") format("svg");
+}
+
+@font-face {
+font-family: "FontAwesome";
+font-display: block;
+src: url("https://use.fontawesome.com/releases/v5.15.3/webfonts/fa-solid-900.eot"),
+		url("https://use.fontawesome.com/releases/v5.15.3/webfonts/fa-solid-900.eot?#iefix") format("embedded-opentype"),
+		url("https://use.fontawesome.com/releases/v5.15.3/webfonts/fa-solid-900.woff2") format("woff2"),
+		url("https://use.fontawesome.com/releases/v5.15.3/webfonts/fa-solid-900.woff") format("woff"),
+		url("https://use.fontawesome.com/releases/v5.15.3/webfonts/fa-solid-900.ttf") format("truetype"),
+		url("https://use.fontawesome.com/releases/v5.15.3/webfonts/fa-solid-900.svg#fontawesome") format("svg");
+}
+
+@font-face {
+font-family: "FontAwesome";
+font-display: block;
+src: url("https://use.fontawesome.com/releases/v5.15.3/webfonts/fa-regular-400.eot"),
+		url("https://use.fontawesome.com/releases/v5.15.3/webfonts/fa-regular-400.eot?#iefix") format("embedded-opentype"),
+		url("https://use.fontawesome.com/releases/v5.15.3/webfonts/fa-regular-400.woff2") format("woff2"),
+		url("https://use.fontawesome.com/releases/v5.15.3/webfonts/fa-regular-400.woff") format("woff"),
+		url("https://use.fontawesome.com/releases/v5.15.3/webfonts/fa-regular-400.ttf") format("truetype"),
+		url("https://use.fontawesome.com/releases/v5.15.3/webfonts/fa-regular-400.svg#fontawesome") format("svg");
+unicode-range: U+F004-F005,U+F007,U+F017,U+F022,U+F024,U+F02E,U+F03E,U+F044,U+F057-F059,U+F06E,U+F070,U+F075,U+F07B-F07C,U+F080,U+F086,U+F089,U+F094,U+F09D,U+F0A0,U+F0A4-F0A7,U+F0C5,U+F0C7-F0C8,U+F0E0,U+F0EB,U+F0F3,U+F0F8,U+F0FE,U+F111,U+F118-F11A,U+F11C,U+F133,U+F144,U+F146,U+F14A,U+F14D-F14E,U+F150-F152,U+F15B-F15C,U+F164-F165,U+F185-F186,U+F191-F192,U+F1AD,U+F1C1-F1C9,U+F1CD,U+F1D8,U+F1E3,U+F1EA,U+F1F6,U+F1F9,U+F20A,U+F247-F249,U+F24D,U+F254-F25B,U+F25D,U+F267,U+F271-F274,U+F279,U+F28B,U+F28D,U+F2B5-F2B6,U+F2B9,U+F2BB,U+F2BD,U+F2C1-F2C2,U+F2D0,U+F2D2,U+F2DC,U+F2ED,U+F328,U+F358-F35B,U+F3A5,U+F3D1,U+F410,U+F4AD;
+}
+</style>
+<script type="rocketlazyloadscript" data-rocket-type='text/javascript' src='https://phoenixnap.com/kb/wp-includes/js/jquery/jquery.min.js?ver=3.6.0' id='jquery-core-js' defer></script>
+<link rel='shortlink' href='https://phoenixnap.com/kb/?p=114625' />
+<script data-cfasync="false" data-pagespeed-no-defer>
+	var dataLayer_content = {"pagePostType":"post","pagePostType2":"single-post","pageCategory":["sysadmin","web-servers"],"pageAttributes":["commands","linux"],"pagePostAuthor":"Sofija Simic"};
+	dataLayer.push( dataLayer_content );
+</script>
+<script type="rocketlazyloadscript" data-cfasync="false">
+(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'//www.googletagmanager.com/gtm.'+'js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-MLJ5W8M');
+</script>
+<style type="text/css" id="wp-custom-css">
+			.copy-the-code-wrap.copy-the-code-style-svg-icon .copy-the-code-button svg {
+	fill: rgba(0,0,0,0.2);
+	transition: fill 0.3s;
+}
+
+.copy-the-code-wrap.copy-the-code-style-svg-icon .copy-the-code-button:hover svg {
+	fill: rgba(0,0,0,0.4);
+}
+
+.gitlab-embed-snippets .file-content {
+	max-height:250px;
+  overflow: scroll;
+}		</style>
+<style>
+.ai-viewports                 {--ai: 1;}
+.ai-viewport-3                { display: none !important;}
+.ai-viewport-2                { display: none !important;}
+.ai-viewport-1                { display: inherit !important;}
+.ai-viewport-0                { display: none !important;}
+@media (min-width: 768px) and (max-width: 979px) {
+.ai-viewport-1                { display: none !important;}
+.ai-viewport-2                { display: inherit !important;}
+}
+@media (max-width: 767px) {
+.ai-viewport-1                { display: none !important;}
+.ai-viewport-3                { display: inherit !important;}
+}
+</style>
+<link data-minify="1" rel='preload' href='https://phoenixnap.com/kb/wp-content/cache/min/1/kb/wp-content/uploads/oxygen/css/156.css?ver=1669117672' data-rocket-async="style" as="style" onload="this.onload=null;this.rel='stylesheet'" onerror="this.removeAttribute('data-rocket-async')" type='text/css' media='all' />
+<link data-minify="1" rel='preload' href='https://phoenixnap.com/kb/wp-content/cache/min/1/kb/wp-content/uploads/oxygen/css/155.css?ver=1669117672' data-rocket-async="style" as="style" onload="this.onload=null;this.rel='stylesheet'" onerror="this.removeAttribute('data-rocket-async')" type='text/css' media='all' />
+<link data-minify="1" rel='preload' href='https://phoenixnap.com/kb/wp-content/cache/min/1/kb/wp-content/uploads/oxygen/css/153.css?ver=1669117672' data-rocket-async="style" as="style" onload="this.onload=null;this.rel='stylesheet'" onerror="this.removeAttribute('data-rocket-async')" type='text/css' media='all' />
+<link data-minify="1" rel='preload' href='https://phoenixnap.com/kb/wp-content/cache/min/1/kb/wp-content/uploads/oxygen/css/157.css?ver=1669117672' data-rocket-async="style" as="style" onload="this.onload=null;this.rel='stylesheet'" onerror="this.removeAttribute('data-rocket-async')" type='text/css' media='all' />
+<link data-minify="1" rel='preload' href='https://phoenixnap.com/kb/wp-content/cache/min/1/kb/wp-content/uploads/oxygen/css/universal.css?ver=1669117672' data-rocket-async="style" as="style" onload="this.onload=null;this.rel='stylesheet'" onerror="this.removeAttribute('data-rocket-async')" type='text/css' media='all' />
+<noscript><style id="rocket-lazyload-nojs-css">.rll-youtube-player, [data-lazy-src]{display:none !important;}</style></noscript><script type="rocketlazyloadscript">
+/*! loadCSS rel=preload polyfill. [c]2017 Filament Group, Inc. MIT License */
+(function(w){"use strict";if(!w.loadCSS){w.loadCSS=function(){}}
+var rp=loadCSS.relpreload={};rp.support=(function(){var ret;try{ret=w.document.createElement("link").relList.supports("preload")}catch(e){ret=!1}
+return function(){return ret}})();rp.bindMediaToggle=function(link){var finalMedia=link.media||"all";function enableStylesheet(){link.media=finalMedia}
+if(link.addEventListener){link.addEventListener("load",enableStylesheet)}else if(link.attachEvent){link.attachEvent("onload",enableStylesheet)}
+setTimeout(function(){link.rel="stylesheet";link.media="only x"});setTimeout(enableStylesheet,3000)};rp.poly=function(){if(rp.support()){return}
+var links=w.document.getElementsByTagName("link");for(var i=0;i<links.length;i++){var link=links[i];if(link.rel==="preload"&&link.getAttribute("as")==="style"&&!link.getAttribute("data-loadcss")){link.setAttribute("data-loadcss",!0);rp.bindMediaToggle(link)}}};if(!rp.support()){rp.poly();var run=w.setInterval(rp.poly,500);if(w.addEventListener){w.addEventListener("load",function(){rp.poly();w.clearInterval(run)})}else if(w.attachEvent){w.attachEvent("onload",function(){rp.poly();w.clearInterval(run)})}}
+if(typeof exports!=="undefined"){exports.loadCSS=loadCSS}
+else{w.loadCSS=loadCSS}}(typeof global!=="undefined"?global:this))
+</script>
+</head>
+<body class="post-template-default single single-post postid-114625 single-format-standard  wp-embed-responsive oxygen-body has-ftoc">
+<section id="section-164-137" class="ct-section"><div class="ct-section-inner-wrap"><nav id="_nav_menu-9-7" class="oxy-nav-menu top-menu oxy-nav-menu-dropdowns oxy-nav-menu-dropdown-arrow"><div class='oxy-menu-toggle'><div class='oxy-nav-menu-hamburger-wrap'><div class='oxy-nav-menu-hamburger'><div class='oxy-nav-menu-hamburger-line'></div><div class='oxy-nav-menu-hamburger-line'></div><div class='oxy-nav-menu-hamburger-line'></div></div></div></div><div class="menu-top-menu-container"><ul id="menu-top-menu" class="oxy-nav-menu-list"><li id="menu-item-110108" class="bordered-top-nav menu-item menu-item-type-custom menu-item-object-custom menu-item-has-children menu-item-110108"><a href="#">Call</a>
+<ul class="sub-menu">
+<li id="menu-item-110091" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-110091"><a href="tel:1-855-330-1509">Support</a></li>
+<li id="menu-item-110092" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-110092"><a href="tel:1-877-588-5918">Sales</a></li>
+</ul>
+</li>
+<li id="menu-item-110083" class="bordered-top-nav menu-item menu-item-type-custom menu-item-object-custom menu-item-has-children menu-item-110083"><a href="#">Login</a>
+<ul class="sub-menu">
+<li id="menu-item-110084" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-110084"><a href="https://bmc.phoenixnap.com/">Bare Metal Cloud</a></li>
+<li id="menu-item-110085" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-110085"><a href="https://partners.phoenixnap.com/">Channel Partners</a></li>
+<li id="menu-item-110078" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-110078"><a href="https://admin.phoenixnap.com/">Billing Portal</a></li>
+</ul>
+</li>
+<li id="menu-item-110079" class="bordered-top-nav menu-item menu-item-type-custom menu-item-object-custom menu-item-110079"><a href="https://phoenixnap.com/partners">Partners</a></li>
+</ul></div></nav></div></section><section id="section-205-157" class="ct-section single-post-header"><div class="ct-section-inner-wrap"><div id="div_block-206-157" class="ct-div-block"><a id="link-207-157" class="ct-link" href="https://phoenixnap.com/kb" target="_self"><img width="200" height="44" id="image-208-157" alt="" src="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%20200%2044'%3E%3C/svg%3E" class="ct-image" data-lazy-src="https://phoenixnap.com/kb/wp-content/uploads/2021/04/phoenixnap-logo-white.png" /><noscript><img width="200" height="44" id="image-208-157" alt="" src="https://phoenixnap.com/kb/wp-content/uploads/2021/04/phoenixnap-logo-white.png" class="ct-image"/></noscript></a><div id="shortcode-209-157" class="ct-shortcode"><nav class="nav-primary genesis-responsive-menu" aria-label="Main" itemscope="" itemtype="https://schema.org/SiteNavigationElement" id="genesis-nav-primary"><ul id="menu-primary" class="menu genesis-nav-menu menu-primary js-superfish"><li id="menu-item-110093" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-110093"><a href="https://phoenixnap.com/"><span itemprop="name">Phoenixnap home</span></a></li>
+<li id="menu-item-110094" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-110094"><a href="https://phoenixnap.com/contact-us"><span itemprop="name">contact support</span></a></li>
+<li id="menu-item-110095" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-110095"><a href="https://phoenixnap.com/blog"><span itemprop="name">blog</span></a></li>
+<li id="menu-item-146545" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-146545"><a href="https://phoenixnap.com/glossary/"><span itemprop="name">Glossary</span></a></li>
+<li id="menu-item-110104" class="desktop-hidden nav-button menu-item menu-item-type-custom menu-item-object-custom menu-item-110104"><a href="tel:1-855-330-1509"><span itemprop="name">Support</span></a></li>
+<li id="menu-item-110105" class="desktop-hidden nav-button menu-item menu-item-type-custom menu-item-object-custom menu-item-110105"><a href="tel:1-877-588-5918"><span itemprop="name">Sales</span></a></li>
+<li id="menu-item-110106" class="desktop-hidden nav-button menu-item menu-item-type-custom menu-item-object-custom menu-item-110106"><a href="https://admin.phoenixnap.com/"><span itemprop="name">Login</span></a></li>
+<li id="menu-item-110107" class="desktop-hidden nav-button menu-item menu-item-type-custom menu-item-object-custom menu-item-110107"><a href="https://phoenixnap.com/partners"><span itemprop="name">Partners</span></a></li>
+<li id="menu-item-132765" class="desktop-hidden mobile-search menu-item menu-item-type-custom menu-item-object-custom menu-item-132765"><a href="#"><span itemprop="name"><form role="search" method="get" id="searchform" class="searchform" action="https://phoenixnap.com/kb/"> <div> <label class="screen-reader-text" for="s">Search for:</label> <input type="text" value="" name="s" id="s"> <input type="submit" id="searchsubmit" value="Search"> </div></form></span></a></li>
+<li id="menu-item-132766" class="mobile-hidden menu-item menu-item-type-custom menu-item-object-custom menu-item-132766"><a href="#"><span itemprop="name"><i class="fas fa-search"></i></span></a></li>
+</ul></nav></div></div><div id="div_block-210-157" class="ct-div-block"><h1 id="headline-211-157" class="ct-headline"><span id="span-212-157" class="ct-span">How to Use wget Command With Examples</span></h1><div id="div_block-213-157" class="ct-div-block"><div id="text_block-214-157" class="ct-text-block"><span id="span-215-157" class="ct-span">October 22, 2019</span></div><div id="text_block-216-157" class="ct-text-block tag-wrapper"><span id="span-217-157" class="ct-span"><a href="https://phoenixnap.com/kb/tag/commands" rel="tag">commands</a><a href="https://phoenixnap.com/kb/tag/linux" rel="tag">linux</a></span></div></div></div><div id="code_block-218-157" class="ct-code-block" style="background-image:url();background-size: auto;">
+<style type="text/css">
+		.single-post .single-post-header {
+		background-image: linear-gradient(rgba(0, 108, 168, 0.7) 50%, rgba(0, 108, 168, 0.7) 50%), url(https://phoenixnap.com/kb/wp-content/uploads/2021/04/webservers-new.jpg);
+      background-repeat: no-repeat;
+      background-size: cover;
+	}
+		
+</style></div></div></section><section id="section-78-157" class="ct-section"><div class="ct-section-inner-wrap"><div id="new_columns-80-157" class="ct-new-columns"><div id="div_block-81-157" class="ct-div-block"></div><div id="div_block-82-157" class="ct-div-block"><div id="code_block-88-157" class="ct-code-block"><p id="breadcrumbs"><span><span><a href="https://phoenixnap.com/kb/">Home</a> » <span><a href="https://phoenixnap.com/kb/category/sysadmin">SysAdmin</a> » <span class="breadcrumb_last" aria-current="page">How to Use wget Command With Examples</span></span></span></span></p></div><div id="shortcode-181-157" class="ct-shortcode"><div id="ftwp-container-outer" class="ftwp-in-post ftwp-float-none"><div id="ftwp-container" class="ftwp-wrap ftwp-hidden-state ftwp-maximize ftwp-middle-left"><button type="button" id="ftwp-trigger" class="ftwp-shape-round ftwp-border-thin" title="click To Maximize The Table Of Contents"><span class="ftwp-trigger-icon ftwp-icon-menu"></span></button><nav id="ftwp-contents" class="ftwp-shape-square ftwp-border-thin" data-colexp="collapse"><header id="ftwp-header"><span id="ftwp-header-control" class="ftwp-icon-menu"></span><button type="button" id="ftwp-header-minimize" class="ftwp-icon-collapse" aria-labelledby="ftwp-header-title"></button><span id="ftwp-header-title">Contents</span></header><ol id="ftwp-list" class="ftwp-liststyle-decimal ftwp-effect-fade ftwp-list-nest ftwp-strong-first ftwp-colexp ftwp-colexp-icon" style="display: none"><li class="ftwp-item"><a class="ftwp-anchor" href="#ftoc-heading-1"><span class="ftwp-text">What is wget?</span></a></li><li class="ftwp-item ftwp-has-sub ftwp-expand"><button type="button" class="ftwp-icon-expand"></button><a class="ftwp-anchor" href="#ftoc-heading-2"><span class="ftwp-text">How to Check if wget is Installed?</span></a><ol class="ftwp-sub"><li class="ftwp-item"><a class="ftwp-anchor" href="#ftoc-heading-3"><span class="ftwp-text">wget Command Not Found</span></a></li><li class="ftwp-item"><a class="ftwp-anchor" href="#ftoc-heading-4"><span class="ftwp-text">How to Install wget on Ubuntu/Debian?</span></a></li><li class="ftwp-item"><a class="ftwp-anchor" href="#ftoc-heading-5"><span class="ftwp-text">How to Install wget on CentOS/Fedora?</span></a></li><li class="ftwp-item"><a class="ftwp-anchor" href="#ftoc-heading-6"><span class="ftwp-text">How to Install wget on Windows?</span></a></li></ol></li><li class="ftwp-item"><a class="ftwp-anchor" href="#ftoc-heading-7"><span class="ftwp-text">Introduction to wget Syntax</span></a></li><li class="ftwp-item ftwp-has-sub ftwp-expand"><button type="button" class="ftwp-icon-expand"></button><a class="ftwp-anchor" href="#ftoc-heading-8"><span class="ftwp-text">wget Command Examples</span></a><ol class="ftwp-sub"><li class="ftwp-item"><a class="ftwp-anchor" href="#ftoc-heading-9"><span class="ftwp-text">Download File from Web</span></a></li><li class="ftwp-item"><a class="ftwp-anchor" href="#ftoc-heading-10"><span class="ftwp-text">Download File and Save Under Specific Name</span></a></li><li class="ftwp-item"><a class="ftwp-anchor" href="#ftoc-heading-11"><span class="ftwp-text">Download File to Specific Directory</span></a></li><li class="ftwp-item"><a class="ftwp-anchor" href="#ftoc-heading-12"><span class="ftwp-text">Set Download Speed</span></a></li><li class="ftwp-item"><a class="ftwp-anchor" href="#ftoc-heading-13"><span class="ftwp-text">Continue Download After Interruption</span></a></li><li class="ftwp-item"><a class="ftwp-anchor" href="#ftoc-heading-14"><span class="ftwp-text">Download Multiple Files</span></a></li><li class="ftwp-item"><a class="ftwp-anchor" href="#ftoc-heading-15"><span class="ftwp-text">Download Web page (Mirror Web page)</span></a></li><li class="ftwp-item"><a class="ftwp-anchor" href="#ftoc-heading-16"><span class="ftwp-text">Download via FTP</span></a></li><li class="ftwp-item"><a class="ftwp-anchor" href="#ftoc-heading-17"><span class="ftwp-text">Download in Background</span></a></li><li class="ftwp-item"><a class="ftwp-anchor" href="#ftoc-heading-18"><span class="ftwp-text">Increase Retry Attempts</span></a></li><li class="ftwp-item"><a class="ftwp-anchor" href="#ftoc-heading-19"><span class="ftwp-text">Skip Certificate Check</span></a></li><li class="ftwp-item"><a class="ftwp-anchor" href="#ftoc-heading-20"><span class="ftwp-text">Change User Agent</span></a></li></ol></li></ol></nav></div></div></div><div id="text_block-86-157" class="ct-text-block single-post-content"><span id="span-87-157" class="ct-span oxy-stock-content-styles"><div id="ftwp-container-outer" class="ftwp-in-post ftwp-float-none"><div id="ftwp-container" class="ftwp-wrap ftwp-hidden-state ftwp-maximize ftwp-middle-left"><button type="button" id="ftwp-trigger" class="ftwp-shape-round ftwp-border-thin" title="click To Maximize The Table Of Contents"><span class="ftwp-trigger-icon ftwp-icon-menu"></span></button><nav id="ftwp-contents" class="ftwp-shape-square ftwp-border-thin" data-colexp="collapse"><header id="ftwp-header"><span id="ftwp-header-control" class="ftwp-icon-menu"></span><button type="button" id="ftwp-header-minimize" class="ftwp-icon-collapse" aria-labelledby="ftwp-header-title"></button><span id="ftwp-header-title">Contents</span></header><ol id="ftwp-list" class="ftwp-liststyle-decimal ftwp-effect-fade ftwp-list-nest ftwp-strong-first ftwp-colexp ftwp-colexp-icon" style="display: none"><li class="ftwp-item"><a class="ftwp-anchor" href="#ftoc-heading-1"><span class="ftwp-text">What is wget?</span></a></li><li class="ftwp-item ftwp-has-sub ftwp-expand"><button type="button" class="ftwp-icon-expand"></button><a class="ftwp-anchor" href="#ftoc-heading-2"><span class="ftwp-text">How to Check if wget is Installed?</span></a><ol class="ftwp-sub"><li class="ftwp-item"><a class="ftwp-anchor" href="#ftoc-heading-3"><span class="ftwp-text">wget Command Not Found</span></a></li><li class="ftwp-item"><a class="ftwp-anchor" href="#ftoc-heading-4"><span class="ftwp-text">How to Install wget on Ubuntu/Debian?</span></a></li><li class="ftwp-item"><a class="ftwp-anchor" href="#ftoc-heading-5"><span class="ftwp-text">How to Install wget on CentOS/Fedora?</span></a></li><li class="ftwp-item"><a class="ftwp-anchor" href="#ftoc-heading-6"><span class="ftwp-text">How to Install wget on Windows?</span></a></li></ol></li><li class="ftwp-item"><a class="ftwp-anchor" href="#ftoc-heading-7"><span class="ftwp-text">Introduction to wget Syntax</span></a></li><li class="ftwp-item ftwp-has-sub ftwp-expand"><button type="button" class="ftwp-icon-expand"></button><a class="ftwp-anchor" href="#ftoc-heading-8"><span class="ftwp-text">wget Command Examples</span></a><ol class="ftwp-sub"><li class="ftwp-item"><a class="ftwp-anchor" href="#ftoc-heading-9"><span class="ftwp-text">Download File from Web</span></a></li><li class="ftwp-item"><a class="ftwp-anchor" href="#ftoc-heading-10"><span class="ftwp-text">Download File and Save Under Specific Name</span></a></li><li class="ftwp-item"><a class="ftwp-anchor" href="#ftoc-heading-11"><span class="ftwp-text">Download File to Specific Directory</span></a></li><li class="ftwp-item"><a class="ftwp-anchor" href="#ftoc-heading-12"><span class="ftwp-text">Set Download Speed</span></a></li><li class="ftwp-item"><a class="ftwp-anchor" href="#ftoc-heading-13"><span class="ftwp-text">Continue Download After Interruption</span></a></li><li class="ftwp-item"><a class="ftwp-anchor" href="#ftoc-heading-14"><span class="ftwp-text">Download Multiple Files</span></a></li><li class="ftwp-item"><a class="ftwp-anchor" href="#ftoc-heading-15"><span class="ftwp-text">Download Web page (Mirror Web page)</span></a></li><li class="ftwp-item"><a class="ftwp-anchor" href="#ftoc-heading-16"><span class="ftwp-text">Download via FTP</span></a></li><li class="ftwp-item"><a class="ftwp-anchor" href="#ftoc-heading-17"><span class="ftwp-text">Download in Background</span></a></li><li class="ftwp-item"><a class="ftwp-anchor" href="#ftoc-heading-18"><span class="ftwp-text">Increase Retry Attempts</span></a></li><li class="ftwp-item"><a class="ftwp-anchor" href="#ftoc-heading-19"><span class="ftwp-text">Skip Certificate Check</span></a></li><li class="ftwp-item"><a class="ftwp-anchor" href="#ftoc-heading-20"><span class="ftwp-text">Change User Agent</span></a></li></ol></li></ol></nav></div></div>
+<div id="ftwp-postcontent">
+<h2 id="ftoc-heading-1" class="ftwp-heading">What is wget?</h2>
+<p><strong>Wget</strong> is a free <a href="https://phoenixnap.com/glossary/what-is-gnu" target="_blank" rel="noreferrer noopener">GNU</a> command-line utility tool used to download files from the internet. It retrieves files using HTTP, HTTPS, and <a href="https://phoenixnap.com/glossary/what-is-ftp" target="_blank" rel="noreferrer noopener">FTP protocols</a>.</p>
+<p>It serves as a tool to sustain unstable and slow network connections. If a network problem occurs during a download, this helpful software can resume retrieving the files without starting from scratch.</p>
+<p>Another important aspect is its capability of <strong>recursive downloads</strong>, with which it <strong>mirrors websites</strong>. It transfers parts of a website by following links and directory structure, thus creating local versions of webpages.</p>
+<p>The <strong><code>wget</code></strong> command is also highly flexible and can be used in terminals, scripts, and cron jobs. During the download, the user does not have to be active nor logged in. As wget is non-interactive, it can independently run in the background.</p>
+<p>Read this article to <strong>learn how to use some of the most common <code>wget</code> commands.</strong></p>
+<div class="wp-block-image">
+<figure class="aligncenter"><img width="800" height="400" src="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%20800%20400'%3E%3C/svg%3E" alt="Tutorial on how to use wget commands with examples." class="wp-image-91165" data-lazy-src="https://phoenixnap.com/kb/wp-content/uploads/2021/04/how-to-use-wget-commands-with-examples.png" /><noscript><img width="800" height="400" src="https://phoenixnap.com/kb/wp-content/uploads/2021/04/how-to-use-wget-commands-with-examples.png" alt="Tutorial on how to use wget commands with examples." class="wp-image-91165"/></noscript></figure></div>
+<h2 id="ftoc-heading-2" class="ftwp-heading">How to Check if wget is Installed?</h2>
+<p>Most likely, the wget package is already on your system as it now comes pre-installed on most Linux distributions.</p>
+<p>To check, open the terminal window and type in:</p>
+<pre class="wp-block-code"><code>wget</code></pre>
+<p>If you have the wget software, the output tells you that the <strong><code>wget</code></strong> command is missing a URL, as shown in the image below:</p>
+<div class="wp-block-image">
+<figure class="aligncenter"><img width="733" height="182" src="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%20733%20182'%3E%3C/svg%3E" alt="wget-command-missing-url" class="wp-image-80540" data-lazy-src="https://phoenixnap.com/kb/wp-content/uploads/2021/04/2019-07-09_12-20-08.png" /><noscript><img width="733" height="182" src="https://phoenixnap.com/kb/wp-content/uploads/2021/04/2019-07-09_12-20-08.png" alt="wget-command-missing-url" class="wp-image-80540"/></noscript></figure></div>
+<h3 id="ftoc-heading-3" class="ftwp-heading">wget Command Not Found</h3>
+<p>If the output displays <strong><code>wget command not found</code></strong> you need to download and install the tool manually. Below you will find the installation instructions for Ubuntu/Debian, CentOS, and Windows.</p>
+<h3 id="ftoc-heading-4" class="ftwp-heading">How to Install wget on Ubuntu/Debian?</h3>
+<p>To install wget on Ubuntu or Debian releases, use the command:</p>
+<pre class="wp-block-code"><code>sudo apt-get install wget</code></pre>
+<h3 id="ftoc-heading-5" class="ftwp-heading">How to Install wget on CentOS/Fedora?</h3>
+<p>To install wget on CentOS or Fedora, type the following command:</p>
+<pre class="wp-block-code"><code>sudo yum install wget</code></pre>
+<h3 id="ftoc-heading-6" class="ftwp-heading">How to Install wget on Windows?</h3>
+<p>To install and configure wget for Windows:</p>
+<ol><li><a href="http://gnuwin32.sourceforge.net/packages/wget.htm" target="_blank" rel="noreferrer noopener">Download wget for Windows</a> and install the package.</li><li>Add the wget bin path to environment variables (optional). Configuring this removes the need for full paths, and makes it a lot easier to run wget from the command prompt:<ul><li>Open the <strong>Start</strong> menu and search for “environment.”</li><li>Select <strong>Edit the system environment variables</strong>.</li><li>Select the <strong>Advanced</strong> tab and click the <strong>Environment Variables </strong>button.</li><li>Select the <strong>Path</strong> variable under <strong>System Variables</strong>.</li><li>Click <strong>Edit</strong>.</li><li>In the <strong>Variable value</strong> field add the <strong>path to the wget bin</strong> directory preceded by a <strong>semicolon (;)</strong>. If installed in the default path, add <strong><code>C:Program Files (x86)GnuWin32bin</code></strong><em>.</em></li></ul></li><li>Open the <strong>command prompt</strong> (cmd.exe) and start running <strong><code>wget</code></strong> commands.</li></ol>
+<h2 id="ftoc-heading-7" class="ftwp-heading">Introduction to wget Syntax</h2>
+<p>The wget syntax has the following pattern:</p>
+<pre class="wp-block-code"><code>wget &#091;option]&#091;URL]</code></pre>
+<p>Each <strong>[option]</strong> has its long and short form which are conveniently interchangeable. This attribute specifies what to do with the URL that follows.</p>
+<p><strong>[URL]</strong> is the address of the file or directory you wish to download.</p>
+<h2 id="ftoc-heading-8" class="ftwp-heading">wget Command Examples</h2>
+<h3 id="ftoc-heading-9" class="ftwp-heading">Download File from Web</h3>
+<p>To download a file from the web use:</p>
+<pre class="wp-block-code"><code>wget &#091;URL]</code></pre>
+<p>For example, to <a href="https://phoenixnap.com/kb/install-tomcat-9-on-centos-7" target="_blank" rel="noreferrer noopener">install Tomcat 9</a>, first you need to download the package with <strong><code>wget</code></strong> using the command:</p>
+<pre class="wp-block-code"><code>wget http://apache.cs.utah.edu/tomcat/tomcat-9/v9.0.20/bin/apache-tomcat-9.0.20.tar.gz</code></pre>
+<h3 id="ftoc-heading-10" class="ftwp-heading">Download File and Save Under Specific Name</h3>
+<p>To download a file and save it under a specified name run:</p>
+<pre class="wp-block-code"><code>wget -O &#091;file_name] &#091;URL]</code></pre>
+<p>The wget command allows you to rename files prior to downloading them on your computer.</p>
+<p>For instance, you may want to <a href="https://phoenixnap.com/kb/how-to-install-terraform-centos-ubuntu" target="_blank" rel="noreferrer noopener">install Terraform</a>. To download the package and rename it <strong>terraform.zip</strong> use the following command:</p>
+<pre class="wp-block-code"><code>wget -O terraform.zip https://releases.hashicorp.com/terraform/0.12.2/terraform_0.12.2_linux_amd64.zip</code></pre>
+<h3 id="ftoc-heading-11" class="ftwp-heading">Download File to Specific Directory</h3>
+<p>By default wget downloads a file in the directory the user is in. To save the file in a different location, add the <strong><code>-P</code></strong> option:</p>
+<pre class="wp-block-code"><code>wget -P &#091;wanted_directory] &#091;URL]</code></pre>
+<p>For example, while <a href="https://phoenixnap.com/kb/how-to-install-git-on-ubuntu" target="_blank" rel="noreferrer noopener">installing Git on Ubuntu</a>, you can download the package in the <strong>/temp</strong> directory with the command:</p>
+<pre class="wp-block-code"><code>wget -P /temp https://github.com/git/git/archive/master.zip</code></pre>
+<h3 id="ftoc-heading-12" class="ftwp-heading">Set Download Speed</h3>
+<p>You can set the download speed when downloading a big file, so it does not use the full available bandwidth. The download speed is defined in kilobytes (<strong>k</strong>) and megabytes (<strong>m</strong>). Use the command:</p>
+<pre class="wp-block-code"><code>wget --limit-rate &#091;wanted_speed] &#091;URL]</code></pre>
+<p>For example, if you are installing NVIDIA TESLA drivers on Linux and want to limit the download speed to 1 megabyte, would use the command:</p>
+<pre class="wp-block-code"><code>wget --limit-rate 1m http://us.download.nvidia.com/tesla/396.37/nvidia-diag-driver-local-repo-ubuntu1710-396.37_1.0-1_amd64.deb </code></pre>
+<div class="notice-note">
+<div class="note-icon-wrapper"><i class="fa fa-lightbulb"></i></div>
+<div class="notice-text"><p><strong>Note:</strong> If you are looking to install Nvidia drivers, visit our tutorials:</p>
+<ul>
+<li><a href="https://phoenixnap.com/kb/how-to-install-nvidia-tesla-drivers" target="_blank">Installing NVIDIA Tesla Drivers On Linux and Windows</a>
+<li><a href="https://phoenixnap.com/kb/install-nvidia-drivers-ubuntu" target="_blank">Installing Nvidia Drivers On Ubuntu 20.04</a>
+</ul>
+</div>
+</div>
+<h3 id="ftoc-heading-13" class="ftwp-heading">Continue Download After Interruption</h3>
+<p>Instead of having to start from scratch, <strong><code>wget</code></strong> can resume downloading where it stopped before the interruption. This is a useful feature if there is a lost of connection while downloading a file.</p>
+<pre class="wp-block-code"><code>wget -c &#091;URL]</code></pre>
+<p>For instance, you may want to install a Mumble Server on Linux and suddenly lose internet connection while downloading the installation file. To continue downloading, type in the command:</p>
+<pre class="wp-block-code"><code>wget -c https://github.com/mumble-voip/mumble/releases/download/1.2.19/murmur-static_x86-1.2.19.tar.bz2</code></pre>
+<h3 id="ftoc-heading-14" class="ftwp-heading">Download Multiple Files</h3>
+<p><strong><code>wget</code></strong> allows downloading multiple files at the same time using the command:</p>
+<pre class="wp-block-code"><code>wget -i &#091;file_name]</code></pre>
+<p>To do so, follow the steps outlined below:</p>
+<p>1. First, create and open a file under the name <strong>MultipleDownloads.txt </strong>(or a name of your choice), using a text editor. In this case, we used Nano:</p>
+<pre class="wp-block-code"><code>nano MultipleDownloads.txt</code></pre>
+<p>2. Once in the editor, add the URLs of the packages you want to download, one per line.</p>
+<div class="wp-block-image">
+<figure class="aligncenter"><img width="731" height="190" src="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%20731%20190'%3E%3C/svg%3E" alt="download-multiple-files-using-wget" class="wp-image-80558" data-lazy-src="https://phoenixnap.com/kb/wp-content/uploads/2021/04/2019-07-10_9-34-23.png" /><noscript><img width="731" height="190" src="https://phoenixnap.com/kb/wp-content/uploads/2021/04/2019-07-10_9-34-23.png" alt="download-multiple-files-using-wget" class="wp-image-80558"/></noscript></figure></div>
+<p>3. <strong>Save</strong> and <strong>exit</strong> the file.</p>
+<p>4. Run the following <strong><code>wget</code></strong> command in the terminal window:</p>
+<pre class="wp-block-code"><code>wget -i MultipleDownloads.txt</code></pre>
+<p>This prompts wget to download from each URL in the text file.</p>
+<h3 id="ftoc-heading-15" class="ftwp-heading">Download Web page (Mirror Web page)</h3>
+<p>With wget you can download an entire website from the internet, using the <strong><code>-m</code></strong> option. It prompts wget to create a mirror of the specified webpage. The basic command for doing so is:</p>
+<pre class="wp-block-code"><code>wget -m &#091;URL]</code></pre>
+<p>For example:</p>
+<pre class="wp-block-code"><code>wget -m &lt;a href=&quot;https://phoenixnap.com/&quot; target=&quot;_blank&quot; rel=&quot;noreferrer noopener&quot;&gt;https://phoenixnap.com&lt;/a&gt;</code></pre>
+<h3 id="ftoc-heading-16" class="ftwp-heading">Download via FTP</h3>
+<p>To download via FTP, type in the <strong>username</strong> and <strong>password</strong> of the FTP server, followed by the <strong>ftp address</strong>:</p>
+<pre class="wp-block-code"><code>wget --ftp-user=&#091;ftp_username] --ftp-password=&#091;ftp_password] ftp://...</code></pre>
+<p>For instance:</p>
+<pre class="wp-block-code"><code>wget --ftp-user=sofiftp --ftp-password=TopSecretPassword ftp://123.456.7890</code></pre>
+<h3 id="ftoc-heading-17" class="ftwp-heading">Download in Background</h3>
+<p>You can download in the background, a practical feature when dealing with a large file:</p>
+<pre class="wp-block-code"><code>wget -b &#091;URL]</code></pre>
+<p>You can <strong>check the status of the download</strong> with the command:</p>
+<pre class="wp-block-code"><code>tail -f wget -log</code></pre>
+<p>To <a href="https://phoenixnap.com/kb/how-to-install-rpm-file-centos-linux#htoc-step-1-download-rpm-installation-file" target="_blank" rel="noreferrer noopener">download the RPM package manager</a> in the background, type:</p>
+<pre class="wp-block-code"><code>wget -b http://some_website/sample_file.rpm</code></pre>
+<h3 id="ftoc-heading-18" class="ftwp-heading">Increase Retry Attempts</h3>
+<p>You can set how many times wget attempts to download a file after being interrupted by a bad network with:</p>
+<pre class="wp-block-code"><code>wget --tries=&#091;number_of_tries] &#091;URL]</code></pre>
+<p>By default, the number of retry attempts is set to <strong>20</strong>.</p>
+<p>You can also set the number to infinity with the values <strong>0</strong> or <strong>inf</strong>, as in the following example:</p>
+<pre class="wp-block-code"><code>wget --tries=inf http://download.virtualbox.org/virtualbox/rpm/rhel/virtualbox.repo</code></pre>
+<h3 id="ftoc-heading-19" class="ftwp-heading">Skip Certificate Check</h3>
+<p>By default, wget checks whether the server has a valid SSL/TLS certificate. If it does not identify an authentic certificate, it refuses to download.</p>
+<p>The <strong><code>--no-check-certificate</code></strong> option is used to avoid certificate authorities checking for a server certificate. However, utilize it only if you are sure of the website’s credibility or are not worried about security issues it may cause.</p>
+<pre class="wp-block-code"><code>wget --no-check-certificate &#091;URL]</code></pre>
+<p>If <strong>http://enteratonerisk.com</strong> has an untrusted certificate, but will not harm the system, you can download it with:</p>
+<pre class="wp-block-code"><code>wget --no-check-certificate http://enteratonerisk.com</code></pre>
+<h3 id="ftoc-heading-20" class="ftwp-heading">Change User Agent</h3>
+<p>When downloading a webpage, wget essentially emulates a browser. In some cases, the output might say <strong>you don’t have permission to access </strong>the server, or that the connection is <strong>forbidden</strong>. This may be due to a website blocking client browsers that have a specific “User-Agent.”</p>
+<p>“User-Agent” is a header field that the browser sends to the server it wants to access. Therefore, to download from a server that is refusing to connect, try to modify the user agent.</p>
+<p>Find a <a href="https://developers.whatismybrowser.com/useragents/explore/" target="_blank" rel="noreferrer noopener">database of all user agents</a> online, search for the one you need and run the command:</p>
+<pre class="wp-block-code"><code>wget --user-agent=&quot;User Agent Here&quot; &quot;&#091;URL]&quot;</code></pre>
+<p>or</p>
+<pre class="wp-block-code"><code>wget -U &quot;User Agent Here&quot; &quot;&#091;URL]&quot;</code></pre>
+<p>For example, to emulate Chrome (version 74), you would change the user agent with the command:</p>
+<pre class="wp-block-code"><code>wget --user-agent=&quot; Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3729.169 Safari/537.36&quot; &quot;https://phoenixnap.com&quot;</code></pre>
+<div class="notice-warning">
+<div class="warning-icon-wrapper"><i class="fa fa-exclamation-triangle"></i></div>
+<div class="notice-text"><p><strong>Note:</strong> Make sure you always download from a trusted source because <strong><code>wget</code></strong> can instruct a download of a script from a malicious source. We outline this and many other dangerous commands in our article <a href="https://phoenixnap.com/kb/dangerous-linux-terminal-commands" target="_blank">14 Dangerous Linux Terminal Commands</a>.</p>
+</div>
+</div>
+<p class="h3">Conclusion</p>
+<p>This article sums up why <strong><code>wget</code></strong> is such a powerful tool for downloading files over the internet. It also serves as a good reference for beginners with its list of 12 essential <strong><code>wget</code></strong> commands and examples.</p>
+</div><div id="was-this-helpful" data-post-id="114625" data-thank-text="Thank you for your feedback!"><div id="wthf-title">Was this article helpful?</div><div id="wthf-yes-no"><span data-value="1">Yes</span><span data-value="0">No</span></div></div></span></div><div id="code_block-182-157" class="ct-code-block"></div><div id="shortcode-109-157" class="ct-shortcode"><div class="scriptlesssocialsharing"><div class="scriptlesssocialsharing__buttons"><a class="button twitter" target="_blank" href="https://twitter.com/intent/tweet?text=How%20to%20Use%20wget%20Command%20With%20Examples&#038;url=https%3A%2F%2Fphoenixnap.com%2Fkb%2Fwget-command-with-examples" rel="noopener noreferrer nofollow"><svg xmlns="http://www.w3.org/2000/svg" viewbox="0 0 512 512" class="scriptlesssocialsharing__icon twitter" fill="currentcolor" height="1em" width="1em" aria-hidden="true" focusable="false" role="img"><path d="M459.37 151.716c.325 4.548.325 9.097.325 13.645 0 138.72-105.583 298.558-298.558 298.558-59.452 0-114.68-17.219-161.137-47.106 8.447.974 16.568 1.299 25.34 1.299 49.055 0 94.213-16.568 130.274-44.832-46.132-.975-84.792-31.188-98.112-72.772 6.498.974 12.995 1.624 19.818 1.624 9.421 0 18.843-1.3 27.614-3.573-48.081-9.747-84.143-51.98-84.143-102.985v-1.299c13.969 7.797 30.214 12.67 47.431 13.319-28.264-18.843-46.781-51.005-46.781-87.391 0-19.492 5.197-37.36 14.294-52.954 51.655 63.675 129.3 105.258 216.365 109.807-1.624-7.797-2.599-15.918-2.599-24.04 0-57.828 46.782-104.934 104.934-104.934 30.213 0 57.502 12.67 76.67 33.137 23.715-4.548 46.456-13.32 66.599-25.34-7.798 24.366-24.366 44.833-46.132 57.827 21.117-2.273 41.584-8.122 60.426-16.243-14.292 20.791-32.161 39.308-52.628 54.253z"></path></svg>
+<span class="sss-name"><span class="screen-reader-text">Share on </span>Twitter</span></a><a class="button facebook" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fphoenixnap.com%2Fkb%2Fwget-command-with-examples" rel="noopener noreferrer nofollow"><svg xmlns="http://www.w3.org/2000/svg" viewbox="0 0 512 512" class="scriptlesssocialsharing__icon facebook" fill="currentcolor" height="1em" width="1em" aria-hidden="true" focusable="false" role="img"><path d="M504 256C504 119 393 8 256 8S8 119 8 256c0 123.78 90.69 226.38 209.25 245V327.69h-63V256h63v-54.64c0-62.15 37-96.48 93.67-96.48 27.14 0 55.52 4.84 55.52 4.84v61h-31.28c-30.8 0-40.41 19.12-40.41 38.73V256h68.78l-11 71.69h-57.78V501C413.31 482.38 504 379.78 504 256z"></path></svg>
+<span class="sss-name"><span class="screen-reader-text">Share on </span>Facebook</span></a><a class="button linkedin" target="_blank" href="https://www.linkedin.com/shareArticle?mini=1&#038;url=https%3A%2F%2Fphoenixnap.com%2Fkb%2Fwget-command-with-examples&#038;title=How%20to%20Use%20wget%20Command%20With%20Examples&#038;source=https%3A%2F%2Fphoenixnap.com%2Fkb&#038;summary=Wget%20is%20a%20commonly%20used%20tool%20for%20downloading%20files%20in%20a%20command-line%20session.%20Not%20only%20is%20it%20fast%20and%20practical%2C%20but%20it%20also%20offers%20additional%20downloading%20features.%20Learn%20the%2012%20most%20popular%20wget%20commands%20with%20examples%20how%20to%20use%20them." rel="noopener noreferrer nofollow"><svg xmlns="http://www.w3.org/2000/svg" viewbox="0 0 448 512" class="scriptlesssocialsharing__icon linkedin" fill="currentcolor" height="1em" width="1em" aria-hidden="true" focusable="false" role="img"><path d="M416 32H31.9C14.3 32 0 46.5 0 64.3v383.4C0 465.5 14.3 480 31.9 480H416c17.6 0 32-14.5 32-32.3V64.3c0-17.8-14.4-32.3-32-32.3zM135.4 416H69V202.2h66.5V416zm-33.2-243c-21.3 0-38.5-17.3-38.5-38.5S80.9 96 102.2 96c21.2 0 38.5 17.3 38.5 38.5 0 21.3-17.2 38.5-38.5 38.5zm282.1 243h-66.4V312c0-24.8-.5-56.7-34.5-56.7-34.6 0-39.9 27-39.9 54.9V416h-66.4V202.2h63.7v29.2h.9c8.9-16.8 30.6-34.5 62.9-34.5 67.2 0 79.7 44.3 79.7 101.9V416z"></path></svg>
+<span class="sss-name"><span class="screen-reader-text">Share on </span>LinkedIn</span></a><a class="button email" href="/cdn-cgi/l/email-protection#033c616c677a3e4a26313371666267263133776b6a70263133736c7077263133626d6726313374626d776667263133776c263133706b6271662631336a77263133746a776b2631337a6c762d2631334b66716626313470263133776b662631336f6a6d682630422631336b77777370263042263145263145736b6c666d6a7b6d62732d606c6e2631456861263145746466772e606c6e6e626d672e746a776b2e667b626e736f6670252033303b38707661696660773e42263133736c7077263133746c71776b263133706b62716a6d642630422631334b6c74263133776c26313356706626313374646677263133406c6e6e626d67263133546a776b263133467b626e736f6670" rel="noopener noreferrer nofollow"><svg xmlns="http://www.w3.org/2000/svg" viewbox="0 0 512 512" class="scriptlesssocialsharing__icon email" fill="currentcolor" height="1em" width="1em" aria-hidden="true" focusable="false" role="img"><path d="M502.3 190.8c3.9-3.1 9.7-.2 9.7 4.7V400c0 26.5-21.5 48-48 48H48c-26.5 0-48-21.5-48-48V195.6c0-5 5.7-7.8 9.7-4.7 22.4 17.4 52.1 39.5 154.1 113.6 21.1 15.4 56.7 47.8 92.2 47.6 35.7.3 72-32.8 92.3-47.6 102-74.1 131.6-96.3 154-113.7zM256 320c23.2.4 56.6-29.2 73.4-41.4 132.7-96.3 142.8-104.7 173.4-128.7 5.8-4.5 9.2-11.5 9.2-18.9v-19c0-26.5-21.5-48-48-48H48C21.5 64 0 85.5 0 112v19c0 7.4 3.4 14.3 9.2 18.9 30.6 23.9 40.7 32.4 173.4 128.7 16.8 12.2 50.2 41.8 73.4 41.4z"></path></svg>
+<span class="sss-name"><span class="screen-reader-text">Share on </span>Email</span></a></div></div></div><div id="div_block-97-157" class="ct-div-block"><div id="div_block-219-157" class="ct-div-block"><img id="image-98-157" alt="" src="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%200%200'%3E%3C/svg%3E" class="ct-image" data-lazy-src="https://secure.gravatar.com/avatar/f294f4ff5c2ada61b6f006327af47bfc?s=96&d=mm&r=g" /><noscript><img id="image-98-157" alt="" src="https://secure.gravatar.com/avatar/f294f4ff5c2ada61b6f006327af47bfc?s=96&d=mm&r=g" class="ct-image"/></noscript></div><div id="div_block-101-157" class="ct-div-block"><div id="text_block-99-157" class="ct-text-block"><span id="span-100-157" class="ct-span">Sofija Simic</span></div><div id="text_block-106-157" class="ct-text-block"><span id="span-107-157" class="ct-span">Sofija Simic is an experienced Technical Writer. Alongside her educational background in teaching and writing, she has had a lifelong passion for information technology. She is committed to unscrambling confusing IT concepts and streamlining intricate software installations.</span></div></div></div><div id="div_block-110-157" class="ct-div-block"><div id="text_block-154-157" class="ct-text-block">Next you should read</div><div id="div_block-172-157" class="ct-div-block"><div id="div_block-175-157" class="ct-div-block"><div id="code_block-166-157" class="ct-code-block">
+<div class="single-related-post">
+<div class="srp-categories">
+<a target="_blank" href="https://phoenixnap.com/kb/category/networking">Networking</a>
+<a target="_blank" href="https://phoenixnap.com/kb/category/security">Security</a>
+<a target="_blank" href="https://phoenixnap.com/kb/category/web-servers">Web Servers</a>
+</div>
+<a class="srp-title" target="_blank" href="https://phoenixnap.com/kb/nmap-commands">Nmap Commands - 17 Basic Commands for Linux Network</a>
+<div class="srp-date">May 14, 2019</div>
+<hr />
+<div class="srp-excerpt">Nmap stands for Network Mapper. It is an open source tool for network exploration and security auditing...</div>
+<a class="srp-read-more" target="_blank" href="https://phoenixnap.com/kb/nmap-commands">Read more</a>
+</div></div></div><div id="div_block-177-157" class="ct-div-block"><div id="code_block-167-157" class="ct-code-block">
+<div class="single-related-post">
+<div class="srp-categories">
+<a target="_blank" href="https://phoenixnap.com/kb/category/sysadmin">SysAdmin</a>
+</div>
+<a class="srp-title" target="_blank" href="https://phoenixnap.com/kb/how-to-use-apt-get-commands">How to Use The APT-GET Command In Linux</a>
+<div class="srp-date">May 6, 2019</div>
+<hr />
+<div class="srp-excerpt">Advanced Package Tool (APT) is a package management system used on Debian, Ubuntu and other Linux...</div>
+<a class="srp-read-more" target="_blank" href="https://phoenixnap.com/kb/how-to-use-apt-get-commands">Read more</a>
+</div></div></div><div id="div_block-178-157" class="ct-div-block"><div id="code_block-168-157" class="ct-code-block">
+<div class="single-related-post">
+<div class="srp-categories">
+<a target="_blank" href="https://phoenixnap.com/kb/category/security">Security</a>
+<a target="_blank" href="https://phoenixnap.com/kb/category/sysadmin">SysAdmin</a>
+</div>
+<a class="srp-title" target="_blank" href="https://phoenixnap.com/kb/linux-chown-command-with-examples">Chown Command: Change Owner of File in Linux</a>
+<div class="srp-date">April 29, 2019</div>
+<hr />
+<div class="srp-excerpt">The chown command changes user ownership of a file, directory, or link in Linux. Every file is associated...</div>
+<a class="srp-read-more" target="_blank" href="https://phoenixnap.com/kb/linux-chown-command-with-examples">Read more</a>
+</div></div></div><div id="div_block-179-157" class="ct-div-block"><div id="code_block-170-157" class="ct-code-block">
+<div class="single-related-post">
+<div class="srp-categories">
+<a target="_blank" href="https://phoenixnap.com/kb/category/sysadmin">SysAdmin</a>
+</div>
+<a class="srp-title" target="_blank" href="https://phoenixnap.com/kb/grep-command-linux-unix-examples">How To Use grep Command In Linux/UNIX</a>
+<div class="srp-date">March 28, 2019</div>
+<hr />
+<div class="srp-excerpt">This guide details the most useful grep commands for Linux / Unix systems. After going through all the...</div>
+<a class="srp-read-more" target="_blank" href="https://phoenixnap.com/kb/grep-command-linux-unix-examples">Read more</a>
+</div></div></div></div></div></div><div id="div_block-83-157" class="ct-div-block"><li id="text-2" class="widget widget_text"> <div class="textwidget">
+</div>
+</li>
+<li id="text-3" class="widget widget_text"> <div class="textwidget">
+</div>
+</li>
+<li id="text-4" class="widget widget_text"> <div class="textwidget">
+</div>
+</li>
+<li id="text-5" class="widget widget_text"> <div class="textwidget">
+</div>
+</li>
+<li id="text-6" class="widget widget_text"> <div class="textwidget"><div class='code-block code-block-5 ai-viewport-1' style='margin: 8px 0; clear: both;'>
+<a class="single-media-link" href="https://phoenixnap.com/servers/flexservers?utm_source=banner-internal&utm_medium=banner&utm_campaign=flexservers-saas2021" target="_blank" rel="noopener"><img width="160" height="600" src="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%20160%20600'%3E%3C/svg%3E" data-lazy-src="https://phoenixnap.com/kb/wp-content/uploads/2021/04/flexservers-2021-silicon.jpg"><noscript><img width="160" height="600" src="https://phoenixnap.com/kb/wp-content/uploads/2021/04/flexservers-2021-silicon.jpg"></noscript></a></div>
+</div>
+</li>
+<li id="text-7" class="widget widget_text"> <div class="textwidget">
+</div>
+</li>
+<li id="text-8" class="widget widget_text"> <div class="textwidget">
+</div>
+</li>
+<li id="text-9" class="widget widget_text"> <div class="textwidget">
+</div>
+</li>
+<li id="text-10" class="widget widget_text"> <div class="textwidget">
+</div>
+</li>
+<li id="text-11" class="widget widget_text"> <div class="textwidget">
+</div>
+</li>
+<li id="text-12" class="widget widget_text"> <div class="textwidget">
+</div>
+</li>
+<li id="text-13" class="widget widget_text"> <div class="textwidget">
+</div>
+</li>
+<li id="text-14" class="widget widget_text"> <div class="textwidget">
+</div>
+</li>
+<li id="text-15" class="widget widget_text"> <div class="textwidget">
+</div>
+</li>
+<li id="text-16" class="widget widget_text"> <div class="textwidget">
+</div>
+</li>
+<li id="text-17" class="widget widget_text"> <div class="textwidget">
+</div>
+</li>
+</div></div></div></section><footer id="section-115-7" class="ct-section"><div class="ct-section-inner-wrap"><div id="new_columns-118-7" class="ct-new-columns"><div id="div_block-119-7" class="ct-div-block"><li id="custom_html-5" class="widget_text widget widget_custom_html"><div class="textwidget custom-html-widget"><span class="widgettitle">RECENT POSTS</span></div></li>
+<li id="rpwe_widget-2" class="widget rpwe_widget recent-posts-extended"><div class="rpwe-block"><ul class="rpwe-ul"><li class="rpwe-li rpwe-clearfix"><span class="rpwe-title"><a href="https://phoenixnap.com/kb/iaas-api" target="_self">IaaS API Explained</a></span></li><li class="rpwe-li rpwe-clearfix"><span class="rpwe-title"><a href="https://phoenixnap.com/kb/linux-adduser" target="_self">Linux adduser Command with Examples</a></span></li><li class="rpwe-li rpwe-clearfix"><span class="rpwe-title"><a href="https://phoenixnap.com/kb/linux-ifconfig" target="_self">Linux ifconfig Command With Examples</a></span></li><li class="rpwe-li rpwe-clearfix"><span class="rpwe-title"><a href="https://phoenixnap.com/kb/install-rust-ubuntu" target="_self">How to Install Rust on Ubuntu</a></span></li><li class="rpwe-li rpwe-clearfix"><span class="rpwe-title"><a href="https://phoenixnap.com/kb/print-json-pretty-python" target="_self">How to PrettyPrint a JSON File with Python?</a></span></li></ul></div></li>
+<li id="custom_html-4" class="widget_text widget widget_custom_html"><div class="textwidget custom-html-widget"><span class="widgettitle">CATEGORIES</span></div></li>
+<li id="nav_menu-2" class="widget widget_nav_menu"><div class="menu-categories-container"><ul id="menu-categories" class="menu"><li id="menu-item-131570" class="menu-item menu-item-type-taxonomy menu-item-object-category current-post-ancestor current-menu-parent current-post-parent menu-item-131570"><a target="_blank" rel="noopener" href="https://phoenixnap.com/kb/category/sysadmin">SysAdmin</a></li>
+<li id="menu-item-131571" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-131571"><a target="_blank" rel="noopener" href="https://phoenixnap.com/kb/category/virtualization">Virtualization</a></li>
+<li id="menu-item-131566" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-131566"><a target="_blank" rel="noopener" href="https://phoenixnap.com/kb/category/devops-and-development">DevOps and Development</a></li>
+<li id="menu-item-131569" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-131569"><a target="_blank" rel="noopener" href="https://phoenixnap.com/kb/category/security">Security</a></li>
+<li id="menu-item-131563" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-131563"><a target="_blank" rel="noopener" href="https://phoenixnap.com/kb/category/backup-and-recovery">Backup and Recovery</a></li>
+<li id="menu-item-131564" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-131564"><a target="_blank" rel="noopener" href="https://phoenixnap.com/kb/category/bare-metal-servers">Bare Metal Servers</a></li>
+<li id="menu-item-131572" class="menu-item menu-item-type-taxonomy menu-item-object-category current-post-ancestor current-menu-parent current-post-parent menu-item-131572"><a target="_blank" rel="noopener" href="https://phoenixnap.com/kb/category/web-servers">Web Servers</a></li>
+<li id="menu-item-131567" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-131567"><a target="_blank" rel="noopener" href="https://phoenixnap.com/kb/category/networking">Networking</a></li>
+<li id="menu-item-131565" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-131565"><a target="_blank" rel="noopener" href="https://phoenixnap.com/kb/category/databases">Databases</a></li>
+</ul></div></li>
+</div><div id="div_block-120-7" class="ct-div-block"><li id="custom_html-6" class="widget_text widget widget_custom_html"><div class="textwidget custom-html-widget"><a class="widgettitle" href="https://phoenixnap.com/colocation" target="_blank" rel="noopener">COLOCATION</a></div></li>
+<li id="nav_menu-6" class="widget widget_nav_menu"><div class="menu-colocation-container"><ul id="menu-colocation" class="menu"><li id="menu-item-147131" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-147131"><a target="_blank" rel="noopener" href="https://phoenixnap.com/colocation/phoenix">Phoenix</a></li>
+<li id="menu-item-147132" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-147132"><a target="_blank" rel="noopener" href="https://phoenixnap.com/colocation/ashburn">Ashburn</a></li>
+<li id="menu-item-147133" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-147133"><a target="_blank" rel="noopener" href="https://phoenixnap.com/colocation/amsterdam">Amsterdam</a></li>
+<li id="menu-item-147134" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-147134"><a target="_blank" rel="noopener" href="https://phoenixnap.com/colocation/atlanta">Atlanta</a></li>
+<li id="menu-item-147135" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-147135"><a target="_blank" rel="noopener" href="https://phoenixnap.com/colocation/belgrade">Belgrade</a></li>
+<li id="menu-item-147136" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-147136"><a target="_blank" rel="noopener" href="https://phoenixnap.com/colocation/singapore">Singapore</a></li>
+</ul></div></li>
+<li id="custom_html-7" class="widget_text widget widget_custom_html"><div class="textwidget custom-html-widget"><a class="widgettitle" href="https://phoenixnap.com/promotions" target="_blank" rel="noopener">PROMOTIONS</a></div></li>
+</div><div id="div_block-121-7" class="ct-div-block"><li id="custom_html-9" class="widget_text widget widget_custom_html"><div class="textwidget custom-html-widget"><a class="widgettitle" href="https://phoenixnap.com/servers/dedicated" target="_blank" rel="noopener">SERVERS</a></div></li>
+<li id="nav_menu-8" class="widget widget_nav_menu"><div class="menu-servers-container"><ul id="menu-servers" class="menu"><li id="menu-item-147137" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-147137"><a target="_blank" rel="noopener" href="https://phoenixnap.com/servers/dedicated">Dedicated Servers</a></li>
+<li id="menu-item-147138" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-147138"><a target="_blank" rel="noopener" href="https://phoenixnap.com/servers/database">Database Servers</a></li>
+<li id="menu-item-147139" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-147139"><a target="_blank" rel="noopener" href="https://phoenixnap.com/servers/virtualization">Virtualization Servers</a></li>
+<li id="menu-item-147140" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-147140"><a target="_blank" rel="noopener" href="https://phoenixnap.com/servers/high-performance-computing-hpc">High Performance Computing (HPC) Servers</a></li>
+<li id="menu-item-147141" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-147141"><a target="_blank" rel="noopener" href="https://phoenixnap.com/servers/streaming">Dedicated Streaming Servers</a></li>
+<li id="menu-item-147142" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-147142"><a target="_blank" rel="noopener" href="https://phoenixnap.com/servers/dedicated-game-servers">Dedicated Game Servers</a></li>
+<li id="menu-item-147143" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-147143"><a target="_blank" rel="noopener" href="https://phoenixnap.com/servers/storage">Dedicated Storage Servers</a></li>
+<li id="menu-item-147144" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-147144"><a target="_blank" rel="noopener" href="https://phoenixnap.com/servers/sql-server-hosting">SQL Server Hosting</a></li>
+<li id="menu-item-147145" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-147145"><a target="_blank" rel="noopener" href="https://phoenixnap.com/dedicated-servers-amsterdam-netherlands">Dedicated Servers in Amsterdam</a></li>
+<li id="menu-item-147146" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-147146"><a target="_blank" rel="noopener" href="https://phoenixnap.com/cloud-services/cloud-servers-europe">Cloud Servers in Europe</a></li>
+<li id="menu-item-147147" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-147147"><a target="_blank" rel="noopener" href="https://phoenixnap.com/bare-metal-cloud/big-memory-infrastructure">Big Memory Infrastructure</a></li>
+</ul></div></li>
+<li id="custom_html-10" class="widget_text widget widget_custom_html"><div class="textwidget custom-html-widget"><a class="widgettitle" href="https://admin.phoenixnap.com/wap-pncpadmin-shell/orderForm?bmbPath=/order-form?currencyCode=usd" target="_blank" rel="noopener">BUY NOW</a></div></li>
+</div><div id="div_block-122-7" class="ct-div-block"><li id="custom_html-8" class="widget_text widget widget_custom_html"><div class="textwidget custom-html-widget"><span class="widgettitle">CLOUD SERVICES
+</span></div></li>
+<li id="nav_menu-7" class="widget widget_nav_menu"><div class="menu-cloud-services-container"><ul id="menu-cloud-services" class="menu"><li id="menu-item-147148" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-147148"><a target="_blank" rel="noopener" href="https://phoenixnap.com/security/data-security-cloud">Data Security Cloud</a></li>
+<li id="menu-item-147149" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-147149"><a target="_blank" rel="noopener" href="https://phoenixnap.com/cloud-services/virtual-private-data-center">VPDC</a></li>
+<li id="menu-item-147150" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-147150"><a target="_blank" rel="noopener" href="https://phoenixnap.com/private">Managed Private Cloud</a></li>
+<li id="menu-item-147151" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-147151"><a target="_blank" rel="noopener" href="https://phoenixnap.com/object-storage">Object Storage</a></li>
+</ul></div></li>
+<li id="custom_html-3" class="widget_text widget widget_custom_html"><div class="textwidget custom-html-widget"><a class="widgettitle" href="https://phoenixnap.com/infrastructure-solutions" target="_blank" rel="noopener">SERVERS</a></div></li>
+<li id="nav_menu-3" class="widget widget_nav_menu"><div class="menu-solutions-container"><ul id="menu-solutions" class="menu"><li id="menu-item-147154" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-147154"><a href="https://phoenixnap.com/infrastructure-solutions/disaster-recovery-services">Disaster Recovery</a></li>
+<li id="menu-item-147155" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-147155"><a href="https://phoenixnap.com/reseller-hosting">Web Hosting Reseller</a></li>
+<li id="menu-item-147156" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-147156"><a href="https://phoenixnap.com/infrastructure-solutions/saas-hosting">SaaS Hosting</a></li>
+</ul></div></li>
+</div><div id="div_block-138-7" class="ct-div-block"><li id="custom_html-2" class="widget_text widget widget_custom_html"><div class="textwidget custom-html-widget"><span class="widgettitle">INDUSTRIES</span></div></li>
+<li id="nav_menu-4" class="widget widget_nav_menu"><div class="menu-industries-container"><ul id="menu-industries" class="menu"><li id="menu-item-147162" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-147162"><a href="https://phoenixnap.com/reseller-hosting">Web Hosting Providers</a></li>
+<li id="menu-item-147163" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-147163"><a href="https://phoenixnap.com/infrastructure-solutions/legal-it">Legal</a></li>
+<li id="menu-item-147164" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-147164"><a href="https://phoenixnap.com/infrastructure-solutions/it-partners">MSPs &#038; VARs</a></li>
+<li id="menu-item-147165" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-147165"><a href="https://phoenixnap.com/infrastructure-solutions/media-hosting">Media Hosting</a></li>
+<li id="menu-item-147166" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-147166"><a href="https://phoenixnap.com/infrastructure-solutions/online-gaming">Online Gaming</a></li>
+<li id="menu-item-147167" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-147167"><a href="https://phoenixnap.com/infrastructure-solutions/saas-hosting">SaaS Hosting Solutions</a></li>
+<li id="menu-item-147168" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-147168"><a href="https://phoenixnap.com/infrastructure-solutions/ecommerce-hosting">Ecommerce Hosting Solutions</a></li>
+</ul></div></li>
+<li id="custom_html-11" class="widget_text widget widget_custom_html"><div class="textwidget custom-html-widget"><span class="widgettitle">COMPLIANCE</span></div></li>
+<li id="nav_menu-9" class="widget widget_nav_menu"><div class="menu-compliance-container"><ul id="menu-compliance" class="menu"><li id="menu-item-147157" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-147157"><a href="https://phoenixnap.com/compliance/hipaa-compliant-hosting">HIPAA Ready Hosting</a></li>
+<li id="menu-item-147158" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-147158"><a href="https://phoenixnap.com/compliance/pci-compliant-hosting">PCI Compliant Hosting</a></li>
+</ul></div></li>
+<li id="custom_html-12" class="widget_text widget widget_custom_html"><div class="textwidget custom-html-widget"><span class="widgettitle">NEEDS</span></div></li>
+<li id="nav_menu-10" class="widget widget_nav_menu"><div class="menu-needs-container"><ul id="menu-needs" class="menu"><li id="menu-item-147159" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-147159"><a href="https://phoenixnap.com/infrastructure-solutions/disaster-recovery-services">Disaster Recovery Solutions</a></li>
+<li id="menu-item-147160" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-147160"><a href="https://phoenixnap.com/infrastructure-solutions/high-availability-solutions">High Availability Solutions</a></li>
+<li id="menu-item-147161" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-147161"><a href="https://phoenixnap.com/offers/cloud-evaluation-demo">Cloud Evaluation</a></li>
+</ul></div></li>
+</div><div id="div_block-34-155" class="ct-div-block"><li id="custom_html-13" class="widget_text widget widget_custom_html"><div class="textwidget custom-html-widget"><span class="widgettitle">COMPANY</span></div></li>
+<li id="nav_menu-11" class="widget widget_nav_menu"><div class="menu-company-container"><ul id="menu-company" class="menu"><li id="menu-item-110086" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-110086"><a target="_blank" rel="noopener" href="https://phoenixnap.com/company/about-us">About Us</a></li>
+<li id="menu-item-110118" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-110118"><a target="_blank" rel="noopener" href="https://github.com/phoenixnap">GitHub</a></li>
+<li id="menu-item-110088" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-110088"><a target="_blank" rel="noopener" href="https://phoenixnap.com/blog">Blog</a></li>
+<li id="menu-item-110121" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-110121"><a target="_blank" rel="noopener" href="https://phoenixnap.com/company/it-resources/data-center-rfp-template">RFP Template</a></li>
+<li id="menu-item-110120" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-110120"><a target="_blank" rel="noopener" href="http://employment.ccbill.com/">Careers</a></li>
+</ul></div></li>
+<li id="custom_html-1" class="widget_text widget widget_custom_html"><div class="textwidget custom-html-widget"><span class="widgettitle">CONNECT</span></div></li>
+<li id="nav_menu-5" class="widget widget_nav_menu"><div class="menu-connect-container"><ul id="menu-connect" class="menu"><li id="menu-item-110096" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-110096"><a target="_blank" rel="noopener" href="https://phoenixnap.com/company/it-events">Events</a></li>
+<li id="menu-item-110119" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-110119"><a target="_blank" rel="noopener" href="https://phoenixnap.com/company/press">Press</a></li>
+<li id="menu-item-110089" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-110089"><a target="_blank" rel="noopener" href="https://phoenixnap.com/contact-us">Contact Us</a></li>
+</ul></div></li>
+</div></div><nav id="_nav_menu-36-155" class="oxy-nav-menu oxy-nav-menu-dropdowns oxy-nav-menu-dropdown-arrow"><div class='oxy-menu-toggle'><div class='oxy-nav-menu-hamburger-wrap'><div class='oxy-nav-menu-hamburger'><div class='oxy-nav-menu-hamburger-line'></div><div class='oxy-nav-menu-hamburger-line'></div><div class='oxy-nav-menu-hamburger-line'></div></div></div></div><div class="menu-footer-horizontal-menu-container"><ul id="menu-footer-horizontal-menu" class="oxy-nav-menu-list"><li id="menu-item-147098" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-147098"><a target="_blank" rel="noopener" href="https://phoenixnap.com/">PhoenixNAP Home</a></li>
+<li id="menu-item-147093" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-147093"><a target="_blank" rel="noopener" href="https://phoenixnap.com/blog">Blog</a></li>
+<li id="menu-item-147094" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-147094"><a target="_blank" rel="noopener" href="https://phoenixnap.com/company/it-resources">Resources</a></li>
+<li id="menu-item-147095" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-147095"><a target="_blank" rel="noopener" href="https://phoenixnap.com/glossary">Glossary</a></li>
+<li id="menu-item-147096" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-147096"><a target="_blank" rel="noopener" href="https://github.com/phoenixnap">GitHub</a></li>
+<li id="menu-item-147097" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-147097"><a target="_blank" rel="noopener" href="https://phoenixnap.com/company/it-resources/data-center-rfp-template">RFP Template</a></li>
+</ul></div></nav><div id="div_block-35-155" class="ct-div-block"></div><div id="div_block-139-7" class="ct-div-block"><div id="_rich_text-163-137" class="oxy-rich-text"><ul class="footer-icons-menu list-inline">
+<li class="list-inline-item"><i class="far fa-comment fa-lg"></i><a href="https://phoenixnap.com/"> Live Chat</a></li>
+<li class="list-inline-item"><i class="fa fa-check-circle-o fa-lg"></i><a href="https://phoenixnap.com/contact-us"> Get a Quote</a></li>
+<li class="list-inline-item"><i class="fa fa-question-circle-o fa-lg"></i> Support | <a href="tel:1-855-330-1509">1-855-330-1509</a></li>
+<li class="list-inline-item"><i class="fa fa-cart-plus fa-lg"></i> Sales | <a href="tel:1-877-588-5918">1-877-588-5918</a></li>
+</ul></div><div id="div_block-147-7" class="ct-div-block"><a id="link-149-7" class="ct-link soc-icon" href="https://www.facebook.com/phoenixnap" target="_self"><div id="fancy_icon-148-7" class="ct-fancy-icon"><svg id="svg-fancy_icon-148-7"><use xlink:href="#FontAwesomeicon-facebook"></use></svg></div></a><a id="link-151-7" class="ct-link soc-icon" href="https://www.linkedin.com/company/phoenix-nap/" target="_self"><div id="fancy_icon-152-7" class="ct-fancy-icon"><svg id="svg-fancy_icon-152-7"><use xlink:href="#FontAwesomeicon-linkedin"></use></svg></div></a><a id="link-153-7" class="ct-link soc-icon" href="https://twitter.com/phoenixNAP" target="_self"><div id="fancy_icon-154-7" class="ct-fancy-icon"><svg id="svg-fancy_icon-154-7"><use xlink:href="#FontAwesomeicon-twitter"></use></svg></div></a><a id="link-155-7" class="ct-link soc-icon" href="https://www.instagram.com/phoenixnap/" target="_self"><div id="fancy_icon-156-7" class="ct-fancy-icon"><svg id="svg-fancy_icon-156-7"><use xlink:href="#FontAwesomeicon-instagram"></use></svg></div></a><a id="link-157-7" class="ct-link soc-icon" href="https://www.youtube.com/user/PhoenixNAPdatacenter" target="_self"><div id="fancy_icon-158-7" class="ct-fancy-icon"><svg id="svg-fancy_icon-158-7"><use xlink:href="#FontAwesomeicon-youtube-play"></use></svg></div></a></div></div></div></footer><section id="section-162-7" class="ct-section"><div class="ct-section-inner-wrap"><div id="div_block-159-7" class="ct-div-block"><nav id="_nav_menu-133-7" class="oxy-nav-menu oxy-nav-menu-dropdowns oxy-nav-menu-dropdown-arrow"><div class='oxy-menu-toggle'><div class='oxy-nav-menu-hamburger-wrap'><div class='oxy-nav-menu-hamburger'><div class='oxy-nav-menu-hamburger-line'></div><div class='oxy-nav-menu-hamburger-line'></div><div class='oxy-nav-menu-hamburger-line'></div></div></div></div><div class="menu-bottom-menu-container"><ul id="menu-bottom-menu" class="oxy-nav-menu-list"><li id="menu-item-147126" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-147126"><a target="_blank" rel="noopener" href="https://phoenixnap.com/contact-us">Contact Us</a></li>
+<li id="menu-item-147127" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-147127"><a target="_blank" rel="noopener" href="https://phoenixnap.com/cs/legal/">Legal</a></li>
+<li id="menu-item-110082" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-110082"><a target="_blank" rel="noopener" href="https://phoenixnap.com/infrastructure-solutions/legal-it/privacy-shield-compliant-privacy-policy">Privacy Policy</a></li>
+<li id="menu-item-147128" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-147128"><a target="_blank" rel="noopener" href="https://phoenixnap.com/cs/legal/aup.html">Terms of Use</a></li>
+<li id="menu-item-147129" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-147129"><a target="_blank" rel="noopener" href="https://phoenixnap.com/cs/legal/dmca.html">DMCA</a></li>
+<li id="menu-item-110097" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-110097"><a target="_blank" rel="noopener" href="https://phoenixnap.com/gdpr">GDPR</a></li>
+<li id="menu-item-110098" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-110098"><a target="_blank" rel="noopener" href="https://phoenixnap.com/sitemap">Sitemap</a></li>
+</ul></div></nav><nav id="_nav_menu-11-156" class="oxy-nav-menu oxy-nav-menu-dropdowns oxy-nav-menu-dropdown-arrow oxy-nav-menu-vertical"><div class='oxy-menu-toggle'><div class='oxy-nav-menu-hamburger-wrap'><div class='oxy-nav-menu-hamburger'><div class='oxy-nav-menu-hamburger-line'></div><div class='oxy-nav-menu-hamburger-line'></div><div class='oxy-nav-menu-hamburger-line'></div></div></div></div><div class="menu-bottom-menu-container"><ul id="menu-bottom-menu-1" class="oxy-nav-menu-list"><li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-147126"><a target="_blank" rel="noopener" href="https://phoenixnap.com/contact-us">Contact Us</a></li>
+<li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-147127"><a target="_blank" rel="noopener" href="https://phoenixnap.com/cs/legal/">Legal</a></li>
+<li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-110082"><a target="_blank" rel="noopener" href="https://phoenixnap.com/infrastructure-solutions/legal-it/privacy-shield-compliant-privacy-policy">Privacy Policy</a></li>
+<li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-147128"><a target="_blank" rel="noopener" href="https://phoenixnap.com/cs/legal/aup.html">Terms of Use</a></li>
+<li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-147129"><a target="_blank" rel="noopener" href="https://phoenixnap.com/cs/legal/dmca.html">DMCA</a></li>
+<li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-110097"><a target="_blank" rel="noopener" href="https://phoenixnap.com/gdpr">GDPR</a></li>
+<li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-110098"><a target="_blank" rel="noopener" href="https://phoenixnap.com/sitemap">Sitemap</a></li>
+</ul></div></nav><div id="text_block-134-7" class="ct-text-block">© 2022 Copyright phoenixNAP | Global IT Services. All Rights Reserved.<br></div></div><div id="div_block-6-156" class="ct-div-block"><div id="code_block-7-156" class="ct-code-block"><button class="live-chat-btn" onclick="myFunction()">Live Chat ↗</button></div></div></div></section><div id="div_block-8-156" class="ct-div-block"><a id="link-9-156" class="ct-link topbutton" href="#"><div id="fancy_icon-10-156" class="ct-fancy-icon"><svg id="svg-fancy_icon-10-156"><use xlink:href="#FontAwesomeicon-chevron-circle-up"></use></svg></div></a></div> <div tabindex="-1" class="oxy-modal-backdrop center" style="background-color: rgba(0,0,0,0.7);" data-trigger="user_clicks_element" data-trigger-selector="#menu-item-132766" data-trigger-time="5" data-trigger-time-unit="seconds" data-close-automatically="no" data-close-after-time="10" data-close-after-time-unit="seconds" data-trigger_scroll_amount="50" data-trigger_scroll_direction="down" data-scroll_to_selector="" data-time_inactive="60" data-time-inactive-unit="seconds" data-number_of_clicks="3" data-close_on_esc="on" data-number_of_page_views="3" data-close-after-form-submit="no" data-open-again="always_show" data-open-again-after-days="3">
+<div id="modal-203-157" class="ct-modal"><div id="code_block-204-157" class="ct-code-block"><form class="searchform-wrapper-modal" id="searchform" method="get" action="https://phoenixnap.com/kb/">
+<input type="text" class="search-field-modal" name="s" placeholder="Search..." value="">
+<button type="submit" id="submit-button" class="submit-button-modal" value="">
+<div id="innericon" class="innericon-modal">
+<svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="22px" height="28px" viewbox="0 0 512 512" enable-background="new 0 0 512 512" xml:space="preserve">
+<path id="magnifier-2-icon" d="M460.355,421.59L353.844,315.078c20.041-27.553,31.885-61.437,31.885-98.037                    C385.729,124.934,310.793,50,218.686,50C126.58,50,51.645,124.934,51.645,217.041c0,92.106,74.936,167.041,167.041,167.041                    c34.912,0,67.352-10.773,94.184-29.158L419.945,462L460.355,421.59z M100.631,217.041c0-65.096,52.959-118.056,118.055-118.056                    c65.098,0,118.057,52.959,118.057,118.056c0,65.096-52.959,118.056-118.057,118.056C153.59,335.097,100.631,282.137,100.631,217.041                    z"></path>
+</svg>
+</div>
+</button>
+</form></div></div>
+</div>
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script type="rocketlazyloadscript" data-rocket-type="text/javascript" id="ct_custom_js_9">window.addEventListener('DOMContentLoaded', function() {jQuery(document).ready(function($){
+    var offset = 100;
+    var speed = 250;
+    var duration = 750;
+        $(window).scroll(function(){
+            if ($(this).scrollTop() < offset) {
+                      $('.topbutton') .fadeOut(duration);
+            } else {
+                      $('.topbutton') .fadeIn(duration);
+            }
+        });
+     $('.topbutton').on('click', function(){
+            $('html, body').animate({scrollTop:0}, speed);
+            return false;
+            });
+});});</script>
+<style>.ct-FontAwesomeicon-twitter{width:0.92857142857143em}</style>
+<style>.ct-FontAwesomeicon-facebook{width:0.57142857142857em}</style>
+<style>.ct-FontAwesomeicon-linkedin{width:0.85714285714286em}</style>
+<style>.ct-FontAwesomeicon-chevron-circle-up{width:0.85714285714286em}</style>
+<style>.ct-FontAwesomeicon-instagram{width:0.85714285714286em}</style>
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" style="position: absolute; width: 0; height: 0; overflow: hidden;" version="1.1"><defs><symbol id="FontAwesomeicon-twitter" viewbox="0 0 26 28"><title>twitter</title><path d="M25.312 6.375c-0.688 1-1.547 1.891-2.531 2.609 0.016 0.219 0.016 0.438 0.016 0.656 0 6.672-5.078 14.359-14.359 14.359-2.859 0-5.516-0.828-7.75-2.266 0.406 0.047 0.797 0.063 1.219 0.063 2.359 0 4.531-0.797 6.266-2.156-2.219-0.047-4.078-1.5-4.719-3.5 0.313 0.047 0.625 0.078 0.953 0.078 0.453 0 0.906-0.063 1.328-0.172-2.312-0.469-4.047-2.5-4.047-4.953v-0.063c0.672 0.375 1.453 0.609 2.281 0.641-1.359-0.906-2.25-2.453-2.25-4.203 0-0.938 0.25-1.797 0.688-2.547 2.484 3.062 6.219 5.063 10.406 5.281-0.078-0.375-0.125-0.766-0.125-1.156 0-2.781 2.25-5.047 5.047-5.047 1.453 0 2.766 0.609 3.687 1.594 1.141-0.219 2.234-0.641 3.203-1.219-0.375 1.172-1.172 2.156-2.219 2.781 1.016-0.109 2-0.391 2.906-0.781z" /></symbol><symbol id="FontAwesomeicon-facebook" viewbox="0 0 16 28"><title>facebook</title><path d="M14.984 0.187v4.125h-2.453c-1.922 0-2.281 0.922-2.281 2.25v2.953h4.578l-0.609 4.625h-3.969v11.859h-4.781v-11.859h-3.984v-4.625h3.984v-3.406c0-3.953 2.422-6.109 5.953-6.109 1.687 0 3.141 0.125 3.563 0.187z" /></symbol><symbol id="FontAwesomeicon-linkedin" viewbox="0 0 24 28"><title>linkedin</title><path d="M5.453 9.766v15.484h-5.156v-15.484h5.156zM5.781 4.984c0.016 1.484-1.109 2.672-2.906 2.672v0h-0.031c-1.734 0-2.844-1.188-2.844-2.672 0-1.516 1.156-2.672 2.906-2.672 1.766 0 2.859 1.156 2.875 2.672zM24 16.375v8.875h-5.141v-8.281c0-2.078-0.75-3.5-2.609-3.5-1.422 0-2.266 0.953-2.641 1.875-0.125 0.344-0.172 0.797-0.172 1.266v8.641h-5.141c0.063-14.031 0-15.484 0-15.484h5.141v2.25h-0.031c0.672-1.062 1.891-2.609 4.672-2.609 3.391 0 5.922 2.219 5.922 6.969z" /></symbol><symbol id="FontAwesomeicon-chevron-circle-up" viewbox="0 0 24 28"><title>chevron-circle-up</title><path d="M18.203 17.797l1.594-1.594c0.391-0.391 0.391-1.016 0-1.406l-7.094-7.094c-0.391-0.391-1.016-0.391-1.406 0l-7.094 7.094c-0.391 0.391-0.391 1.016 0 1.406l1.594 1.594c0.391 0.391 1.016 0.391 1.406 0l4.797-4.797 4.797 4.797c0.391 0.391 1.016 0.391 1.406 0zM24 14c0 6.625-5.375 12-12 12s-12-5.375-12-12 5.375-12 12-12 12 5.375 12 12z" /></symbol><symbol id="FontAwesomeicon-youtube-play" viewbox="0 0 28 28"><title>youtube-play</title><path d="M11.109 17.625l7.562-3.906-7.562-3.953v7.859zM14 4.156c5.891 0 9.797 0.281 9.797 0.281 0.547 0.063 1.75 0.063 2.812 1.188 0 0 0.859 0.844 1.109 2.781 0.297 2.266 0.281 4.531 0.281 4.531v2.125s0.016 2.266-0.281 4.531c-0.25 1.922-1.109 2.781-1.109 2.781-1.062 1.109-2.266 1.109-2.812 1.172 0 0-3.906 0.297-9.797 0.297v0c-7.281-0.063-9.516-0.281-9.516-0.281-0.625-0.109-2.031-0.078-3.094-1.188 0 0-0.859-0.859-1.109-2.781-0.297-2.266-0.281-4.531-0.281-4.531v-2.125s-0.016-2.266 0.281-4.531c0.25-1.937 1.109-2.781 1.109-2.781 1.062-1.125 2.266-1.125 2.812-1.188 0 0 3.906-0.281 9.797-0.281v0z" /></symbol><symbol id="FontAwesomeicon-instagram" viewbox="0 0 24 28"><title>instagram</title><path d="M16 14c0-2.203-1.797-4-4-4s-4 1.797-4 4 1.797 4 4 4 4-1.797 4-4zM18.156 14c0 3.406-2.75 6.156-6.156 6.156s-6.156-2.75-6.156-6.156 2.75-6.156 6.156-6.156 6.156 2.75 6.156 6.156zM19.844 7.594c0 0.797-0.641 1.437-1.437 1.437s-1.437-0.641-1.437-1.437 0.641-1.437 1.437-1.437 1.437 0.641 1.437 1.437zM12 4.156c-1.75 0-5.5-0.141-7.078 0.484-0.547 0.219-0.953 0.484-1.375 0.906s-0.688 0.828-0.906 1.375c-0.625 1.578-0.484 5.328-0.484 7.078s-0.141 5.5 0.484 7.078c0.219 0.547 0.484 0.953 0.906 1.375s0.828 0.688 1.375 0.906c1.578 0.625 5.328 0.484 7.078 0.484s5.5 0.141 7.078-0.484c0.547-0.219 0.953-0.484 1.375-0.906s0.688-0.828 0.906-1.375c0.625-1.578 0.484-5.328 0.484-7.078s0.141-5.5-0.484-7.078c-0.219-0.547-0.484-0.953-0.906-1.375s-0.828-0.688-1.375-0.906c-1.578-0.625-5.328-0.484-7.078-0.484zM24 14c0 1.656 0.016 3.297-0.078 4.953-0.094 1.922-0.531 3.625-1.937 5.031s-3.109 1.844-5.031 1.937c-1.656 0.094-3.297 0.078-4.953 0.078s-3.297 0.016-4.953-0.078c-1.922-0.094-3.625-0.531-5.031-1.937s-1.844-3.109-1.937-5.031c-0.094-1.656-0.078-3.297-0.078-4.953s-0.016-3.297 0.078-4.953c0.094-1.922 0.531-3.625 1.937-5.031s3.109-1.844 5.031-1.937c1.656-0.094 3.297-0.078 4.953-0.078s3.297-0.016 4.953 0.078c1.922 0.094 3.625 0.531 5.031 1.937s1.844 3.109 1.937 5.031c0.094 1.656 0.078 3.297 0.078 4.953z" /></symbol></defs></svg>
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-MLJ5W8M" height="0" width="0" style="display:none;visibility:hidden" aria-hidden="true"></iframe></noscript>
+<script type="rocketlazyloadscript" data-rocket-type="text/javascript">window.addEventListener('DOMContentLoaded', function() {
+			jQuery(document).ready(function() {
+				jQuery('body').on('click', '.oxy-menu-toggle', function() {
+					jQuery(this).parent('.oxy-nav-menu').toggleClass('oxy-nav-menu-open');
+					jQuery('body').toggleClass('oxy-nav-menu-prevent-overflow');
+					jQuery('html').toggleClass('oxy-nav-menu-prevent-overflow');
+				});
+				var selector = '.oxy-nav-menu-open .menu-item a[href*="#"]';
+				jQuery('body').on('click', selector, function(){
+					jQuery('.oxy-nav-menu-open').removeClass('oxy-nav-menu-open');
+					jQuery('body').removeClass('oxy-nav-menu-prevent-overflow');
+					jQuery('html').removeClass('oxy-nav-menu-prevent-overflow');
+					jQuery(this).click();
+				});
+			});
+		});</script>
+<script type="rocketlazyloadscript" data-rocket-type="text/javascript">window.addEventListener('DOMContentLoaded', function() {
+
+            // Initialize Oxygen Modals
+            jQuery(document).ready(function() {
+
+                function showModal( modal ) {
+                    var $modal = jQuery( modal );
+                    $modal.addClass("live");
+                    var modalId = $modal[0].querySelector('.ct-modal').id;
+                    
+                    var focusable = modal.querySelector('a[href]:not([disabled]), button:not([disabled]), textarea:not([disabled]), input[type="text"]:not([disabled]), input[type="radio"]:not([disabled]), input[type="checkbox"]:not([disabled]), select:not([disabled])');
+
+                    if(focusable) {
+                        setTimeout(() => {
+                            focusable.focus();    
+                        }, 500);
+                        
+                        console.log(focusable);
+                    }
+
+                    setTimeout(() => {
+                        $modal.focus();
+                    }, 500)
+
+                    // Check if this modal can be shown according to settings and last shown time
+                    // Current and last time in milliseconds
+                    var currentTime = new Date().getTime();
+                    var lastShownTime = localStorage && localStorage['oxy-' + modalId + '-last-shown-time'] ? JSON.parse( localStorage['oxy-' + modalId + '-last-shown-time'] ) : false;
+                    // manual triggers aren't affected by last shown time
+                    if( $modal.data( 'trigger' ) != 'user_clicks_element' ) {
+                        switch( $modal.data( 'open-again' ) ) {
+                            case 'never_show_again':
+                                // if it was shown at least once, don't show it again
+                                if( lastShownTime !== false ) return;
+                                break;
+                            case 'show_again_after':
+                                var settingDays = parseInt( $modal.data( 'open-again-after-days' ) );
+                                var actualDays = ( currentTime - lastShownTime ) / ( 60*60*24*1000 );
+                                if( actualDays < settingDays ) return;
+                                break;
+                            default:
+                                //always show
+                                break;
+                        }
+                    }
+                    // save current time as last shown time
+                    if( localStorage ) localStorage['oxy-' + modalId + '-last-shown-time'] = JSON.stringify( currentTime );
+
+                    // trick to make jQuery fadeIn with flex
+                    $modal.css("display", "flex");
+                    $modal.hide();
+                    // trick to force AOS trigger on elements inside the modal
+                    $modal.find(".aos-animate").removeClass("aos-animate").addClass("aos-animate-disabled");
+
+                    // show the modal
+                    $modal.fadeIn(250, function(){
+                        // trick to force AOS trigger on elements inside the modal
+                        $modal.find(".aos-animate-disabled").removeClass("aos-animate-disabled").addClass("aos-animate");
+                    });
+
+
+                    if( $modal.data( 'close-automatically' ) == 'yes' ) {
+                        var time = parseInt( $modal.data( 'close-after-time' ) );
+                        if( $modal.data( 'close-after-time-unit' ) == 'seconds' ) {
+                            time = parseInt( parseFloat( $modal.data( 'close-after-time' ) ) * 1000 );
+                        }
+                        setTimeout( function(){
+                            hideModal(modal);
+                        }, time );
+                    }
+
+                    // close modal automatically after form submit (Non-AJAX)
+                    if( $modal.data( 'close-after-form-submit' ) == 'yes' && $modal.data("trigger") == "after_specified_time" ) {
+
+                        // WPForms
+                        // WPForms replaces the form with a confirmation message on page refresh
+                        if( $modal.find(".wpforms-confirmation-container-full").length > 0 ) {
+                            setTimeout(function () {
+                                hideModal(modal);
+                            }, 3000);
+                        }
+
+                        // Formidable Forms
+                        // Formidable Forms replaces the form with a confirmation message on page refresh
+                        if( $modal.find(".frm_message").length > 0 ) {
+                            setTimeout(function () {
+                                hideModal(modal);
+                            }, 3000);
+                        }
+
+                        // Caldera Forms
+                        // Caldera Forms replaces the form with a confirmation message on page refresh
+                        if( $modal.find(".caldera-grid .alert-success").length > 0 ) {
+                            setTimeout(function () {
+                                hideModal(modal);
+                            }, 3000);
+                        }
+
+                    }
+                }
+
+                var hideModal = function ( modal ) {
+
+                    // The function may be called by third party code, without argument, so we must close the first visible modal
+                    if( typeof modal === 'undefined' ) {
+                        var openModals = jQuery(".oxy-modal-backdrop.live");
+                        if( openModals.length == 0 ) return;
+                        modal = openModals[0];
+                    }
+
+                    var $modal = jQuery( modal );
+                    // refresh any iframe so media embedded this way is stopped
+                    $modal.find( 'iframe').each(function(index){
+                        this.src = this.src;
+                    });
+                    // HTML5 videos can be stopped easily
+                    $modal.find( 'video' ).each(function(index){
+                        this.pause();
+                    });
+                    // If there are any forms in the modal, reset them
+                    $modal.find("form").each(function(index){
+                        this.reset();
+                    });
+
+                    $modal.fadeOut(400, function(){
+                        $modal.removeClass("live");
+                    });
+                };
+
+                window.oxyCloseModal = hideModal;
+
+                jQuery( ".oxy-modal-backdrop" ).each(function( index ) {
+
+                    var modal = this;
+
+                    (function( modal ){
+                        var $modal = jQuery( modal );
+						
+						var exitIntentFunction = function( e ){
+							if( e.clientY <= 0 ) {
+								showModal( modal );
+								document.removeEventListener( "mouseleave", exitIntentFunction );
+								document.removeEventListener( "mouseout", exitIntentFunction );
+							}
+						}
+
+                        switch ( jQuery( modal ).data("trigger") ) {
+
+                            case "on_exit_intent":
+                                document.addEventListener( "mouseleave", exitIntentFunction, false);
+								document.addEventListener( "mouseout", exitIntentFunction, false);
+                                break;
+
+                            case "user_clicks_element":
+                                jQuery( jQuery( modal ).data( 'trigger-selector' ) ).click( function( event ) {
+                                    showModal( modal );
+                                    event.preventDefault();
+                                } );
+                                break;
+
+                            case "after_specified_time":
+                                var time = parseInt( jQuery( modal ).data( 'trigger-time' ) );
+                                if( jQuery( modal ).data( 'trigger-time-unit' ) == 'seconds' ) {
+                                    time = parseInt( parseFloat( jQuery( modal ).data( 'trigger-time' ) ) * 1000 );
+                                }
+                                setTimeout( function(){
+                                    showModal( modal );
+                                }, time );
+                                break;
+
+                            case "after_scrolled_amount":
+                                window.addEventListener("scroll", function scrollDetection(){
+                                    var winheight= window.innerHeight || (document.documentElement || document.body).clientHeight;
+                                    var docheight = jQuery(document).height();
+                                    var scrollTop = window.pageYOffset || (document.documentElement || document.body.parentNode || document.body).scrollTop;
+                                    var isScrollUp = false;
+                                    var oxyPreviousScrollTop = parseInt( jQuery( modal ).data( 'previous_scroll_top' ) );
+                                    if( !isNaN( oxyPreviousScrollTop ) ) {
+                                        if( oxyPreviousScrollTop > scrollTop) isScrollUp = true;
+                                    }
+                                    jQuery( modal ).data( 'previous_scroll_top', scrollTop );
+                                    var trackLength = docheight - winheight;
+                                    var pctScrolled = Math.floor(scrollTop/trackLength * 100);
+                                    if( isNaN( pctScrolled ) ) pctScrolled = 0;
+
+                                    if(
+                                        ( isScrollUp && jQuery( modal ).data( 'trigger_scroll_direction' ) == 'up' ) ||
+                                        ( !isScrollUp && jQuery( modal ).data( 'trigger_scroll_direction' ) == 'down' && pctScrolled >= parseInt( jQuery( modal ).data( 'trigger_scroll_amount' ) ) )
+                                    ) {
+                                        showModal( modal );
+                                        window.removeEventListener( "scroll", scrollDetection );
+                                    }
+                                }, false);
+                                break;
+                            case "on_scroll_to_element":
+                                window.addEventListener("scroll", function scrollDetection(){
+                                    var $element = jQuery( jQuery( modal ).data( 'scroll_to_selector' ) );
+                                    if( $element.length == 0 ) {
+                                        window.removeEventListener( "scroll", scrollDetection );
+                                        return;
+                                    }
+
+                                    var top_of_element = $element.offset().top;
+                                    var bottom_of_element = $element.offset().top + $element.outerHeight();
+                                    var bottom_of_screen = jQuery(window).scrollTop() + jQuery(window).innerHeight();
+                                    var top_of_screen = jQuery(window).scrollTop();
+
+                                    if ((bottom_of_screen > bottom_of_element - $element.outerHeight() /2 ) && (top_of_screen < top_of_element + $element.outerHeight() /2 )){
+                                        showModal( modal );
+                                        window.removeEventListener( "scroll", scrollDetection );
+                                    }
+                                }, false);
+                                break;
+                            case "after_number_of_clicks":
+                                document.addEventListener("click", function clickDetection(){
+                                    var number_of_clicks = parseInt( jQuery( modal ).data( 'number_of_clicks' ) );
+
+                                    var clicks_performed = isNaN( parseInt( jQuery( modal ).data( 'clicks_performed' ) ) ) ? 1 :  parseInt( jQuery( modal ).data( 'clicks_performed' ) ) + 1;
+
+                                    jQuery( modal ).data( 'clicks_performed', clicks_performed );
+
+                                    if ( clicks_performed == number_of_clicks ){
+                                        showModal( modal );
+                                        document.removeEventListener( "click", clickDetection );
+                                    }
+                                }, false);
+                                break;
+                            case "after_time_inactive":
+                                var time = parseInt( jQuery( modal ).data( 'time_inactive' ) );
+                                if( jQuery( modal ).data( 'time-inactive-unit' ) == 'seconds' ) {
+                                    time = parseInt( parseFloat( jQuery( modal ).data( 'time_inactive' ) ) * 1000 );
+                                }
+                                var activityDetected = function(){
+                                    jQuery( modal ).data( 'millis_idle', 0 );
+                                };
+                                document.addEventListener( "click", activityDetected);
+                                document.addEventListener( "mousemove", activityDetected);
+                                document.addEventListener( "keypress", activityDetected);
+                                document.addEventListener( "scroll", activityDetected);
+
+                                var idleInterval = setInterval(function(){
+                                    var millis_idle = isNaN( parseInt( jQuery( modal ).data( 'millis_idle' ) ) ) ? 100 :  parseInt( jQuery( modal ).data( 'millis_idle' ) ) + 100;
+                                    jQuery( modal ).data( 'millis_idle', millis_idle );
+                                    if( millis_idle > time ){
+                                        clearInterval( idleInterval );
+                                        document.removeEventListener( "click", activityDetected );
+                                        document.removeEventListener( "mousemove", activityDetected );
+                                        document.removeEventListener( "keypress", activityDetected );
+                                        document.removeEventListener( "scroll", activityDetected );
+                                        showModal( modal );
+                                    }
+                                }, 100);
+                                break;
+
+                            case "after_number_of_page_views":
+                                var modalId = modal.querySelector('.ct-modal').id;
+                                var pageViews = localStorage && localStorage['oxy-' + modalId + '-page-views'] ? parseInt( localStorage['oxy-' + modalId + '-page-views'] ) : 0;
+                                pageViews++;
+                                if( localStorage ) localStorage['oxy-' + modalId + '-page-views'] = pageViews;
+                                if( parseInt( jQuery( modal ).data( 'number_of_page_views' ) ) == pageViews ) {
+                                    if( localStorage ) localStorage['oxy-' + modalId + '-page-views'] = 0;
+                                    showModal( modal );
+                                }
+                                break;
+
+                        }
+
+                        // add event handler to close modal automatically after AJAX form submit
+                        if( $modal.data( 'close-after-form-submit' ) == 'yes' ) {
+
+                            // Contact Form 7
+                            if (typeof wpcf7 !== 'undefined') {
+                                $modal.find('div.wpcf7').each(function () {
+                                    var $form = jQuery(this).find('form');
+                                    this.addEventListener('wpcf7submit', function (event) {
+                                        if (event.detail.contactFormId == $form.attr("id")) {
+                                            setTimeout(function () {
+                                                hideModal(modal);
+                                            }, 3000);
+                                        }
+                                    }, false);
+                                });
+                            }
+
+                            // Caldera Forms
+                            document.addEventListener( "cf.submission", function(event){
+                                // Pending, Caldera AJAX form submissions aren't working since Oxygen 2.2, see: https://github.com/soflyy/oxygen/issues/1638
+                                console.log( event );
+                            });
+
+                            // Ninja Forms
+                            jQuery(document).on("nfFormSubmitResponse", function(event, response){
+                                // Only close the modal if the event was triggered from a Ninja Form inside the modal
+                                if( $modal.find("#nf-form-" + response.id + "-cont").length > 0 ) {
+                                    setTimeout(function () {
+                                        hideModal(modal);
+                                    }, 3000);
+                                }
+                            });
+
+                        }
+
+                    })( modal );
+
+                });
+
+                // handle clicks on modal backdrop and on .oxy-close-modal
+                jQuery("body").on('click touchend', '.oxy-modal-backdrop, .oxy-close-modal', function( event ) {
+
+                    var $this = jQuery( this );
+                    var $target = jQuery( event.target );
+
+                    // Click event in the modal div and it's children is propagated to the backdrop
+                    if( !$target.hasClass( 'oxy-modal-backdrop' ) && !$this.hasClass( 'oxy-close-modal' ) ) {
+                        event.stopPropagation();
+                        return;
+                    }
+
+                    if( $target.hasClass( 'oxy-modal-backdrop' ) && $this.hasClass( 'oxy-not-closable' ) ) {
+                        return;
+                    }
+
+                    if( $this.hasClass( 'oxy-close-modal' ) ) event.preventDefault();
+
+                    var $modal = $this.hasClass( 'oxy-close-modal' ) ? $this.closest('.oxy-modal-backdrop') : $this;
+                    hideModal( $modal[0] );
+                });
+
+                jQuery(document).keyup( function(e){
+                    if( e.key == 'Escape' ){
+                        jQuery(".oxy-modal-backdrop:visible").each(function(index){
+                            if( jQuery(this).data("close_on_esc") == 'on' ) hideModal(this);
+                        });
+                    }
+                } );
+
+            });
+
+		});</script>
+<script type='text/javascript' id='copy-the-code-js-extra'>
+/* <![CDATA[ */
+var copyTheCode = {"trim_lines":"","remove_spaces":"1","copy_content_as":"","previewMarkup":"<h2>Hello World<\/h2>","buttonMarkup":"<button class=\"copy-the-code-button\" title=\"\"><\/button>","buttonSvg":"<svg viewBox=\"-21 0 512 512\" xmlns=\"http:\/\/www.w3.org\/2000\/svg\"><path d=\"m186.667969 416c-49.984375 0-90.667969-40.683594-90.667969-90.667969v-218.664062h-37.332031c-32.363281 0-58.667969 26.300781-58.667969 58.664062v288c0 32.363281 26.304688 58.667969 58.667969 58.667969h266.664062c32.363281 0 58.667969-26.304688 58.667969-58.667969v-37.332031zm0 0\"><\/path><path d=\"m469.332031 58.667969c0-32.40625-26.261719-58.667969-58.664062-58.667969h-224c-32.40625 0-58.667969 26.261719-58.667969 58.667969v266.664062c0 32.40625 26.261719 58.667969 58.667969 58.667969h224c32.402343 0 58.664062-26.261719 58.664062-58.667969zm0 0\"><\/path><\/svg>","selectors":[{"selector":"pre","style":"svg-icon","button_text":"Copy","button_title":"Copy to Clipboard","button_copy_text":"Copied!","button_position":"inside","copy_format":""}],"selector":"pre","settings":{"selector":"pre","button-text":"Copy","button-title":"Copy to Clipboard","button-copy-text":"Copied!","button-position":"inside","copy-format":"default"},"string":{"title":"Copy to Clipboard","copy":"Copy","copied":"Copied!"},"image-url":"https:\/\/phoenixnap.com\/kb\/wp-content\/plugins\/copy-the-code\/\/assets\/images\/copy-1.svg","redirect_url":""};
+/* ]]> */
+</script>
+<script type="rocketlazyloadscript" data-minify="1" data-rocket-type='text/javascript' src='https://phoenixnap.com/kb/wp-content/cache/min/1/kb/wp-content/plugins/copy-the-code/assets/js/copy-the-code.js?ver=1669117672' id='copy-the-code-js' defer></script>
+<script type="rocketlazyloadscript" data-rocket-type='text/javascript' src='https://phoenixnap.com/kb/wp-includes/js/hoverIntent.min.js?ver=1.10.2' id='hoverIntent-js' defer></script>
+<script type="rocketlazyloadscript" data-rocket-type='text/javascript' src='https://phoenixnap.com/kb/wp-content/plugins/oxygen-responsive-menu-master/assets/js/superfish.min.js?ver=1.7.10' id='superfish-js' defer></script>
+<script type="rocketlazyloadscript" data-rocket-type='text/javascript' src='https://phoenixnap.com/kb/wp-content/plugins/oxygen-responsive-menu-master/assets/js/superfish.args.min.js?ver=3.9' id='superfish-args-js' defer></script>
+<script type="rocketlazyloadscript" data-rocket-type='text/javascript' src='https://phoenixnap.com/kb/wp-content/plugins/oxygen-responsive-menu-master/assets/js/dropdown-menu.min.js?ver=3.9' id='dropdown-menu-js' defer></script>
+<script type='text/javascript' id='genesis-responsive-menu-js-extra'>
+/* <![CDATA[ */
+var genesis_responsive_menu = {"mainMenu":"<span class=\"hamburger-box\"><span class=\"hamburger-inner\"><\/span><\/span><span class=\"hamburger-label\">Menu<\/span>","menuIconClass":"hamburger hamburger--slider","subMenu":"Submenu","subMenuIconClass":"dashicons-before dashicons-arrow-down-alt2","menuClasses":{"combine":[".nav-primary"],"others":[]}};
+/* ]]> */
+</script>
+<script type="rocketlazyloadscript" data-rocket-type='text/javascript' src='https://phoenixnap.com/kb/wp-content/plugins/oxygen-responsive-menu-master/assets/js/responsive-menus.min.js?ver=3.9' id='genesis-responsive-menu-js' defer></script>
+<script type="rocketlazyloadscript" data-rocket-type='text/javascript' id='wthf-script-js-before'>
+var nonce_wthf = "ffbc9c8473";var ajaxurl = "https://phoenixnap.com/kb/wp-admin/admin-ajax.php";
+</script>
+<script type="rocketlazyloadscript" data-minify="1" data-rocket-type='text/javascript' src='https://phoenixnap.com/kb/wp-content/cache/min/1/kb/wp-content/plugins/was-this-article-helpful/js/script.js?ver=1669117672' id='wthf-script-js' defer></script>
+<script type="rocketlazyloadscript" data-rocket-type='text/javascript' id='rocket-browser-checker-js-after'>
+"use strict";var _createClass=function(){function defineProperties(target,props){for(var i=0;i<props.length;i++){var descriptor=props[i];descriptor.enumerable=descriptor.enumerable||!1,descriptor.configurable=!0,"value"in descriptor&&(descriptor.writable=!0),Object.defineProperty(target,descriptor.key,descriptor)}}return function(Constructor,protoProps,staticProps){return protoProps&&defineProperties(Constructor.prototype,protoProps),staticProps&&defineProperties(Constructor,staticProps),Constructor}}();function _classCallCheck(instance,Constructor){if(!(instance instanceof Constructor))throw new TypeError("Cannot call a class as a function")}var RocketBrowserCompatibilityChecker=function(){function RocketBrowserCompatibilityChecker(options){_classCallCheck(this,RocketBrowserCompatibilityChecker),this.passiveSupported=!1,this._checkPassiveOption(this),this.options=!!this.passiveSupported&&options}return _createClass(RocketBrowserCompatibilityChecker,[{key:"_checkPassiveOption",value:function(self){try{var options={get passive(){return!(self.passiveSupported=!0)}};window.addEventListener("test",null,options),window.removeEventListener("test",null,options)}catch(err){self.passiveSupported=!1}}},{key:"initRequestIdleCallback",value:function(){!1 in window&&(window.requestIdleCallback=function(cb){var start=Date.now();return setTimeout(function(){cb({didTimeout:!1,timeRemaining:function(){return Math.max(0,50-(Date.now()-start))}})},1)}),!1 in window&&(window.cancelIdleCallback=function(id){return clearTimeout(id)})}},{key:"isDataSaverModeOn",value:function(){return"connection"in navigator&&!0===navigator.connection.saveData}},{key:"supportsLinkPrefetch",value:function(){var elem=document.createElement("link");return elem.relList&&elem.relList.supports&&elem.relList.supports("prefetch")&&window.IntersectionObserver&&"isIntersecting"in IntersectionObserverEntry.prototype}},{key:"isSlowConnection",value:function(){return"connection"in navigator&&"effectiveType"in navigator.connection&&("2g"===navigator.connection.effectiveType||"slow-2g"===navigator.connection.effectiveType)}}]),RocketBrowserCompatibilityChecker}();
+</script>
+<script type='text/javascript' id='rocket-preload-links-js-extra'>
+/* <![CDATA[ */
+var RocketPreloadLinksConfig = {"excludeUris":"\/kb(-content\/cache\/min\/1\/kb\/wp-content\/uploads\/oxygen\/css\/main-navigation-154.css|\/(?:.+\/)?feed(?:\/(?:.+\/?)?)?$|\/(?:.+\/)?embed\/|\/(index\\.php\/)?wp\\-json(\/.*|$))|\/refer\/|\/go\/|\/recommend\/|\/recommends\/","usesTrailingSlash":"","imageExt":"jpg|jpeg|gif|png|tiff|bmp|webp|avif|pdf|doc|docx|xls|xlsx|php","fileExt":"jpg|jpeg|gif|png|tiff|bmp|webp|avif|pdf|doc|docx|xls|xlsx|php|html|htm","siteUrl":"https:\/\/phoenixnap.com\/kb","onHoverDelay":"100","rateThrottle":"3"};
+/* ]]> */
+</script>
+<script type="rocketlazyloadscript" data-rocket-type='text/javascript' id='rocket-preload-links-js-after'>
+(function() {
+"use strict";var r="function"==typeof Symbol&&"symbol"==typeof Symbol.iterator?function(e){return typeof e}:function(e){return e&&"function"==typeof Symbol&&e.constructor===Symbol&&e!==Symbol.prototype?"symbol":typeof e},e=function(){function i(e,t){for(var n=0;n<t.length;n++){var i=t[n];i.enumerable=i.enumerable||!1,i.configurable=!0,"value"in i&&(i.writable=!0),Object.defineProperty(e,i.key,i)}}return function(e,t,n){return t&&i(e.prototype,t),n&&i(e,n),e}}();function i(e,t){if(!(e instanceof t))throw new TypeError("Cannot call a class as a function")}var t=function(){function n(e,t){i(this,n),this.browser=e,this.config=t,this.options=this.browser.options,this.prefetched=new Set,this.eventTime=null,this.threshold=1111,this.numOnHover=0}return e(n,[{key:"init",value:function(){!this.browser.supportsLinkPrefetch()||this.browser.isDataSaverModeOn()||this.browser.isSlowConnection()||(this.regex={excludeUris:RegExp(this.config.excludeUris,"i"),images:RegExp(".("+this.config.imageExt+")$","i"),fileExt:RegExp(".("+this.config.fileExt+")$","i")},this._initListeners(this))}},{key:"_initListeners",value:function(e){-1<this.config.onHoverDelay&&document.addEventListener("mouseover",e.listener.bind(e),e.listenerOptions),document.addEventListener("mousedown",e.listener.bind(e),e.listenerOptions),document.addEventListener("touchstart",e.listener.bind(e),e.listenerOptions)}},{key:"listener",value:function(e){var t=e.target.closest("a"),n=this._prepareUrl(t);if(null!==n)switch(e.type){case"mousedown":case"touchstart":this._addPrefetchLink(n);break;case"mouseover":this._earlyPrefetch(t,n,"mouseout")}}},{key:"_earlyPrefetch",value:function(t,e,n){var i=this,r=setTimeout(function(){if(r=null,0===i.numOnHover)setTimeout(function(){return i.numOnHover=0},1e3);else if(i.numOnHover>i.config.rateThrottle)return;i.numOnHover++,i._addPrefetchLink(e)},this.config.onHoverDelay);t.addEventListener(n,function e(){t.removeEventListener(n,e,{passive:!0}),null!==r&&(clearTimeout(r),r=null)},{passive:!0})}},{key:"_addPrefetchLink",value:function(i){return this.prefetched.add(i.href),new Promise(function(e,t){var n=document.createElement("link");n.rel="prefetch",n.href=i.href,n.onload=e,n.onerror=t,document.head.appendChild(n)}).catch(function(){})}},{key:"_prepareUrl",value:function(e){if(null===e||"object"!==(void 0===e?"undefined":r(e))||!1 in e||-1===["http:","https:"].indexOf(e.protocol))return null;var t=e.href.substring(0,this.config.siteUrl.length),n=this._getPathname(e.href,t),i={original:e.href,protocol:e.protocol,origin:t,pathname:n,href:t+n};return this._isLinkOk(i)?i:null}},{key:"_getPathname",value:function(e,t){var n=t?e.substring(this.config.siteUrl.length):e;return n.startsWith("/")||(n="/"+n),this._shouldAddTrailingSlash(n)?n+"/":n}},{key:"_shouldAddTrailingSlash",value:function(e){return this.config.usesTrailingSlash&&!e.endsWith("/")&&!this.regex.fileExt.test(e)}},{key:"_isLinkOk",value:function(e){return null!==e&&"object"===(void 0===e?"undefined":r(e))&&(!this.prefetched.has(e.href)&&e.origin===this.config.siteUrl&&-1===e.href.indexOf("?")&&-1===e.href.indexOf("#")&&!this.regex.excludeUris.test(e.href)&&!this.regex.images.test(e.href))}}],[{key:"run",value:function(){"undefined"!=typeof RocketPreloadLinksConfig&&new n(new RocketBrowserCompatibilityChecker({capture:!0,passive:!0}),RocketPreloadLinksConfig).init()}}]),n}();t.run();
+}());
+</script>
+<script type='text/javascript' id='q2w3_fixed_widget-js-extra'>
+/* <![CDATA[ */
+var q2w3_sidebar_options = [{"sidebar":"bsf-sb-single-post-right-sidebar","use_sticky_position":false,"margin_top":10,"margin_bottom":0,"stop_elements_selectors":"section-115-7","screen_max_width":0,"screen_max_height":0,"widgets":["#text-2","#text-3","#text-4","#text-5","#text-6","#text-7","#text-8","#text-9","#text-10","#text-11","#text-12","#text-13","#text-14","#text-15","#text-16","#text-17"]}];
+/* ]]> */
+</script>
+<script type="rocketlazyloadscript" data-rocket-type='text/javascript' src='https://phoenixnap.com/kb/wp-content/plugins/q2w3-fixed-widget/js/frontend.min.js?ver=6.2.0' id='q2w3_fixed_widget-js' defer></script>
+<script type='text/javascript' id='fixedtoc-js-js-extra'>
+/* <![CDATA[ */
+var fixedtocOption = {"showAdminbar":"","inOutEffect":"fade","isNestedList":"1","isColExpList":"1","showColExpIcon":"1","isAccordionList":"","isQuickMin":"1","isEscMin":"1","isEnterMax":"1","fixedMenu":"","scrollOffset":"10","fixedOffsetX":"20","fixedOffsetY":"0","fixedPosition":"middle-left","contentsFixedHeight":"","inPost":"1","contentsFloatInPost":"none","contentsWidthInPost":"250","contentsHeightInPost":"","contentsColexpInitMobile":"1","inWidget":"","fixedWidget":"","triggerBorder":"thin","contentsBorder":"thin","triggerSize":"56","isClickableHeader":"","debug":"","contentsColexpInit":"1"};
+/* ]]> */
+</script>
+<script type="rocketlazyloadscript" data-rocket-type='text/javascript' src='https://phoenixnap.com/kb/wp-content/plugins/fixed-toc/frontend/assets/js/ftoc.min.js?ver=3.1.20' id='fixedtoc-js-js' defer></script>
+<script type="rocketlazyloadscript" data-rocket-type="text/javascript" id="flying-scripts">const loadScriptsTimer=setTimeout(loadScripts,5*1000);const userInteractionEvents=["mouseover","keydown","touchstart","touchmove","wheel"];userInteractionEvents.forEach(function(event){window.addEventListener(event,triggerScriptLoader,{passive:!0})});function triggerScriptLoader(){loadScripts();clearTimeout(loadScriptsTimer);userInteractionEvents.forEach(function(event){window.removeEventListener(event,triggerScriptLoader,{passive:!0})})}
+function loadScripts(){document.querySelectorAll("script[data-type='lazy']").forEach(function(elem){elem.setAttribute("src",elem.getAttribute("data-src"))})}</script>
+<script type="rocketlazyloadscript" data-rocket-type="text/javascript" id="ct-footer-js"></script><style type="text/css" id="ct_code_block_css_182">.comment-body .aligncenter, .oxy-stock-content-styles .aligncenter {
+    margin-left: auto;
+    margin-right: auto;
+    display: table;
+}
+
+.notice-note {
+    padding-top: 15px;
+    padding-bottom: 15px;
+    border-top: 2px solid #006ca8;
+    border-bottom: 2px solid #006ca8;
+	display: flex;
+	margin-bottom: 20px;
+}
+
+.notice-warning {
+    padding-top: 15px;
+    padding-bottom: 15px;
+    border-top: 2px solid #c52127 ;
+    border-bottom: 2px solid #c52127 ;
+	display: flex;
+	margin-bottom: 20px;
+}
+
+.note-icon-wrapper {
+    position: relative;
+    display: inline-block;
+	width: 96px;
+    height: 96px;
+    line-height: 104px;
+    vertical-align: middle;
+    border: 2px solid #006ca8;
+    text-align: center;
+	background-color: #006ca8;
+	border-radius: 3px;
+}
+
+.warning-icon-wrapper {
+    position: relative;
+    display: inline-block;
+	width: 96px;
+    height: 96px;
+    line-height: 104px;
+    vertical-align: middle;
+    border: 2px solid #c52127;
+    text-align: center;
+	background-color: #c52127;
+	border-radius: 3px;
+}
+
+.notice-text {
+    margin-left: 20px;
+    width: 84%;
+}
+
+.fa-lightbulb:before, .fa-exclamation-triangle:before {
+    font-size: 32px;
+    color: #fff;
+}
+
+#was-this-helpful {
+  background-color: #fff;
+  border-radius: 3px;
+  -webkit-box-shadow: 0px 3px 3px 0px rgb(50 50 50 / 30%);
+  -moz-box-shadow: 0px 3px 3px 0px rgba(50, 50, 50, 0.3);
+  box-shadow: 0px 3px 3px 0px rgb(50 50 50 / 30%);
+  border: 1px solid #f7f7f7;
+  justify-content: flex-start;
+}
+
+#wthf-yes-no span:first-child {
+    margin-right: 0.4em;
+    border: 1px solid #006ca8;
+    color: #006ca8;
+}
+
+#wthf-yes-no span:last-child {
+    margin-left: 0.4em;
+    border: 1px solid #d12121;
+    color: #d12121;
+}</style>
+<style type="text/css" id="ct_code_block_css_166">.single-related-post {
+  list-style: none;
+  width: 100%;
+  max-width: 188px;
+  text-align: left;
+  padding: 10px;
+  background-color: #f7f7f7;
+  border: 1px solid #eaeaea;
+  border-radius: 5px;
+  word-break: break-word;
+}
+
+.srp-categories a:after {
+    content: ",";
+}
+
+.srp-categories a:last-child:after {
+    content: "";
+}
+
+.srp-title {
+  font-size: 20px;
+  letter-spacing: 0em;
+  font-weight: 900;
+  font-family: Roboto,Sans-Serif;
+  color: #006ca8;
+}
+
+.srp-date {
+  display: block;
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.single-related-post hr {
+  display: block; 
+  height: 1px;
+  border: 0; 
+  border-top: 1px solid #eaeaea;
+  margin: 1em 0; 
+  padding: 0;
+}
+
+a.srp-read-more {
+  font-weight: 600;
+  font-family: Poppins;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  color: #000;
+  font-size: 12px;
+}
+
+a.srp-read-more:hover {
+  color: #006ca8;
+}
+
+@media only screen and (max-width: 600px) {
+ .related-posts {
+	flex-direction: column;
+  }
+.single-related-post {
+    width: 100%;
+  margin-bottom: 10px;
+  max-width: 100%;
+}
+}</style>
+<script type="rocketlazyloadscript" data-rocket-type="text/javascript" id="ct_code_block_js_7">function myFunction() {
+  window.open("https://secure.livechatinc.com/licence/7436521/v2/open_chat.cgi?groups=4", "_blank", "toolbar=yes,scrollbars=yes,resizable=yes,top=500,left=500,width=400,height=400");
+}</script>
+<style type="text/css" id="ct_code_block_css_7">.live-chat-btn {
+    background-color: rgb(198, 32, 32);
+    border: 1px solid rgb(209, 33, 33);
+    color: #fff;
+    border-radius: 3px;
+    padding: 10px 50px;
+    display: inline-block;
+    text-align: center;
+    text-decoration: none;
+    font-weight: 700;
+    line-height: 1.6;
+  font-family: 'Open Sans';
+}
+
+.live-chat-btn:hover {
+  cursor: pointer;
+  background-color: rgb(209, 33, 33);;
+}</style>
+<style type="text/css" id="ct_code_block_css_204">.searchform-wrapper-modal {
+  margin: 0;
+  padding: 8px;
+  height: 96px;
+  background-color: transparent;
+  border-bottom: 2px solid #fff;
+  border-radius: 0 0 0 0;
+  box-shadow: 0 0 0 0 #b5b5b5 inset;
+  display: flex;
+  -webkit-flex-direction: row;
+  flex-direction: row;
+  width: auto;
+  overflow: hidden;
+}
+
+.search-field-modal {
+  font-weight: normal;
+  font-family: Open Sans;
+  color: #fff;
+  font-size: 24px;
+  line-height: normal;
+  text-shadow: 0 0 0 rgba(255,255,255,0);
+  padding: 0;
+  margin: 0;
+  background: transparent;
+  border: none;
+  background-color: transparent;
+  box-shadow: none;
+  z-index: 10;
+  position: relative;
+  margin-left: 10px;
+  width: 100%;
+}
+
+.search-field-modal:focus, .search-field-modal:active {
+  background: transparent;
+  border: none;
+  background-color: transparent;
+  box-shadow: none;
+  outline: none;
+}
+
+.innericon-modal {
+width: 64px;
+height: 64px;
+cursor:pointer;
+}
+
+.innericon-modal svg {
+  fill: #fff;
+  height: 64px;
+  width: 64px;
+  vertical-align: baseline;
+  display: inline-block;
+}
+
+.submit-button-modal {
+  background: transparent;
+  border: none;
+}
+
+
+@media only screen and (min-width: 1025px) {
+  .searchform-wrapper-modal {
+    width: 960px;
+  }
+}
+
+@media only screen and (min-width: 768px) and (max-width: 1024px) {
+  .searchform-wrapper-modal {
+    width: 360px;
+  }
+}
+
+@media only screen and (max-width: 767px) {
+  .searchform-wrapper-modal {
+    width: 320px;
+  }
+}</style>
+<script>window.lazyLoadOptions=[{elements_selector:"img[data-lazy-src],.rocket-lazyload",data_src:"lazy-src",data_srcset:"lazy-srcset",data_sizes:"lazy-sizes",class_loading:"lazyloading",class_loaded:"lazyloaded",threshold:300,callback_loaded:function(element){if(element.tagName==="IFRAME"&&element.dataset.rocketLazyload=="fitvidscompatible"){if(element.classList.contains("lazyloaded")){if(typeof window.jQuery!="undefined"){if(jQuery.fn.fitVids){jQuery(element).parent().fitVids()}}}}}},{elements_selector:".rocket-lazyload",data_src:"lazy-src",data_srcset:"lazy-srcset",data_sizes:"lazy-sizes",class_loading:"lazyloading",class_loaded:"lazyloaded",threshold:300,}];window.addEventListener('LazyLoad::Initialized',function(e){var lazyLoadInstance=e.detail.instance;if(window.MutationObserver){var observer=new MutationObserver(function(mutations){var image_count=0;var iframe_count=0;var rocketlazy_count=0;mutations.forEach(function(mutation){for(var i=0;i<mutation.addedNodes.length;i++){if(typeof mutation.addedNodes[i].getElementsByTagName!=='function'){continue}
+if(typeof mutation.addedNodes[i].getElementsByClassName!=='function'){continue}
+images=mutation.addedNodes[i].getElementsByTagName('img');is_image=mutation.addedNodes[i].tagName=="IMG";iframes=mutation.addedNodes[i].getElementsByTagName('iframe');is_iframe=mutation.addedNodes[i].tagName=="IFRAME";rocket_lazy=mutation.addedNodes[i].getElementsByClassName('rocket-lazyload');image_count+=images.length;iframe_count+=iframes.length;rocketlazy_count+=rocket_lazy.length;if(is_image){image_count+=1}
+if(is_iframe){iframe_count+=1}}});if(image_count>0||iframe_count>0||rocketlazy_count>0){lazyLoadInstance.update()}});var b=document.getElementsByTagName("body")[0];var config={childList:!0,subtree:!0};observer.observe(b,config)}},!1)</script><script data-no-minify="1" async src="https://phoenixnap.com/kb/wp-content/plugins/wp-rocket/assets/js/lazyload/17.5/lazyload.min.js"></script>
+<script>"use strict";function wprRemoveCPCSS(){var preload_stylesheets=document.querySelectorAll('link[data-rocket-async="style"][rel="preload"]');if(preload_stylesheets&&0<preload_stylesheets.length)for(var stylesheet_index=0;stylesheet_index<preload_stylesheets.length;stylesheet_index++){var media=preload_stylesheets[stylesheet_index].getAttribute("media")||"all";if(window.matchMedia(media).matches)return void setTimeout(wprRemoveCPCSS,200)}var elem=document.getElementById("rocket-critical-css");elem&&"remove"in elem&&elem.remove()}window.addEventListener?window.addEventListener("load",wprRemoveCPCSS):window.attachEvent&&window.attachEvent("onload",wprRemoveCPCSS);</script><noscript><link data-minify="1" rel='stylesheet' id='gtranslate-style-css'  href='https://phoenixnap.com/kb/wp-content/cache/min/1/kb/wp-content/plugins/gtranslate/gtranslate-style24.css?ver=1669117671' type='text/css' media='all' /><link rel='stylesheet' id='wp-block-library-css'  href='https://phoenixnap.com/kb/wp-includes/css/dist/block-library/style.min.css?ver=6.0' type='text/css' media='all' /><link data-minify="1" rel='stylesheet' id='copy-the-code-css'  href='https://phoenixnap.com/kb/wp-content/cache/min/1/kb/wp-content/plugins/copy-the-code/assets/css/copy-the-code.css?ver=1669117671' type='text/css' media='all' /><link data-minify="1" rel='stylesheet' id='oxygen-responsive-menu-css'  href='https://phoenixnap.com/kb/wp-content/cache/min/1/kb/wp-content/plugins/oxygen-responsive-menu-master/assets/css/main.css?ver=1669117671' type='text/css' media='all' /><link data-minify="1" rel='stylesheet' id='oxygen-css'  href='https://phoenixnap.com/kb/wp-content/cache/min/1/kb/wp-content/plugins/oxygen/component-framework/oxygen.css?ver=1669117671' type='text/css' media='all' /><link data-minify="1" rel='stylesheet' id='scriptlesssocialsharing-css'  href='https://phoenixnap.com/kb/wp-content/cache/min/1/kb/wp-content/plugins/scriptless-social-sharing/includes/css/scriptlesssocialsharing-style.css?ver=1669117671' type='text/css' media='all' /><link data-minify="1" rel='stylesheet' id='wthf-style-css'  href='https://phoenixnap.com/kb/wp-content/cache/min/1/kb/wp-content/plugins/was-this-article-helpful/css/style.css?ver=1669117671' type='text/css' media='all' /><link data-minify="1" rel='stylesheet' id='font-awesome-official-css'  href='https://phoenixnap.com/kb/wp-content/cache/min/1/releases/v5.15.3/css/all.css?ver=1669117671' type='text/css' media='all' crossorigin="anonymous" /><link data-minify="1" rel='stylesheet' id='block-lab__block-notice-css'  href='https://phoenixnap.com/kb/wp-content/cache/min/1/kb/wp-content/plugins/oxygen-block-lab-support-master/block_lab_templates/blocks/block-notice.css?ver=1669117671' type='text/css' media='all' /><link data-minify="1" rel='stylesheet' id='fixedtoc-style-css'  href='https://phoenixnap.com/kb/wp-content/cache/min/1/kb/wp-content/plugins/fixed-toc/frontend/assets/css/ftoc.min.css?ver=1669117671' type='text/css' media='all' /><link data-minify="1" rel='stylesheet' id='font-awesome-official-v4shim-css'  href='https://phoenixnap.com/kb/wp-content/cache/min/1/releases/v5.15.3/css/v4-shims.css?ver=1669117672' type='text/css' media='all' crossorigin="anonymous" /><link data-minify="1" rel='stylesheet' id='oxygen-cache-156-css'  href='https://phoenixnap.com/kb/wp-content/cache/min/1/kb/wp-content/uploads/oxygen/css/156.css?ver=1669117672' type='text/css' media='all' /><link data-minify="1" rel='stylesheet' id='oxygen-cache-155-css'  href='https://phoenixnap.com/kb/wp-content/cache/min/1/kb/wp-content/uploads/oxygen/css/155.css?ver=1669117672' type='text/css' media='all' /><link data-minify="1" rel='stylesheet' id='oxygen-cache-153-css'  href='https://phoenixnap.com/kb/wp-content/cache/min/1/kb/wp-content/uploads/oxygen/css/153.css?ver=1669117672' type='text/css' media='all' /><link data-minify="1" rel='stylesheet' id='oxygen-cache-157-css'  href='https://phoenixnap.com/kb/wp-content/cache/min/1/kb/wp-content/uploads/oxygen/css/157.css?ver=1669117672' type='text/css' media='all' /><link data-minify="1" rel='stylesheet' id='oxygen-universal-styles-css'  href='https://phoenixnap.com/kb/wp-content/cache/min/1/kb/wp-content/uploads/oxygen/css/universal.css?ver=1669117672' type='text/css' media='all' /></noscript></body>
+</html>

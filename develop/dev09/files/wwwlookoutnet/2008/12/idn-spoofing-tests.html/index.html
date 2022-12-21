@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en-us">
+
+  <head>
+  <link href="https://gmpg.org/xfn/11" rel="profile">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+  
+
+  <!-- Enable responsiveness on mobile devices-->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+
+  <title>
+    
+      IDN spoofing tests &middot; lookout.net
+    
+  </title>
+
+  <!-- CSS -->
+  <link rel="stylesheet" href="/css/poole.css">
+  <link rel="stylesheet" href="/css/syntax.css">
+  <link rel="stylesheet" href="/css/hyde.css">
+  <link rel="stylesheet" href="/css/my.css">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=PT+Sans:400,400italic,700|Abril+Fatface">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
+
+  <!-- Icons -->
+  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/apple-touch-icon-144-precomposed.png">
+                                 <link rel="shortcut icon" href="/favicon.ico">
+
+  <!-- RSS -->
+  <link rel="alternate" type="application/rss+xml" title="RSS" href="/atom.xml">
+</head>
+
+
+  <body>
+
+    <div class="sidebar">
+  <div class="container sidebar-sticky">
+    <div class="sidebar-about">
+      <h1>
+        <a href="/">
+          lookout.net
+        </a>
+      </h1>
+
+      <p class="lead">Chris Weber's personal homepage</p>
+    </div>
+
+    <nav class="sidebar-nav">
+        
+          
+            <a href="https://www.lookout.net/" class="sidebar-nav-item">Home</a>
+           
+        
+          
+            <a href="https://www.lookout.net/about" class="sidebar-nav-item">About</a>
+           
+        
+          
+            <a href="https://www.lookout.net/articles" class="sidebar-nav-item">Articles</a>
+           
+        
+          
+            <a href="https://www.lookout.net/test" class="sidebar-nav-item">Tests</a>
+           
+        
+          
+            <a href="https://www.casaba.com" class="sidebar-nav-item">Casaba</a>
+           
+        
+          
+            <a href="https://web.smugmug.com" class="sidebar-nav-item">Photos</a>
+           
+        
+          
+            <a href="https://encrypt.to/0x59c66c997002e847" class="sidebar-nav-item">Contact</a>
+           
+        
+      <div class="sidebar-footer">
+        <span>&copy; 2018 Chris Weber</span>
+        <div class="social-icons">
+        <a href="https://www.lookout.net/feed.xml" title="Atom/RSS feed"><i class="fa fa-rss fa-2x"></i></a>
+        <a href="https://twitter.com/w3be" title="Chris Weber on Twitter" target="_blank"><i class="fa fa-twitter fa-2x"></i></a>
+        
+        <a href="https://plus.google.com/ChrisWeber1" title="Chris Weber on Google+" target="_blank"><i class="fa fa-google-plus fa-1x"></i></a>
+        <a href="https://linkedin.com/in/chrisweber" title="Chris Weber on LinkedIn" target="_blank"><i class="fa fa-linkedin fa-2x"></i></a>
+        
+        
+        <a href="https://www.flickr.com/photos/cosmicweb" title="Chris Weber on Flickr" target="_blank"><i class="fa fa-flickr fa-2x"></i></a>
+        <a href="https://github.com/cweb" title="Chris Weber on Github" target="_blank"><i class="fa fa-github fa-2x"></i></a>
+        
+        </div><!-- /.social-icons -->
+      </div>
+    </nav>
+  </div>
+
+</div>
+
+
+    <div class="content container">
+      <div class="post">
+  <h1 class="post-title">IDN spoofing tests</h1>
+  <span class="post-date">08 Dec 2008</span>
+  <div class="css-full-post-content js-full-post-content">
+<h2>Whole-script spoofing</h2><br /><a href="http://www.xn--80a8a6a.com/">www.аЬс.com</a> using Cyrillic script for domain label<br /><a href="http://www.xn--c1a2eb.com/">www.ігѕ.com</a> using Greek script for domain label<br /><a href="http://xn--p9daa.lookout.net/">ᎳᎳᎳ.lookout.net</a> using Cherokee script for subdomain label<br /><a href="http://xn--1qeaa.lookout.net/">ᗯᗯᗯ.lookout.net</a> using Canadian script for subdomain label<br /><a href="http://www.lookout.xn--i9dv/">www.lookout.ᎷᎬ</a> using Cherokee script for TLD<br /><a href="http://www.lookout.xn--l1adi/">www.lookout.сом</a> using Cyrillic script for TLD<br /><br /><h2>Mixed-script spoofing</h2><br /><a href="http://www.xn--orac-jcs.com/">www.oracᇉ.com</a> // Mixed ASCII and Hangul script U+11CN looks like 'LE'<br /><a href="http://www.xn--iny-zx5a.com/">www.I♥NY.com</a> using ♥ for domain which is designated Common script<br /><a href="http://www.xn--le-b9b052oa.com/">www.Αᑭᑭle.com</a> using Canadian script for letter 'p'<br /><a href="http://www.xn--le-b9b8363aa.com/">www.Α⍴⍴le.com</a> using common script APL functional symbol for letter 'p'<br /><a href="http://www.xn--faebook-6pf.com/">www.faϲebook.com</a> using Greek script for letter 'c'<br /><a href="http://www.xn--faebook-6pf.com/">www.faϲebook.com</a> using Greek script for letter 'c'<br /><a href="http://xn--ww-kbm.lookout.net/">Ꮃww.lookout.net</a> using Cherokee script for subdomain label<br /><a href="http://xn--ww-lpn.lookout.net/">ᗯww.lookout.net</a> using Canadian script for subdomain label<br /><a href="http://www.lookout.xn--l1adi/">www.lookout.сom</a> using Cyrillic script for TLD<br /><br /><h2>Single-script spoofing</h2><br /><a href="http://sweet16.com/">sweet⒗com</a> // using ⒗ Common script for domain and full stop<br /><a href="http://www.lookout.xn--n-lhb1a/">www․lookout.nͤͭ</a> // using Inherited combining diacritical marks for TLD<br /><a href="http://www.lookout.net/">www․lOOkout.net</a> // using Latin capital O for o :) <br /><a href="http://xn--www.looout-bxb.net/">www․looĸout.net</a> // using Latin letter kra 'ĸ' for 'k' <br /><a href="http://xn--ww.looout-0rb925a.net/">www․looĸout.net</a> // using Latin letter turned 'm' for 'w' in subdomain and kra 'ĸ' for 'k' in domain<br /><br /><br /><h2>Normalization tests</h2><br /><a href="http://www.lookout.net/">www․lookout.net</a> // using \u2024 one dot leader <br /><a href="http://www..lookout.net/">www‥lookout.net</a> // using \u2025 two dot leader <br /><a href="http://www.xn--lookoutnet-406e/">www.lookout‧net</a> // using \u2027 hyphenation point <br /><a href="http://www...lookout.net/">www…lookout.net</a> // using \u2026 horizontal ellipsis <br /><a href="http://www.lookout.xn--net-qt0a.test.com/">http://www.lookout.net⁄.test.com</a> // using \u2044 fraction slash <br /><a href="http://www.lookout.net/">www.lⓄⓄkout.сom</a> using Latin Common script for 'oo' in domain label<br /><a href="http://www.lookout.net/">www.lookout.nⓔt</a> using Latin Common script for 'e' in TLD<br /><a href="http://www.lookout.net::%3D777/">www.lookout.net⩴777</a> // using \u2A74 which decomposes to ::= <br /><a href="http://a.m.lookout.net/">㏂lookout.net</a> using Latin Common script '㏂' which decomoses to a.m.<br /><a href="http://test.%3C.com/">http://test.﹤.com</a> // using \ufe64 small less than sign in domain label<br /><br /><h2>Prohibited code points tests</h2><br />Test the prohibited characters from <a href="http://tools.ietf.org/html/rfc3454#appendix-C">IETF RFC 3454</a> stringprep.<br /><br /><a href="http://www%20.lookout.net/">www&nbsp;.lookout.net</a> // using non-ASCII space chars 00A0 <br /><a href="http://www.%E1%9A%80lookout.net/">www. lookout.net</a> // using non-ASCII space chars 1680 (Ogham space mark) <br /><a href="http://www.%1Flookout.net/">www. lookout.net</a> // using ASCII control chars 001F <br /><a href="http://www%E2%80%A4look%DB%9Dout.net/">www․look۝out.net</a> // using non-ASCII control chars 06DD; ARABIC END OF AYAH<br /><a href="http://www%E2%80%A4look%E1%A0%8Eout.net/">www․look᠎out.net</a> // using non-ASCII control chars 180E; MONGOLIAN VOWEL SEPARATOR<br /><a href="http://www.lookout.net/">www․look⁠out.net</a> // using non-ASCII control chars 2060; WORD JOINER<br /><a href="http://www.lookout.net/">www․look﻿out.net</a> // using non-ASCII control chars FEFF; ZERO WIDTH NO-BREAK SPACE<br /><a href="http://www%E2%80%A4look%EF%BF%BDout.net/">www․look￾out.net</a> // using Non-character code points 1FFFE [NONCHARACTER CODE POINTS]<br /><a href="http://www%E2%80%A4look%EF%BF%BDout.net/">www․lookout.net</a> // using Surrogate codes D800-DFFF; [SURROGATE CODES]<br /><a href="http://www%E2%80%A4look%EF%BF%BDout.net/">www․lookout.net</a> // using Surrogate codes D800-DFFF; [SURROGATE CODES]<br /><a href="http://www%E2%80%A4look%EF%BF%BAout.net/">www․look￺out.net</a> // using Inappropriate for plain text FFFA; INTERLINEAR ANNOTATION SEPARATOR<br /><a href="http://www%E2%80%A4look%EF%BF%BDout.net/">www․look�out.net</a> // using Inappropriate for plain text FFFD; INTERLINEAR ANNOTATION SEPARATOR<br /><a href="http://www%E2%80%A4look%E2%BF%B0out.net/">www․look⿰out.net</a> // using Inappropriate for canonical representation 2FF0-2FFB; [IDEOGRAPHIC DESCRIPTION CHARACTERS]<br /><a href="http://www.xn--looout-kp7b.net/">www.looḱout.net</a> // using Change display properties or are deprecated 0341; COMBINING ACUTE TONE MARK<br /><a href="http://www.look%E2%80%AEout.net/">‭www.look‮out.net‭</a> // using Change display properties or are deprecated 202E; RIGHT-TO-LEFT OVERRIDE<br /><a href="http://www.look%E2%81%ABout.net/">www․look⁫out.net</a> // using Change display properties or are deprecated 206B; ACTIVATE SYMMETRIC SWAPPING<br /><a href="http://www.look%01out.net/">www.look out.net</a> // using Tagging characters E0001; LANGUAGE TAG<br /><a href="http://www.look%20out.net/">www.look out.net</a> // using Tagging characters E0020-E007F; [TAGGING CHARACTERS]<br /><a href="http://www.look%D6%BEout.net/">www.look־out.net</a> // using Characters with bidirectional property "R" or "AL" 05BE<br /><a href="http://www.xn--lookout-kce.net/">www.lookˮout.net</a> // using Characters with bidirectional property "L" 02EE  <br /><h2>UPDATE: June 2013</h2><br />Including the same tests using the .ws TLD <br /><h2>Whole-script spoofing</h2><a href="http://xn--p9daa.lookout.ws/">ᎳᎳᎳ.lookout.ws</a> using Cherokee script for subdomain label<br /><a href="http://xn--1qeaa.lookout.ws/">ᗯᗯᗯ.lookout.ws</a> using Canadian script for subdomain label<br /><br /><h2>Mixed-script spoofing</h2><br /><a href="http://xn--ww-kbm.lookout.ws/">Ꮃww.lookout.ws</a> using Cherokee script for subdomain label<br /><a href="http://xn--ww-lpn.lookout.ws/">ᗯww.lookout.ws</a> using Canadian script for subdomain label<br /><br /><h2>Single-script spoofing</h2><br /><a href="http://www.lookout.ws/">www․lOOkout.ws</a> // using Latin capital O for o :) <br /><a href="http://xn--www.looout-bxb.ws/">www․looĸout.ws</a> // using Latin letter kra 'ĸ' for 'k' <br /><a href="http://xn--ww.looout-0rb925a.ws/">www․looĸout.ws</a> // using Latin letter turned 'm' for 'w' in subdomain and kra 'ĸ' for 'k' in domain<br /><br /><br /><h2>Normalization tests</h2><br /><a href="http://www.lookout.ws/">www․lookout.ws</a> // using \u2024 one dot leader <br /><a href="http://www..lookout.ws/">www‥lookout.ws</a> // using \u2025 two dot leader <br /><a href="http://www.xn--lookoutnet-406e/">www.lookout‧net</a> // using \u2027 hyphenation point <br /><a href="http://www...lookout.ws/">www…lookout.ws</a> // using \u2026 horizontal ellipsis <br /><a href="http://www.lookout.xn--net-qt0a.test.com/">http://www.lookout.ws⁄.test.com</a> // using \u2044 fraction slash <br /><a href="http://www.lookout.ws/">www.lⓄⓄkout.ws.ws</a> using Latin Common script for 'oo' in domain label<br />.ws <a href="http://www.lookout.ws::%3D777/">www.lookout.ws⩴777</a> // using \u2A74 which decomposes to ::= <br /><a href="http://a.m.lookout.ws/">㏂lookout.ws</a> using Latin Common script '㏂' which decomoses to a.m.<br /><br /><h2>Prohibited code points tests</h2><br />Test the prohibited characters from <a href="http://tools.ietf.org/html/rfc3454#appendix-C">IETF RFC 3454</a> stringprep.<br /><br /><a href="http://www%20.lookout.ws/">www&nbsp;.lookout.ws</a> // using non-ASCII space chars 00A0 <br /><a href="http://www.%E1%9A%80lookout.ws/">www. lookout.ws</a> // using non-ASCII space chars 1680 (Ogham space mark) <br /><a href="http://www.%1Flookout.ws/">www. lookout.ws</a> // using ASCII control chars 001F <br /><a href="http://www%E2%80%A4look%DB%9Dout.ws/">www․look۝out.ws</a> // using non-ASCII control chars 06DD; ARABIC END OF AYAH<br /><a href="http://www%E2%80%A4look%E1%A0%8Eout.ws/">www․look᠎out.ws</a> // using non-ASCII control chars 180E; MONGOLIAN VOWEL SEPARATOR<br /><a href="http://www.lookout.ws/">www․look⁠out.ws</a> // using non-ASCII control chars 2060; WORD JOINER<br /><a href="http://www.lookout.ws/">www․look﻿out.ws</a> // using non-ASCII control chars FEFF; ZERO WIDTH NO-BREAK SPACE<br /><a href="http://www%E2%80%A4look%EF%BF%BDout.ws/">www․look￾out.ws</a> // using Non-character code points 1FFFE [NONCHARACTER CODE POINTS]<br /><a href="http://www%E2%80%A4look%EF%BF%BDout.ws/">www․look�out.ws</a> // using Surrogate codes D800-DFFF; [SURROGATE CODES]<br /><a href="http://www%E2%80%A4look%EF%BF%BDout.ws/">www․look�out.ws</a> // using Surrogate codes D800-DFFF; [SURROGATE CODES]<br /><a href="http://www%E2%80%A4look%EF%BF%BAout.ws/">www․look￺out.ws</a> // using Inappropriate for plain text FFFA; INTERLINEAR ANNOTATION SEPARATOR<br /><a href="http://www%E2%80%A4look%EF%BF%BDout.ws/">www․look�out.ws</a> // using Inappropriate for plain text FFFD; INTERLINEAR ANNOTATION SEPARATOR<br /><a href="http://www%E2%80%A4look%E2%BF%B0out.ws/">www․look⿰out.ws</a> // using Inappropriate for canonical representation 2FF0-2FFB; [IDEOGRAPHIC DESCRIPTION CHARACTERS]<br /><a href="http://www.xn--looout-kp7b.ws/">www.looḱout.ws</a> // using Change display properties or are deprecated 0341; COMBINING ACUTE TONE MARK<br /><a href="http://www.look%E2%80%AEout.ws/">‭www.look‮out.ws‭</a> // using Change display properties or are deprecated 202E; RIGHT-TO-LEFT OVERRIDE<br /><a href="http://www.look%E2%81%ABout.ws/">www․look⁫out.ws</a> // using Change display properties or are deprecated 206B; ACTIVATE SYMMETRIC SWAPPING<br /><a href="http://www.look%01out.ws/">www.look out.ws</a> // using Tagging characters E0001; LANGUAGE TAG<br /><a href="http://www.look%20out.ws/">www.look out.ws</a> // using Tagging characters E0020-E007F; [TAGGING CHARACTERS]<br /><a href="http://www.look%D6%BEout.ws/">www.look־out.ws</a> // using Characters with bidirectional property "R" or "AL" 05BE<br /><a href="http://www.xn--lookout-kce.ws/">www.lookˮout.ws</a> // using Characters with bidirectional property "L" 02EE
+</div>
+</div>
+    
+
+<!-- <div class="related">
+  <h2>Related Posts</h2>
+  <ul class="related-posts">
+    
+      <li>
+        <h3>
+          <a href="/articles/spring-break-road-trip-washington.html">
+            Spring break road trip - Palouse, Stonehenge, Skamania, Ape Caves
+            <small>15 Apr 2018</small>
+          </a>
+        </h3>
+      </li>
+    
+      <li>
+        <h3>
+          <a href="/articles/children-online-privacy-and-security-guide.html">
+            Children, devices, and going online.  A guide to security and privacy.
+            <small>06 Apr 2017</small>
+          </a>
+        </h3>
+      </li>
+    
+      <li>
+        <h3>
+          <a href="/articles/Building-SDL-Program-Part-1.html">
+            Building an SDL Program - Part 1 - Where to start?
+            <small>15 Mar 2017</small>
+          </a>
+        </h3>
+      </li>
+    
+  </ul>
+</div> -->
+
+    </div>
+    <script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-1741389-10', 'auto');
+  ga('send', 'pageview');
+
+</script>
+  </body>
+</html>

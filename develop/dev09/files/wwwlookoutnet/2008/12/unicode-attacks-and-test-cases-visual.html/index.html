@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="en-us">
+
+  <head>
+  <link href="https://gmpg.org/xfn/11" rel="profile">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+  
+
+  <!-- Enable responsiveness on mobile devices-->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+
+  <title>
+    
+      Unicode attacks and test cases - Visual Spoofing, IDN homographattacks, and the Single Script Confusables &middot; lookout.net
+    
+  </title>
+
+  <!-- CSS -->
+  <link rel="stylesheet" href="/css/poole.css">
+  <link rel="stylesheet" href="/css/syntax.css">
+  <link rel="stylesheet" href="/css/hyde.css">
+  <link rel="stylesheet" href="/css/my.css">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=PT+Sans:400,400italic,700|Abril+Fatface">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
+
+  <!-- Icons -->
+  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/apple-touch-icon-144-precomposed.png">
+                                 <link rel="shortcut icon" href="/favicon.ico">
+
+  <!-- RSS -->
+  <link rel="alternate" type="application/rss+xml" title="RSS" href="/atom.xml">
+</head>
+
+
+  <body>
+
+    <div class="sidebar">
+  <div class="container sidebar-sticky">
+    <div class="sidebar-about">
+      <h1>
+        <a href="/">
+          lookout.net
+        </a>
+      </h1>
+
+      <p class="lead">Chris Weber's personal homepage</p>
+    </div>
+
+    <nav class="sidebar-nav">
+        
+          
+            <a href="https://www.lookout.net/" class="sidebar-nav-item">Home</a>
+           
+        
+          
+            <a href="https://www.lookout.net/about" class="sidebar-nav-item">About</a>
+           
+        
+          
+            <a href="https://www.lookout.net/articles" class="sidebar-nav-item">Articles</a>
+           
+        
+          
+            <a href="https://www.lookout.net/test" class="sidebar-nav-item">Tests</a>
+           
+        
+          
+            <a href="https://www.casaba.com" class="sidebar-nav-item">Casaba</a>
+           
+        
+          
+            <a href="https://web.smugmug.com" class="sidebar-nav-item">Photos</a>
+           
+        
+          
+            <a href="https://encrypt.to/0x59c66c997002e847" class="sidebar-nav-item">Contact</a>
+           
+        
+      <div class="sidebar-footer">
+        <span>&copy; 2018 Chris Weber</span>
+        <div class="social-icons">
+        <a href="https://www.lookout.net/feed.xml" title="Atom/RSS feed"><i class="fa fa-rss fa-2x"></i></a>
+        <a href="https://twitter.com/w3be" title="Chris Weber on Twitter" target="_blank"><i class="fa fa-twitter fa-2x"></i></a>
+        
+        <a href="https://plus.google.com/ChrisWeber1" title="Chris Weber on Google+" target="_blank"><i class="fa fa-google-plus fa-1x"></i></a>
+        <a href="https://linkedin.com/in/chrisweber" title="Chris Weber on LinkedIn" target="_blank"><i class="fa fa-linkedin fa-2x"></i></a>
+        
+        
+        <a href="https://www.flickr.com/photos/cosmicweb" title="Chris Weber on Flickr" target="_blank"><i class="fa fa-flickr fa-2x"></i></a>
+        <a href="https://github.com/cweb" title="Chris Weber on Github" target="_blank"><i class="fa fa-github fa-2x"></i></a>
+        
+        </div><!-- /.social-icons -->
+      </div>
+    </nav>
+  </div>
+
+</div>
+
+
+    <div class="content container">
+      <div class="post">
+  <h1 class="post-title">Unicode attacks and test cases - Visual Spoofing, IDN homographattacks, and the Single Script Confusables</h1>
+  <span class="post-date">03 Dec 2008</span>
+  <div class="css-full-post-content js-full-post-content">
+More on lookalikes, confusables, IDN homograph attacks, and other fun stuff, continued from the <a href="http://lookout.net/2008/11/29/unicode-attacks-and-test-cases-visual-spoofing-and-the-confusables/">previous post</a>. <strong></strong><br/><br/><strong><span style="text-decoration: underline;">The Confusables </span></strong><br/><br/>These types of visual attacks are attributed to what's known as '<strong>the confusables</strong>' and have been documented in Unicode's <a href="http://www.unicode.org/reports/tr36/">Technical Report 36</a> and <a href="http://www.unicode.org/reports/tr39/">TR39</a>.  The confusables is a name given to scripts that essentially lookalike each other.  The Unicode consortium has defined <strong>three main classes</strong> of confusable strings which are possible:<br/><ol><br/> <li><strong>Single-script</strong></li><br/> <li>Mixed-script</li><br/> <li>Whole-script</li><br/></ol><br/>I want to investigate each one in turn.  Because I'm simplifying things here, I may not be accurate in my use of the terms script, alphabet, letter, and so on.  Linguistics people get it better than I do but for the rest of us, the term '<strong><a href="http://www.unicode.org/glossary/">script</a></strong>'<strong> </strong>refers to:<br/><blockquote>A collection of letters and other written signs used to represent textual information in one or more writing systems. For example, Russian is written with a subset of the Cyrillic script; Ukranian is written with a different subset. The Japanese writing system uses several scripts.</blockquote><br/><strong><span style="text-decoration: underline;">Single-script confusables</span></strong><br/><br/>These occur when letters from the <strong>same alphabet, or script</strong>, are used to give the same visual appearance.  This definition should be extended to say that these occur when letters from either the same script, <em><strong>inherited</strong></em> script, or <em><strong>common</strong></em> script, are used together.   For example, the following two combinations of <strong>Latin letters </strong>look identical:<br/><ul><br/> <li>so̷s</li><br/> <li>søs</li><br/></ul><br/>If you take these apart, there's a big difference.  While the letter 's' is the same in each, the 'o̷' and 'ø' are different.  The first uses the Basic Latin 'o' with a <strong>combining diacritical mark</strong> named COMBINING SHORT SOLIDUS OVERLAY, which is considered an inherited script.  To put it a different way, we have two atomic Unicode code points here, which together give the affect of a single character or letter.  The second uses the atomic character LATIN SMALL LETTER O WITH STROKE.  Let's take these apart and look at the Unicode code point values for each.<br/><ul><br/> <li>so̷s == \u0073\u006F\u0337\u0073</li><br/> <li>søs == \u0073\u00F8\u0073</li><br/></ul><br/>As you can see, the first 'o̷' gets formed from two Unicode code points, u006F and u0337.  If you copy and paste that word into a text editor that supports Unicode (e.g. Notepad) and click backspace, you'll see the first backspace removes the combining diacritical mark, and the second removes the 'o'.  Continuing with the example, the second 'ø' is made of a single Unicode code point u00F8 part of the Latin-1 Supplement Unicode block.  At a lower level, because we're using different code points and bytes to achieve the same visual affect, we have a case of <strong>the confusables</strong>.<br/><br/>Let's take a closer look at what qualifies as a single-script confusable for the Latin lower-case letter 'a' - taken from the confusables table at http://unicode.org/reports/tr39/data/confusables.txt.<br/><br/><div><br/>&#70;&#70;&#50;&#49;&#32;&#59;&#9;&#48;&#48;&#52;&#49;&#32;&#59;&#9;&#83;&#65;&#9;&#35;&#32;&#40;&#32;&#65313;&#32;&#8594;&#32;&#65;&#32;&#41;&#32;&#70;&#85;&#76;&#76;&#87;&#73;&#68;&#84;&#72;&#32;&#76;&#65;&#84;&#73;&#78;&#32;&#67;&#65;&#80;&#73;&#84;&#65;&#76;&#32;&#76;&#69;&#84;&#84;&#69;&#82;&#32;&#65;&#32;&#8594;&#32;&#76;&#65;&#84;&#73;&#78;&#32;&#67;&#65;&#80;&#73;&#84;&#65;&#76;&#32;&#76;&#69;&#84;&#84;&#69;&#82;&#32;&#65;<br/><br/>&#49;&#68;&#52;&#48;&#48;&#32;&#59;&#9;&#48;&#48;&#52;&#49;&#32;&#59;&#9;&#83;&#65;&#9;&#35;&#32;&#40;&#32;&#119808;&#32;&#8594;&#32;&#65;&#32;&#41;&#32;&#77;&#65;&#84;&#72;&#69;&#77;&#65;&#84;&#73;&#67;&#65;&#76;&#32;&#66;&#79;&#76;&#68;&#32;&#67;&#65;&#80;&#73;&#84;&#65;&#76;&#32;&#65;&#32;&#8594;&#32;&#76;&#65;&#84;&#73;&#78;&#32;&#67;&#65;&#80;&#73;&#84;&#65;&#76;&#32;&#76;&#69;&#84;&#84;&#69;&#82;&#32;&#65;&#9;&#35;&#32;&#123;&#110;&#102;&#107;&#99;&#58;&#49;&#49;&#57;&#56;&#48;&#57;&#125;<br/><br/>&#49;&#68;&#52;&#51;&#52;&#32;&#59;&#9;&#48;&#48;&#52;&#49;&#32;&#59;&#9;&#83;&#65;&#9;&#35;&#32;&#40;&#32;&#119860;&#32;&#8594;&#32;&#65;&#32;&#41;&#32;&#77;&#65;&#84;&#72;&#69;&#77;&#65;&#84;&#73;&#67;&#65;&#76;&#32;&#73;&#84;&#65;&#76;&#73;&#67;&#32;&#67;&#65;&#80;&#73;&#84;&#65;&#76;&#32;&#65;&#32;&#8594;&#32;&#76;&#65;&#84;&#73;&#78;&#32;&#67;&#65;&#80;&#73;&#84;&#65;&#76;&#32;&#76;&#69;&#84;&#84;&#69;&#82;&#32;&#65;&#9;&#35;&#32;&#123;&#110;&#102;&#107;&#99;&#58;&#49;&#49;&#57;&#56;&#54;&#49;&#125;<br/></div><br/><br/>Update:  I just realized that some of the characters broke Wordpress so I've converted them all to NCR.  In the above you can see three characters that all visually look similar to the Latin lowercase letter 'a'.  The first number is the code point for the confusable, the second number 0041 is the code point for 'a', and the following stuff is some descriptive text.<br/><br/>The reason the 'Mathematical' characters are considered single-script confusables is because they have the <em><strong>common</strong></em> script class assigned to them.<br/><br/>Other scripts exist which have their own characters confusable with the Latin 'a', but those are considered mixed-script, which I'll go over in another post.  For now I'll leave you with a list of test cases for single-script confusables.  Some are more obvious than others, and it all depends on the font <br/><br/><ul><br/><li>Microsoft &#8594; Micros&#120264;ft </li><br/><li>Apple &#8594; A&#65360;&#120265;le</li><br/><li>Google &#8594; &#65319;oogle</li><br/><li>IBM &#8594; IB&#65325;</li><br/><li>Oracle &#8594; O&#120319;&#120302;cle</li><br/><li>Intel &#8594; Int&#120306;&#120313;</li><br/></ul>
+</div>
+<div class="css-full-comments-content js-full-comments-content">
+<div class="css-full-comment js-full-comment">
+  <div class="css-comment-user-link js-comment-user-link">
+  <a href="http://log0.wordpress.com">
+  <div class="css-comment-name js-comment-name">
+    log0
+  </div>
+  </a>
+  <div class="css-comment-date js-comment-date">
+    2008-12-08T03:21:10.000Z
+  </div>
+  </div>
+  <div class="css-comment-content js-comment-content">
+    Hey Chris,<br><br>Let me ask some questions.<br><br>FYI, the Combining Diacritical Mark does not affect FF2 and Safari2 (SF + ver) on Mac. It affects FF3, SF3, OP9, IE7, Chrome0.4 (CH + ver).<br><br><br>- Are these visual appearances of the characters OS-level or App-level? (I would guesstimate it is App-level though.)<br><br>- If it is not OS-level, aren&#39;t the browsers breaking some normal functionality ( it&#39;s just text afterall, someone will want to print them, right?)? How is it remedied?<br><br>===<br><br>Next, for the previous post. =)<br><br>FYI. For Punycode, FF2 and SF2 on Mac is not affected. On Windows, FF3, SF3, IE7, CH0.4 is not affected, but OP9 is affected.<br><br>This goes back to my question in your original post. So IDN is basically inapplicable bearing Security in mind ( if DNS is still pure ASCII only, or that if IDN depends only on ASCII. )?<br><br>Moreover, this hints me that the above question is App-Level since only OP9 is affected.<br><br>===<br><br>What do you think?
+  </div>
+  <br/>
+</div>
+<div class="css-full-comment js-full-comment">
+  <div class="css-comment-user-link js-comment-user-link">
+  <a href="http://log0.wordpress.com">
+  <div class="css-comment-name js-comment-name">
+    log0
+  </div>
+  </a>
+  <div class="css-comment-date js-comment-date">
+    2008-12-08T03:21:59.000Z
+  </div>
+  </div>
+  <div class="css-comment-content js-comment-content">
+    Hey if there&#39;s no reply notifier, can you drop me an email for that? I&#39;m really interested.<br><br>BTW, REALLY great posts, I&#39;m looking forward to the rest of &#39;em!
+  </div>
+  <br/>
+</div>
+<div class="css-full-comment js-full-comment">
+  <div class="css-comment-user-link js-comment-user-link">
+  <a href="http://www.casabasecurity.com">
+  <div class="css-comment-name js-comment-name">
+    Chris Weber
+  </div>
+  </a>
+  <div class="css-comment-date js-comment-date">
+    2008-12-08T16:00:31.000Z
+  </div>
+  </div>
+  <div class="css-comment-content js-comment-content">
+    It&#39;s app-level mostly, although some system-level API&#39;s may be used.  I saw the same behaviors with those browsers that you did, I&#39;m not testing anything on Linux though.  <br><br>I think those browsers that you say were not affected didn&#39;t have as good Unicode implementations as they do today - funny that eh.<br><br>As far as Punycode it&#39;s up to the browsers to handle that and the display to the user.  Yes in the end IDN seems to be mostly a convenience.  Although it does represent a huge change to domain names on the surface, underneath it&#39;s still ASCII.
+  </div>
+  <br/>
+</div>
+<div class="css-full-comment js-full-comment">
+  <div class="css-comment-user-link js-comment-user-link">
+  <a href="http://log0.wordpress.com/2008/12/09/some-good-stuffs-to-read/">
+  <div class="css-comment-name js-comment-name">
+    Some Good Stuffs to Read « Paralliverse
+  </div>
+  </a>
+  <div class="css-comment-date js-comment-date">
+    2008-12-08T17:53:31.000Z
+  </div>
+  </div>
+  <div class="css-comment-content js-comment-content">
+    [...] Unicode attacks and test cases - Visual Spoofing, IDN homograph attacks, and the Single Script Confu... [...]
+  </div>
+  <br/>
+</div>
+<div class="css-full-comment js-full-comment">
+  <div class="css-comment-user-link js-comment-user-link">
+  <a href="http://www.lookout.net/2008/12/09/unicode-attacks-and-test-cases-visual-spoofing-idn-homograph-attacks-and-the-mixed-script-confusables/">
+  <div class="css-comment-name js-comment-name">
+    Unicode attacks and test cases - Visual Spoofing, IDN homograph attacks, and the Mixed Script Confusables » Lookout
+  </div>
+  </a>
+  <div class="css-comment-date js-comment-date">
+    2008-12-09T23:08:06.000Z
+  </div>
+  </div>
+  <div class="css-comment-content js-comment-content">
+    [...] More on lookalikes, confusables, IDN homograph attacks, and other fun stuff, continued from the previous post. [...]
+  </div>
+  <br/>
+</div>
+</div>
+</div>
+    
+
+<!-- <div class="related">
+  <h2>Related Posts</h2>
+  <ul class="related-posts">
+    
+      <li>
+        <h3>
+          <a href="/articles/spring-break-road-trip-washington.html">
+            Spring break road trip - Palouse, Stonehenge, Skamania, Ape Caves
+            <small>15 Apr 2018</small>
+          </a>
+        </h3>
+      </li>
+    
+      <li>
+        <h3>
+          <a href="/articles/children-online-privacy-and-security-guide.html">
+            Children, devices, and going online.  A guide to security and privacy.
+            <small>06 Apr 2017</small>
+          </a>
+        </h3>
+      </li>
+    
+      <li>
+        <h3>
+          <a href="/articles/Building-SDL-Program-Part-1.html">
+            Building an SDL Program - Part 1 - Where to start?
+            <small>15 Mar 2017</small>
+          </a>
+        </h3>
+      </li>
+    
+  </ul>
+</div> -->
+
+    </div>
+    <script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-1741389-10', 'auto');
+  ga('send', 'pageview');
+
+</script>
+  </body>
+</html>

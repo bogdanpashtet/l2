@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en-us">
+
+  <head>
+  <link href="https://gmpg.org/xfn/11" rel="profile">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+  
+
+  <!-- Enable responsiveness on mobile devices-->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+
+  <title>
+    
+      Unicode attacks and test cases: IDN and IRI display, normalization and anti-spoofing &middot; lookout.net
+    
+  </title>
+
+  <!-- CSS -->
+  <link rel="stylesheet" href="/css/poole.css">
+  <link rel="stylesheet" href="/css/syntax.css">
+  <link rel="stylesheet" href="/css/hyde.css">
+  <link rel="stylesheet" href="/css/my.css">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=PT+Sans:400,400italic,700|Abril+Fatface">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
+
+  <!-- Icons -->
+  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/apple-touch-icon-144-precomposed.png">
+                                 <link rel="shortcut icon" href="/favicon.ico">
+
+  <!-- RSS -->
+  <link rel="alternate" type="application/rss+xml" title="RSS" href="/atom.xml">
+</head>
+
+
+  <body>
+
+    <div class="sidebar">
+  <div class="container sidebar-sticky">
+    <div class="sidebar-about">
+      <h1>
+        <a href="/">
+          lookout.net
+        </a>
+      </h1>
+
+      <p class="lead">Chris Weber's personal homepage</p>
+    </div>
+
+    <nav class="sidebar-nav">
+        
+          
+            <a href="https://www.lookout.net/" class="sidebar-nav-item">Home</a>
+           
+        
+          
+            <a href="https://www.lookout.net/about" class="sidebar-nav-item">About</a>
+           
+        
+          
+            <a href="https://www.lookout.net/articles" class="sidebar-nav-item">Articles</a>
+           
+        
+          
+            <a href="https://www.lookout.net/test" class="sidebar-nav-item">Tests</a>
+           
+        
+          
+            <a href="https://www.casaba.com" class="sidebar-nav-item">Casaba</a>
+           
+        
+          
+            <a href="https://web.smugmug.com" class="sidebar-nav-item">Photos</a>
+           
+        
+          
+            <a href="https://encrypt.to/0x59c66c997002e847" class="sidebar-nav-item">Contact</a>
+           
+        
+      <div class="sidebar-footer">
+        <span>&copy; 2018 Chris Weber</span>
+        <div class="social-icons">
+        <a href="https://www.lookout.net/feed.xml" title="Atom/RSS feed"><i class="fa fa-rss fa-2x"></i></a>
+        <a href="https://twitter.com/w3be" title="Chris Weber on Twitter" target="_blank"><i class="fa fa-twitter fa-2x"></i></a>
+        
+        <a href="https://plus.google.com/ChrisWeber1" title="Chris Weber on Google+" target="_blank"><i class="fa fa-google-plus fa-1x"></i></a>
+        <a href="https://linkedin.com/in/chrisweber" title="Chris Weber on LinkedIn" target="_blank"><i class="fa fa-linkedin fa-2x"></i></a>
+        
+        
+        <a href="https://www.flickr.com/photos/cosmicweb" title="Chris Weber on Flickr" target="_blank"><i class="fa fa-flickr fa-2x"></i></a>
+        <a href="https://github.com/cweb" title="Chris Weber on Github" target="_blank"><i class="fa fa-github fa-2x"></i></a>
+        
+        </div><!-- /.social-icons -->
+      </div>
+    </nav>
+  </div>
+
+</div>
+
+
+    <div class="content container">
+      <div class="post">
+  <h1 class="post-title">Unicode attacks and test cases: IDN and IRI display, normalization and anti-spoofing</h1>
+  <span class="post-date">16 Dec 2008</span>
+  <div class="css-full-post-content js-full-post-content">
+Internationalized Resource Identifiers (IRI's) are a new take on the old URI (Uniform Resource Identifier), which through <a href="http://www.ietf.org/rfc/rfc3986">RFC 3986</a> restricted domain names to a subset of ASCII characters - mainly lower and upper case letters, numbers, and some punctuation.  IRI's were forecasted many years ago by Martin Dürst and Michel Suignard, and formalized in <a href="http://www.ietf.org/rfc/rfc3987">RFC 3987</a>.  IRI's bring Unicode to the domain name world, allowing for people to register domain names in their native language, rather than being forced to use English.<br/><br/>It was apparent long ago that spoofing attacks would be a huge deal, and we'd need a system to deal with the problem.  Anti-spoofing protections are sort of built in to the specifications, with Nameprep, Stringprep and Punycode primarily.  Nameprep is actually considered to be a profile of Stringprep.  In other words, Stringprep defines all the nitty gritty details available, and Nameprep creates a profile of a subset of those details which should be used when handling IDN's.  Whew, let's pause for a deep breath.<br/><br/>Before getting into it, a quick look at a normal IRI, or traditional URL.  The first part indicates the scheme, which could be http://, https://, ftp://, mailto:// among others.  This scheme does not support IDN right now.  The next part is the subdomain <strong>label</strong>.  It supports Unicode and IDN along with the next label, the domain name.  Each of these labels are handled separately, meaning you can have Unicode in one label, but only ASCII in the other.  In that case, only the label with Unicode will be processed with Nameprep and Punycode.  The next label is the TLD, or top-level domain.  These <strong>don't support IDN yet</strong>, however, most browsers will parse them as if they did.  The last part is the path, which can be a combination of Unicode and ASCII, and should be treated as UTF-8 in most all situations.  The path does not have the same requirements as IDN, it's completely separate just as the scheme.<br/><br/>[caption id="attachment_342" align="alignnone" width="500" caption="IDN domain name, URI scheme, and path"]<img class="size-full wp-image-342" title="IDN" src="http://www.lookout.net/wp-content/uploads/2008/12/idn_small.png" alt="IDN domain name, URI scheme, and path" width="500" height="138" />[/caption]<br/><br/><strong>Punycode</strong><br/>Punycode provides the encoding mechanism for representing a domain name with non-ASCII characters.  So once you have your cool Unicode domain name like www.ҀѺѺ.com, Punycode can make it DNS ready by converting it to all ASCII characters to look like www.XN--E3AAQ.com.  I'm not using very good examples, because they both look bad, but Punycode in particular looks hideous. But, it helps user's distinguish between a spoofed domain name like www.micros﻿оft.com which in Punycode looks like http://www.xn--microsft-sbh.com/.<br/><br/><strong>Nameprep</strong><br/>Wait a second, what about Nameprep?  This specification requires normalization form KC be applied to IDN's.  <a href="http://unicode.org/reports/tr15/">Normalization form KC</a> performs a compatibility decomposition, followed by canonical composition.  If that sounds confusing, read the spec and see just how confusing it can be!  The reason I say Nameprep sort of provides anti-spoofing protection against homograph attacks, is because the normalization reduces some characters to their compatibility equivalents.  For example, the Latin full-width character 'Ｗ' (FF37) looks a lot like the ASCII 'W' (0057).  By normalizing the string with form KC, the full-width character is mapped down to its ASCII equivalent.  This process reduces the chance of a spoof attack working for a large set of confusables.<br/><br/>The IETF defines IDN in RFCs 3490, 3491, 3492 and 3454, and and bases IDN on Unicode 3.2.  This means that changes to the Unicode spec, currently at 5.1, will take a long time to get applied to most software that deals with IDN's.  Searching for differences between Unicode 3.2 and 5.1 or the most current spec are sure to yield some interesting test cases.<br/><br/><strong>TLD Whitelisting</strong><br/>After all this, it's not enough to protect the innocent.  Some registrar's have designed policies to prohibit or specially deal with lookalike characters for the TLD's they represent.  This is an  approach, but are we now relying on this distributed network of trust and scattered policy?  Seems that's part of the strategy with several browsers.<br/><br/>Firefox<a href="http://www.mozilla.org/projects/security/tld-idn-policy-list.html"><br/> maintains a TLD</a> whitelist.  That means Firefox will display IDN domain names in their pure Unicode form for trusted TLD's, rather than convert them to Punycode in the display and URL bar.  You can get at this configuration through <a href="about:config">about:config</a> and going to network.IDN.<br/><br/>Safari also maintains a whitelist of TLD's although I don't know how to find this information.  Opera makes their whitelist configurable by going to the <a href="opera:config#Network|IDNAWhiteList">opera:config#Network|IDNAWhiteList </a> URL in your browser.  I believe .com, .net, and .org were on this list, at least they were in mine until I clicked 'default' which reset the list.  <br/><br/>Internet Explorer does not implement a TLD whitelist that I'm aware of, but it does support limited <a href="  http://blogs.msdn.com/ie/archive/2006/07/31/684337.aspx">mixed-scripts within domain labels</a>.  <br/><br/><a href="http://www.w3.org/International/tests/results/results-idn-display">Browser testing by W3 </a>verifies this, and also documents the behaviors of each browser.  There are many differences across browsers of course, and Opera mostly seems to have several inconsistencies within its own operation.<br/><br/><strong>IDN Testing</strong><br/>IDN testing and research has been going on for a while, some good resources:<br/><br/><ul><br/>  <li><a href="http://nameprep.org/">http://nameprep.org/</a></li><br/> <li><a href="http://www.w3.org/International/tests/results/results-idn-display">Test reults: IDN display</a></li><br/>  <li><a href="http://www.w3.org/International/articles/idn-and-iri/">W3C I18N article</a></li><br/></ul><br/><br/>Although these resources have their own IDN testing pages, I made one of my own.  Mainly to test some characters I was interested in, and also some from the list of stringprep prohibited.<br/><br/><strong>Test Cases:</strong><br/><a href="http://www.lookout.net/test-cases/idn-and-iri-spoofing-tests/">http://www.lookout.net/test-cases/idn-and-iri-spoofing-tests/</a>
+</div>
+<div class="css-full-comments-content js-full-comments-content">
+<div class="css-full-comment js-full-comment">
+  <div class="css-comment-user-link js-comment-user-link">
+  <a href="http://www.fiddler2.com">
+  <div class="css-comment-name js-comment-name">
+    Eric Lawrence
+  </div>
+  </a>
+  <div class="css-comment-date js-comment-date">
+    2008-12-16T16:02:54.000Z
+  </div>
+  </div>
+  <div class="css-comment-content js-comment-content">
+    Correct, IE uses a different approach for mitigating homograph attacks, as described in the blog post you linked to.
+  </div>
+  <br/>
+</div>
+</div>
+</div>
+    
+
+<!-- <div class="related">
+  <h2>Related Posts</h2>
+  <ul class="related-posts">
+    
+      <li>
+        <h3>
+          <a href="/articles/spring-break-road-trip-washington.html">
+            Spring break road trip - Palouse, Stonehenge, Skamania, Ape Caves
+            <small>15 Apr 2018</small>
+          </a>
+        </h3>
+      </li>
+    
+      <li>
+        <h3>
+          <a href="/articles/children-online-privacy-and-security-guide.html">
+            Children, devices, and going online.  A guide to security and privacy.
+            <small>06 Apr 2017</small>
+          </a>
+        </h3>
+      </li>
+    
+      <li>
+        <h3>
+          <a href="/articles/Building-SDL-Program-Part-1.html">
+            Building an SDL Program - Part 1 - Where to start?
+            <small>15 Mar 2017</small>
+          </a>
+        </h3>
+      </li>
+    
+  </ul>
+</div> -->
+
+    </div>
+    <script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-1741389-10', 'auto');
+  ga('send', 'pageview');
+
+</script>
+  </body>
+</html>

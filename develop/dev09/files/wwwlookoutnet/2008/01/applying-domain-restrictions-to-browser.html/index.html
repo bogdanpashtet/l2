@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en-us">
+
+  <head>
+  <link href="https://gmpg.org/xfn/11" rel="profile">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+  
+
+  <!-- Enable responsiveness on mobile devices-->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+
+  <title>
+    
+      Applying domain restrictions to a browser plugin (ActiveX or XPCOM) &middot; lookout.net
+    
+  </title>
+
+  <!-- CSS -->
+  <link rel="stylesheet" href="/css/poole.css">
+  <link rel="stylesheet" href="/css/syntax.css">
+  <link rel="stylesheet" href="/css/hyde.css">
+  <link rel="stylesheet" href="/css/my.css">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=PT+Sans:400,400italic,700|Abril+Fatface">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
+
+  <!-- Icons -->
+  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/apple-touch-icon-144-precomposed.png">
+                                 <link rel="shortcut icon" href="/favicon.ico">
+
+  <!-- RSS -->
+  <link rel="alternate" type="application/rss+xml" title="RSS" href="/atom.xml">
+</head>
+
+
+  <body>
+
+    <div class="sidebar">
+  <div class="container sidebar-sticky">
+    <div class="sidebar-about">
+      <h1>
+        <a href="/">
+          lookout.net
+        </a>
+      </h1>
+
+      <p class="lead">Chris Weber's personal homepage</p>
+    </div>
+
+    <nav class="sidebar-nav">
+        
+          
+            <a href="https://www.lookout.net/" class="sidebar-nav-item">Home</a>
+           
+        
+          
+            <a href="https://www.lookout.net/about" class="sidebar-nav-item">About</a>
+           
+        
+          
+            <a href="https://www.lookout.net/articles" class="sidebar-nav-item">Articles</a>
+           
+        
+          
+            <a href="https://www.lookout.net/test" class="sidebar-nav-item">Tests</a>
+           
+        
+          
+            <a href="https://www.casaba.com" class="sidebar-nav-item">Casaba</a>
+           
+        
+          
+            <a href="https://web.smugmug.com" class="sidebar-nav-item">Photos</a>
+           
+        
+          
+            <a href="https://encrypt.to/0x59c66c997002e847" class="sidebar-nav-item">Contact</a>
+           
+        
+      <div class="sidebar-footer">
+        <span>&copy; 2018 Chris Weber</span>
+        <div class="social-icons">
+        <a href="https://www.lookout.net/feed.xml" title="Atom/RSS feed"><i class="fa fa-rss fa-2x"></i></a>
+        <a href="https://twitter.com/w3be" title="Chris Weber on Twitter" target="_blank"><i class="fa fa-twitter fa-2x"></i></a>
+        
+        <a href="https://plus.google.com/ChrisWeber1" title="Chris Weber on Google+" target="_blank"><i class="fa fa-google-plus fa-1x"></i></a>
+        <a href="https://linkedin.com/in/chrisweber" title="Chris Weber on LinkedIn" target="_blank"><i class="fa fa-linkedin fa-2x"></i></a>
+        
+        
+        <a href="https://www.flickr.com/photos/cosmicweb" title="Chris Weber on Flickr" target="_blank"><i class="fa fa-flickr fa-2x"></i></a>
+        <a href="https://github.com/cweb" title="Chris Weber on Github" target="_blank"><i class="fa fa-github fa-2x"></i></a>
+        
+        </div><!-- /.social-icons -->
+      </div>
+    </nav>
+  </div>
+
+</div>
+
+
+    <div class="content container">
+      <div class="post">
+  <h1 class="post-title">Applying domain restrictions to a browser plugin (ActiveX or XPCOM)</h1>
+  <span class="post-date">15 Jan 2008</span>
+  <div class="css-full-post-content js-full-post-content">
+<span style="background-color: #ffffff">For Internet Explorer, there's Microsoft's <a href="http://www.microsoft.com/Downloads/details.aspx?FamilyID=43cd7e1e-5719-45c0-88d9-ec9ea7fefbcb&amp;displaylang=en">Sitelock</a>. For Mozilla, I'm not sure what there is... In that case, we've been working on some solutions that could hold up cross-browser on a Windows platform. Sitelock takes a solid approach, check out the code and you'll see it implements the IObjectSafetySiteLockImpl, replacing the ATL IObjectSafety interface. What am I talking about? Well sometimes, when you develop a browser plugin like an ActiveX control for IE or an XPCOM object for Mozilla, you only want it to load and run from a few trusted domains. The plugin/control runs potentially powerful code after all, executing in the user's context. For example, you're a large social networking site, and your new control helps synchronize offline and online data for the user. Well first off, you want to make sure it's secure as possible:</span><br/><ol><br/>  <li><span style="background-color: #ffffff">code flaws have been identified and addressed (buffer overflows, leaks, etc.)</span></li><br/>  <li><span style="background-color: #ffffff">repurposing threats have been identified and mitigated (the control should not do anything more than it needs, and should be very careful when performing file, registry, or network operations)</span></li><br/></ol><br/><span style="background-color: #ffffff">To gain a higher level of assurance that this control won't be exploited, you take more steps to <strong>restrict the domains which are allowed to call it</strong>.</span><br/><br/><span style="background-color: #ffffff">So without Sitelock for Mozilla, we're in search of an alternative solution that will work across both IE and Mozilla. We know a few things available for the cross-browser domain restriction solution:</span><br/><ul><br/> <li><span style="background-color: #ffffff">we can use C/C++</span></li><br/> <li><span style="background-color: #ffffff">we have access to the DOM</span></li><br/>  <li><span style="background-color: #ffffff">we have access to COM+</span></li><br/> <li><span style="background-color: #ffffff">we'd like access to WININET but that's too far down the stack</span></li><br/></ul><br/><span style="background-color: #ffffff">Right now, we're primarily interested in <strong>getting</strong> the <strong>true domain</strong> which is loading and calling the plugin. How can we gaurantee this? We try getting it from the DOM's <strong>document.domain</strong> property, but know that t</span><span style="background-color: #ffffff">he document.domain property has historically been a source of security vulnerability in all major browsers. There have even recently been ways to spoof the address bar, or the domain property using JavaScript and other means, and there likely will in the future. For example:</span><br/><br/><span style="background-color: #ffffff">FireFox</span><br/><br/><a href="http://www.thespanner.co.uk/2007/11/14/spoofing-firefox-protected-object">http://www.thespanner.co.uk/2007/11/14/spoofing-firefox-protected-object</a><br/><br/><span style="background-color: #ffffff">IE 6/7.</span><br/><br/><a href="http://www.0x000000.com/hacks/crossdomain/crossdomain.html">http://www.0x000000.com/hacks/crossdomain/crossdomain.html</a><br/><br/><span style="background-color: #ffffff">Safari/Windows</span><br/><br/><a href="http://nvd.nist.gov/nvd.cfm?cvename=CVE-2007-3514">http://nvd.nist.gov/nvd.cfm?cvename=CVE-2007-3514</a><br/><br/><span style="background-color: #ffffff">After some research we're testing some other options. Right now our best bet might be looking like:</span><br/><ul><br/> <li>using <span style="font-size: 11pt; font-family: 'Calibri','sans-serif'"><span style="color: #000000">IWebBrowser2::get_LocationURL() for Internet Explorer</span></span></li><br/> <li><span style="font-size: 11pt; font-family: 'Calibri','sans-serif'"><span style="color: #000000">using <span style="font-size: 11pt; font-family: 'Calibri','sans-serif'">window.location.href for Mozilla</span></span></span></li><br/>  <li><span style="font-size: 11pt; font-family: 'Calibri','sans-serif'"><span style="color: #000000"><span style="font-size: 11pt; font-family: 'Calibri','sans-serif'">InternetCrackUrl() to parse the hostname</span></span></span></li><br/>After some testing we don't see the document.domain type issues present in window.location.href, so it seems to be holding up short some unknown browser-flaw.</ul><br/><ul> IWebBrowser2::getLocationURL() seems okay but I did find the following issue with get_LocationURL at <a href="http://support.microsoft.com/kb/272095">http://support.microsoft.com/kb/272095</a>.</ul>
+</div>
+<div class="css-full-comments-content js-full-comments-content">
+<div class="css-full-comment js-full-comment">
+  <div class="css-comment-user-link js-comment-user-link">
+  <a href="undefined">
+  <div class="css-comment-name js-comment-name">
+    shyam
+  </div>
+  </a>
+  <div class="css-comment-date js-comment-date">
+    2008-12-05T05:00:08.000Z
+  </div>
+  </div>
+  <div class="css-comment-content js-comment-content">
+    nice article,  <br>can you tell me the solution to check if xpcom component is running from trusted site.
+  </div>
+  <br/>
+</div>
+<div class="css-full-comment js-full-comment">
+  <div class="css-comment-user-link js-comment-user-link">
+  <a href="http://www.casabasecurity.com">
+  <div class="css-comment-name js-comment-name">
+    Chris Weber
+  </div>
+  </a>
+  <div class="css-comment-date js-comment-date">
+    2008-12-06T22:51:33.000Z
+  </div>
+  </div>
+  <div class="css-comment-content js-comment-content">
+    Last I checked it was checking window.location.href for Mozilla and then using InternetCrackUrl() to parse the hostname.
+  </div>
+  <br/>
+</div>
+</div>
+</div>
+    
+
+<!-- <div class="related">
+  <h2>Related Posts</h2>
+  <ul class="related-posts">
+    
+      <li>
+        <h3>
+          <a href="/articles/spring-break-road-trip-washington.html">
+            Spring break road trip - Palouse, Stonehenge, Skamania, Ape Caves
+            <small>15 Apr 2018</small>
+          </a>
+        </h3>
+      </li>
+    
+      <li>
+        <h3>
+          <a href="/articles/children-online-privacy-and-security-guide.html">
+            Children, devices, and going online.  A guide to security and privacy.
+            <small>06 Apr 2017</small>
+          </a>
+        </h3>
+      </li>
+    
+      <li>
+        <h3>
+          <a href="/articles/Building-SDL-Program-Part-1.html">
+            Building an SDL Program - Part 1 - Where to start?
+            <small>15 Mar 2017</small>
+          </a>
+        </h3>
+      </li>
+    
+  </ul>
+</div> -->
+
+    </div>
+    <script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-1741389-10', 'auto');
+  ga('send', 'pageview');
+
+</script>
+  </body>
+</html>

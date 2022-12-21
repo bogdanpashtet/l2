@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="en-us">
+
+  <head>
+  <link href="https://gmpg.org/xfn/11" rel="profile">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+  
+    <meta name="description" content="A series about building a Security Development Lifecycle (SDL) program from the ground up.">
+  
+
+  <!-- Enable responsiveness on mobile devices-->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+
+  <title>
+    
+      Building an SDL Program - Part 1 - Where to start? &middot; lookout.net
+    
+  </title>
+
+  <!-- CSS -->
+  <link rel="stylesheet" href="/css/poole.css">
+  <link rel="stylesheet" href="/css/syntax.css">
+  <link rel="stylesheet" href="/css/hyde.css">
+  <link rel="stylesheet" href="/css/my.css">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=PT+Sans:400,400italic,700|Abril+Fatface">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
+
+  <!-- Icons -->
+  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/apple-touch-icon-144-precomposed.png">
+                                 <link rel="shortcut icon" href="/favicon.ico">
+
+  <!-- RSS -->
+  <link rel="alternate" type="application/rss+xml" title="RSS" href="/atom.xml">
+</head>
+
+
+  <body>
+
+    <div class="sidebar">
+  <div class="container sidebar-sticky">
+    <div class="sidebar-about">
+      <h1>
+        <a href="/">
+          lookout.net
+        </a>
+      </h1>
+
+      <p class="lead">Chris Weber's personal homepage</p>
+    </div>
+
+    <nav class="sidebar-nav">
+        
+          
+            <a href="https://www.lookout.net/" class="sidebar-nav-item">Home</a>
+           
+        
+          
+            <a href="https://www.lookout.net/about" class="sidebar-nav-item">About</a>
+           
+        
+          
+            <a href="https://www.lookout.net/articles" class="sidebar-nav-item">Articles</a>
+           
+        
+          
+            <a href="https://www.lookout.net/test" class="sidebar-nav-item">Tests</a>
+           
+        
+          
+            <a href="https://www.casaba.com" class="sidebar-nav-item">Casaba</a>
+           
+        
+          
+            <a href="https://web.smugmug.com" class="sidebar-nav-item">Photos</a>
+           
+        
+          
+            <a href="https://encrypt.to/0x59c66c997002e847" class="sidebar-nav-item">Contact</a>
+           
+        
+      <div class="sidebar-footer">
+        <span>&copy; 2018 Chris Weber</span>
+        <div class="social-icons">
+        <a href="https://www.lookout.net/feed.xml" title="Atom/RSS feed"><i class="fa fa-rss fa-2x"></i></a>
+        <a href="https://twitter.com/w3be" title="Chris Weber on Twitter" target="_blank"><i class="fa fa-twitter fa-2x"></i></a>
+        
+        <a href="https://plus.google.com/ChrisWeber1" title="Chris Weber on Google+" target="_blank"><i class="fa fa-google-plus fa-1x"></i></a>
+        <a href="https://linkedin.com/in/chrisweber" title="Chris Weber on LinkedIn" target="_blank"><i class="fa fa-linkedin fa-2x"></i></a>
+        
+        
+        <a href="https://www.flickr.com/photos/cosmicweb" title="Chris Weber on Flickr" target="_blank"><i class="fa fa-flickr fa-2x"></i></a>
+        <a href="https://github.com/cweb" title="Chris Weber on Github" target="_blank"><i class="fa fa-github fa-2x"></i></a>
+        
+        </div><!-- /.social-icons -->
+      </div>
+    </nav>
+  </div>
+
+</div>
+
+
+    <div class="content container">
+      <div class="post">
+  <h1 class="post-title">Building an SDL Program - Part 1 - Where to start?</h1>
+  <span class="post-date">15 Mar 2017</span>
+  <p>I&#39;m writing a series on building an SDL program, the plans, the unexpected, the gotchas, and the good stuff.  Security Development Lifecycle (SDL) is a phrase that comes from Microsoft, who pioneered the structure and processes that I am most familiar with.  I spent a bunch of years as a security vendor for Microsoft while they were building up and rolling out the SDL, and I became so intimate with the process and helping product teams through it, that my company was asked to become one of a few select members of the <a href="https://www.microsoft.com/en-us/SDL/adopt/pronetwork.aspx">SDL Pro Network</a> (thanks <a href="https://twitter.com/k8em0">Katie!</a>).  </p>
+
+<p>Microsoft has recently gone into detail about their own <a href="https://www.microsoft.com/security/sdl/story/">SDL story</a>, how it came about, and where it took them.  It&#39;s a great read to get some valuable context, history, and perspective.  If you&#39;re at ground zero and want to build an SDL program at your company, expect a long, bumpy road ahead, but rest assured that a good plan, with willingness to be flexible, will get you there.</p>
+
+<h2>Setting the Stage</h2>
+
+<p>For this article I&#39;m going to assume you have a company of a few thousand people, and maybe 400 in the application engineering discipline.  That size makes a good middle ground for this series, as aspects can be scaled up or down pretty easily.</p>
+
+<p>The company has a development culture, but not an application security one.  Your software products have been in production for many years, and things are at a point where major rework is underway.  The development teams are preparing for a new product launch based on a brand new architecture.  It&#39;s all still in the early experimental phase, before any design decisions, and to top it off product teams are adopting DevOps-style Agile processes with continuous integration and continuous delivery (CI/CD) goals.</p>
+
+<h2>Executive Support</h2>
+
+<p>SDL doesn&#39;t happen without full executive support.  The integration of security practices like threat modeling and pen testing do add time to release cycles - it&#39;s extra work.  And it&#39;s more painful early in  the transition, before the practices become a part of the culture, when they are constantly in mind, but don&#39;t feel like they&#39;re in the way.  The leadership team should understand that this program isn&#39;t just about implementing technical controls, it&#39;s more about implementing a practice, new habits, which require an intrinsic culture change.  The good news is, while many people who haven&#39;t experienced this concept of building security in to the development process typically dread security reviews and meetings, in my experience going through this process with them causes the reverse to happen - development staff actually start to look forward to having security meetings.</p>
+
+<h2>First Steps - Interviews and Maturity Assessment</h2>
+
+<p>You may have a sense of where your organization is at with regard to application security in the development processes, and you&#39;re almost certainly right.  Nevertheless it&#39;s still a good idea to do a proper assessment to document the organization&#39;s maturity level.  That assessment will serve as the starting point and reference for further discussions.  The other value in an assessment is using it to measure the organization against other orgs in your industry.  </p>
+
+<p>Since you&#39;re going to be meeting and interviewing people during this phase, some other goals to keep in mind include:</p>
+
+<p><strong>1) Start prioritizing teams</strong> </p>
+
+<p>Use the interview process as a way to identify high-priority product teams and understand their release schedules.  When I think high-priority I think of customer-facing and Internet-facing apps.  The CISO or security lead you&#39;re working with may already have an idea of what products these are, but that could change as you learn things along the way.</p>
+
+<p><strong>2) Start finding friends</strong></p>
+
+<p>Use the interview process to identify folks who are the most open and interested in security and SDL - you will want to partner with them for the later pilot phase.</p>
+
+<p>The <a href="https://www.bsimm.com">Building Security in Maturity Model (BSIMM)</a> is a valuable tool for measuring maturity, it&#39;s a yearly study of dozens of companies from across various industry verticals.  The BSIMM was born out of a desire to gather real data about SDL implementations.  As such, the people behind the study didn&#39;t approach companies with a pre-canned list of measurements.  Rather they went to the companies to learn what those measurements should be.  </p>
+
+<p>The image below shows a sample <a href="https://www.bsimm.com">BSIMM7 scorecard</a> ripped straight out of the BSIMM7 report.  To actually perform an assessment means you will need to do some work:</p>
+
+<ul>
+<li>Identify key stakeholders in the development organization.  These are product owners, managers, directors, and developer leads.</li>
+<li>Setup a 1 hour meeting with each stakeholder.</li>
+<li>Using the BSIMM activity list, identify and mark which activities are implemented in the org.</li>
+<li>During this meeting, collect some other data that describes development workflows, tech stacks, and methodologies that may help to further inform the assessment.</li>
+</ul>
+
+<p>Alternatively you could prepare a questionaire, but I find it more helpful to meet in person and talk through things.  Also alternatively, since the BSIMM activity list is pretty big, you could use the <a href="https://www.microsoft.com/en-us/SDL/learn/assess.aspx">Microsoft SDL</a> Optimization Model as the measuring stick.  I was able to extract 52 practices, or activities, for my own assessment needs.  Almost all of these map to something in the BSIMM, and whereas the BSIMM scorecard below might be a little too much for some people to look at, a similar Microsoft SDL scorecard would be smaller and easier to understand.</p>
+
+<p><img src="https://www.lookout.net/images/bsimm7-scorecard.png" alt="BSIMM Scorecard" title="BSIMM Scorecard"></p>
+
+<p>Let&#39;s explain this scorecard a bit.  The BSIMM framework organizes 113 discrete activities into 12 practice areas, which are further organized into 4 domains:</p>
+
+<ul>
+<li>Governance
+
+<ul>
+<li>Strategy and Metrics (SM)</li>
+<li>Compliance and Policy (CP)</li>
+<li>Training (T)</li>
+</ul></li>
+<li>Intelligence
+
+<ul>
+<li>Attack Models (AM)</li>
+<li>Security Features and Design (SFD)</li>
+<li>Standards and Requirements (SR)</li>
+</ul></li>
+<li>SSDL Touchpoints
+
+<ul>
+<li>Architecture Analysis (AA)</li>
+<li>Code Review (CR)</li>
+<li>Security Testing (ST)</li>
+</ul></li>
+<li>Deployment
+
+<ul>
+<li>Penetration Testing (PT)</li>
+<li>Software Environment (SE)</li>
+<li>Configuration Management and Vulnerability Management (CMVM)</li>
+</ul></li>
+</ul>
+
+<p>The four domains are represented as pillars in the scorecard, with three practice areas in each.  If you look at the DEPLOYMENT pillar, and the first practice area called PENETRATION TESTING, you will see 7 discrete activities, each further organized into 3 maturity levels.  The idea here is that you can measure your own penetration testing maturity against these 7 activities.  The most basic maturity level would be represented by PT1.1, PT1.2, and PT1.3.  Increasing maturity levels are represented by PT2.x and PT3.x.  As you can see, a high majority of firms studied (82) had a basic pen testing activity impelmented.  That count goes down as the maturity level goes up.  This is to be expected, most firms will be less mature, only a few will have reached high maturity.</p>
+
+<p>Now, if you decided to go with the Microsoft SDL Optimization Model as the reference, you would wind up with a scorecard like the following:</p>
+
+<p><img src="https://www.lookout.net/images/microsoft-sdl-scorecard.png" alt="Microsoft SDL Scorecard" title="Microsoft SDL Scorecard"></p>
+
+<p>This takes a bit of explaining as well.  You probably won&#39;t find this scorecard anywhere else, because I made it for my own purposes.  It represents 52 specific activities spread out across 5 phases of the SDLC.  Each phase is a pillar, and within each pillar, activities are ordered from a basic, level 1 maturity, to a more advanced, level 3 maturity.  In this example, the Verification pillar shows that the organization meets all three Microsoft SDL activities for level 1 maturity - V1.1, V1.2, and V1.3.  But they do not meet the more advanced level 2 and 3 activities.</p>
+
+<h2>Lessons Learned</h2>
+
+<p>One of the reasons I wanted to write about this was to talk about some of the lessons I learned personally or have seen others face.  In the opening stage here, when the landscape is still pretty green field, it doesn&#39;t seem like there&#39;s a lot that could go wrong.  At this stage it seems more about setting expectations and paying care and attention to others so you can manage those expectations.  Some things to keep in mind at this stage:</p>
+
+<p><strong>Understand where the organization fits into the BSIMM</strong></p>
+
+<p>Data from the BSIMM is organized into industry verticals.  If you are showing the organization how they compare to one of those verticals, be ready to explain the data in a little more detail.  For example, if the organization is a health care insurer, you may show them BSIMM&#39;s radar chart of the health care industry.  Well, suddenly &#39;health care industry&#39; becomes a very vague term, and you may be faced with questions like - is that data from insurers or providers?  Is that data from our competitors? Digging deeper shows that health care data in BSIMM encompasses more than just insurers, and includes medical tech companies as well.  It&#39;s better to know the details of what you&#39;re comparing against.</p>
+
+<p><strong>Describe the vision</strong></p>
+
+<p>Executives may be patient, but they will feel much better having a rough ETA of when they will get their SDL program.  It&#39;s too early for promises, but you could set some rough target dates for getting a couple pilot projects through a minimal SDL process.  Beyond that you could set some farther goals for rolling a basic SDL out to a high-priority subset of the organization.  If that included say 10 small product teams of 10 people each, you might suggest 6 - 12 months before they are incorporating SDL practices.  Going from ground zero to functioning SDL will not happen fast, it&#39;s usually a cultural change which means a year minimum to get practices introduced and working in a rudimentary way.  </p>
+
+<h2>Next Steps</h2>
+
+<p>Stakeholders will likely get the value of embedding security practices into the development process, and they might already start asking what the SDL rollout looks like, and how they can prepare their teams.  Be ready to talk about the plan at a high level and present a one-page overview of the rollout.  Ensure them that this will work in a way that best fits the organization&#39;s needs and workflows, and that activities will be very opportunistic and not forced, at first = )</p>
+
+<p>Having a proper assessement document provides the launching point for moving forward.  In the next article I&#39;ll take a look at building a roadmap that will get you to a basic SDL program implementation.  Having the scorecard will remain valuable as it can be revisited later on and over time for management to measure your firm&#39;s maturity level and watch SDL progress.</p>
+
+</div>
+    
+    <div id="disqus_thread"></div>
+    <script type="text/javascript">
+        /* * * CONFIGURATION VARIABLES * * */
+        // Required: on line below, replace text in quotes with your forum shortname
+        var disqus_shortname = 'websecurity';
+        
+        /* * * DON'T EDIT BELOW THIS LINE * * */
+        (function() {
+            var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+            dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+            (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+        })();
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
+    
+
+<!-- <div class="related">
+  <h2>Related Posts</h2>
+  <ul class="related-posts">
+    
+      <li>
+        <h3>
+          <a href="/articles/spring-break-road-trip-washington.html">
+            Spring break road trip - Palouse, Stonehenge, Skamania, Ape Caves
+            <small>15 Apr 2018</small>
+          </a>
+        </h3>
+      </li>
+    
+      <li>
+        <h3>
+          <a href="/articles/children-online-privacy-and-security-guide.html">
+            Children, devices, and going online.  A guide to security and privacy.
+            <small>06 Apr 2017</small>
+          </a>
+        </h3>
+      </li>
+    
+      <li>
+        <h3>
+          <a href="/articles/STEM-quadrivium-art.html">
+            What's wrong with STEM and right with the Quadrivium?
+            <small>13 Feb 2016</small>
+          </a>
+        </h3>
+      </li>
+    
+  </ul>
+</div> -->
+
+    </div>
+    <script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-1741389-10', 'auto');
+  ga('send', 'pageview');
+
+</script>
+  </body>
+</html>

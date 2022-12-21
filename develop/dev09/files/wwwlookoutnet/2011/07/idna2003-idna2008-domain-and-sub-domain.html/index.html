@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en-us">
+
+  <head>
+  <link href="https://gmpg.org/xfn/11" rel="profile">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+  
+
+  <!-- Enable responsiveness on mobile devices-->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+
+  <title>
+    
+      IDNA2003, IDNA2008, domain and sub-domain registrations during the transitional period &middot; lookout.net
+    
+  </title>
+
+  <!-- CSS -->
+  <link rel="stylesheet" href="/css/poole.css">
+  <link rel="stylesheet" href="/css/syntax.css">
+  <link rel="stylesheet" href="/css/hyde.css">
+  <link rel="stylesheet" href="/css/my.css">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=PT+Sans:400,400italic,700|Abril+Fatface">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
+
+  <!-- Icons -->
+  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/apple-touch-icon-144-precomposed.png">
+                                 <link rel="shortcut icon" href="/favicon.ico">
+
+  <!-- RSS -->
+  <link rel="alternate" type="application/rss+xml" title="RSS" href="/atom.xml">
+</head>
+
+
+  <body>
+
+    <div class="sidebar">
+  <div class="container sidebar-sticky">
+    <div class="sidebar-about">
+      <h1>
+        <a href="/">
+          lookout.net
+        </a>
+      </h1>
+
+      <p class="lead">Chris Weber's personal homepage</p>
+    </div>
+
+    <nav class="sidebar-nav">
+        
+          
+            <a href="https://www.lookout.net/" class="sidebar-nav-item">Home</a>
+           
+        
+          
+            <a href="https://www.lookout.net/about" class="sidebar-nav-item">About</a>
+           
+        
+          
+            <a href="https://www.lookout.net/articles" class="sidebar-nav-item">Articles</a>
+           
+        
+          
+            <a href="https://www.lookout.net/test" class="sidebar-nav-item">Tests</a>
+           
+        
+          
+            <a href="https://www.casaba.com" class="sidebar-nav-item">Casaba</a>
+           
+        
+          
+            <a href="https://web.smugmug.com" class="sidebar-nav-item">Photos</a>
+           
+        
+          
+            <a href="https://encrypt.to/0x59c66c997002e847" class="sidebar-nav-item">Contact</a>
+           
+        
+      <div class="sidebar-footer">
+        <span>&copy; 2018 Chris Weber</span>
+        <div class="social-icons">
+        <a href="https://www.lookout.net/feed.xml" title="Atom/RSS feed"><i class="fa fa-rss fa-2x"></i></a>
+        <a href="https://twitter.com/w3be" title="Chris Weber on Twitter" target="_blank"><i class="fa fa-twitter fa-2x"></i></a>
+        
+        <a href="https://plus.google.com/ChrisWeber1" title="Chris Weber on Google+" target="_blank"><i class="fa fa-google-plus fa-1x"></i></a>
+        <a href="https://linkedin.com/in/chrisweber" title="Chris Weber on LinkedIn" target="_blank"><i class="fa fa-linkedin fa-2x"></i></a>
+        
+        
+        <a href="https://www.flickr.com/photos/cosmicweb" title="Chris Weber on Flickr" target="_blank"><i class="fa fa-flickr fa-2x"></i></a>
+        <a href="https://github.com/cweb" title="Chris Weber on Github" target="_blank"><i class="fa fa-github fa-2x"></i></a>
+        
+        </div><!-- /.social-icons -->
+      </div>
+    </nav>
+  </div>
+
+</div>
+
+
+    <div class="content container">
+      <div class="post">
+  <h1 class="post-title">IDNA2003, IDNA2008, domain and sub-domain registrations during the transitional period</h1>
+  <span class="post-date">08 Jul 2011</span>
+  <div class="css-full-post-content js-full-post-content">
+To continue on with the discussion about <a href="http://www.lookout.net/2011/06/30/the-risks-of-using-eszett-or-sharp-s-s-in-domain-names/">THE RISKS OF USING “ESZETT” OR “SHARP S” (“SS”) IN DOMAIN NAME</a> - this character is just one of four deviation characters that will certainly cause mischief and mayhem in the coming years.  Here's the deal, the registries and registrars are moving from the initial specification that allowed Internationalized Domain Names (IDN) to be registered.  It was called IDNA and is now referred to as IDNA2003.  They're moving to the new specification which is called IDNA2008 although it didn't officially become a standard until the year 2010.  Hang with me this may actually affect you, whether your a registry like DENIC, a browser like Internet Explorer, a second-level registry like tumblr.com, or simply a customer who wants a domain name.<br/><br/>There's a problem with these two specs - they're incompatible, and most of the risk here will be found during the "transitional period" when registries are upgrading.  That's on purpose mind you, and was deemed to be the best choice for the decades ahead of us.  Eventually we want to completely get rid of IDNA2003 and get the whole world on IDNA2008 - registries, Web browsers, anything that processes IDN's.<br/><br/>A lot of characters will be handled differently under the new rules of IDNA2008.  Four characters in particular, called the <a href="http://www.unicode.org/reports/tr46/#Deviations">deviation characters</a>, are poised to cause mayhem during the transitional period as domain name registries shift to IDNA2008.  Why?  Because for a period of time domain names using these characters may actually resolve to two different IP addresses - depending on which IDNA rules the client/Web browser has implemented.<br/><br/>But  just what is a <a href="http://en.wikipedia.org/wiki/Domain_name_registry">domain name registry</a> anyway?  To keep it simple, we can think of a registry as the overarching authority for a top-level-domain (TLD).  Most TLDs are well-known like .com, .net, and .org, and each has a single registry that enforces some rules and manages all domain name records.  This also ensures the same domain name can't be registered by more than one party.  Registrars on the other hand are sort of resellers, like Godaddy, Enom, and Dyndns who will sell the domain names to customers.  They still need to comply with the rules of the registry.<br/><br/>But we can also think of some domains as their own second-level registries.  For example, blogspot.com, tumblr.com, smugmug.com each have millions of customers with their own domain name like <a href="http://google.blogspot.com/">http://google.blogspot.com/</a>.  In this way they're acting as registries providing subdomains, one per customer.  So all of these second-level registries will also be affected by IDNA's transitional period, if they decide to even offer IDNs in their subdomains - most don't currently.<br/><br/>The four deviation characters are of particular concern, named so because how they're handled is different under IDNA2003 rules than they are under IDNA2008 rules:<br/><ul><br/>  <li>U+200C ZERO WIDTH NON-JOINER</li><br/>  <li>U+200D ZERO WIDTH JOINER</li><br/>  <li>U+00DF ( ß ) LATIN SMALL LETTER SHARP S</li><br/> <li>U+03C2 ( ς ) GREEK SMALL LETTER FINAL SIGMA</li><br/></ul><br/>The two JOINERs get dropped under IDNA2003 but are valid in IDNA2008 under certain language contexts.  The "ß" maps to "ss" under IDNA2003 but does not map under IDNA2008, and the "ς" maps to "σ" under IDNA2003 but does not map under IDNA2008.   For a good visual of this <a href="http://www.unicode.org/reports/tr46/#Deviations">see Table 1 of UTS46</a>.<br/><br/><strong>What does it all mean?</strong><br/><br/>In the end, if you currently have a domain containing "ss" or "σ" then you may want to register the domain using the new character supported under IDNA2008 if it suits your market.  That's not to say you should by any means, for example "<a href="http://ssa.gov">ssa.gov</a>" probably does not care to register "<a href="http://ßa.gov">ßa.gov</a>" since it's market is the United States.  But a German bank named "Gießen Savings and Loan" who currently owns <a href="http://www.sparkasse-giessen.de">http://www.sparkasse-giessen.de</a> will certainly want to register <a href="http://www.sparkasse-gießen.de">http://www.sparkasse-gießen.de</a>.<br/><br/>As far as the JOINERs, that's a whole other story, but legitimate registrations should only be allowed for certain sequences of Arabic or Indic characters.  The use cases are limited to those, and registries will be required to implement those restrictions.  However, clients who perform IDNA2008 lookups are not required to implement those restrictions.<br/><br/><strong>Is my registry IDNA2008 enabled?</strong><br/><br/>I don't know but I'd suggest checking with them.  DENIC decided not to implement the <a href="http://www.unicode.org/reports/tr46/#Registries">bundling or blocking recommendations</a> and instead gave their customers about 3 weeks to register the alternate domain that would resolve to them normally under IDNA2003 but not under IDNA2008.  Seems like a short period of time to me, if you were on vacation you might have missed the chance.  But the choice is up to the registry.  So check with your registrar or the registry to find out where they're at with their upgrade plans.<br/><br/>&nbsp;
+</div>
+</div>
+    
+
+<!-- <div class="related">
+  <h2>Related Posts</h2>
+  <ul class="related-posts">
+    
+      <li>
+        <h3>
+          <a href="/articles/spring-break-road-trip-washington.html">
+            Spring break road trip - Palouse, Stonehenge, Skamania, Ape Caves
+            <small>15 Apr 2018</small>
+          </a>
+        </h3>
+      </li>
+    
+      <li>
+        <h3>
+          <a href="/articles/children-online-privacy-and-security-guide.html">
+            Children, devices, and going online.  A guide to security and privacy.
+            <small>06 Apr 2017</small>
+          </a>
+        </h3>
+      </li>
+    
+      <li>
+        <h3>
+          <a href="/articles/Building-SDL-Program-Part-1.html">
+            Building an SDL Program - Part 1 - Where to start?
+            <small>15 Mar 2017</small>
+          </a>
+        </h3>
+      </li>
+    
+  </ul>
+</div> -->
+
+    </div>
+    <script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-1741389-10', 'auto');
+  ga('send', 'pageview');
+
+</script>
+  </body>
+</html>

@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en-us">
+
+  <head>
+  <link href="https://gmpg.org/xfn/11" rel="profile">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+  
+
+  <!-- Enable responsiveness on mobile devices-->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+
+  <title>
+    
+      How to: Fuzzing Web Services on IIS 6.0 and ASP.NET &middot; lookout.net
+    
+  </title>
+
+  <!-- CSS -->
+  <link rel="stylesheet" href="/css/poole.css">
+  <link rel="stylesheet" href="/css/syntax.css">
+  <link rel="stylesheet" href="/css/hyde.css">
+  <link rel="stylesheet" href="/css/my.css">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=PT+Sans:400,400italic,700|Abril+Fatface">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
+
+  <!-- Icons -->
+  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/apple-touch-icon-144-precomposed.png">
+                                 <link rel="shortcut icon" href="/favicon.ico">
+
+  <!-- RSS -->
+  <link rel="alternate" type="application/rss+xml" title="RSS" href="/atom.xml">
+</head>
+
+
+  <body>
+
+    <div class="sidebar">
+  <div class="container sidebar-sticky">
+    <div class="sidebar-about">
+      <h1>
+        <a href="/">
+          lookout.net
+        </a>
+      </h1>
+
+      <p class="lead">Chris Weber's personal homepage</p>
+    </div>
+
+    <nav class="sidebar-nav">
+        
+          
+            <a href="https://www.lookout.net/" class="sidebar-nav-item">Home</a>
+           
+        
+          
+            <a href="https://www.lookout.net/about" class="sidebar-nav-item">About</a>
+           
+        
+          
+            <a href="https://www.lookout.net/articles" class="sidebar-nav-item">Articles</a>
+           
+        
+          
+            <a href="https://www.lookout.net/test" class="sidebar-nav-item">Tests</a>
+           
+        
+          
+            <a href="https://www.casaba.com" class="sidebar-nav-item">Casaba</a>
+           
+        
+          
+            <a href="https://web.smugmug.com" class="sidebar-nav-item">Photos</a>
+           
+        
+          
+            <a href="https://encrypt.to/0x59c66c997002e847" class="sidebar-nav-item">Contact</a>
+           
+        
+      <div class="sidebar-footer">
+        <span>&copy; 2018 Chris Weber</span>
+        <div class="social-icons">
+        <a href="https://www.lookout.net/feed.xml" title="Atom/RSS feed"><i class="fa fa-rss fa-2x"></i></a>
+        <a href="https://twitter.com/w3be" title="Chris Weber on Twitter" target="_blank"><i class="fa fa-twitter fa-2x"></i></a>
+        
+        <a href="https://plus.google.com/ChrisWeber1" title="Chris Weber on Google+" target="_blank"><i class="fa fa-google-plus fa-1x"></i></a>
+        <a href="https://linkedin.com/in/chrisweber" title="Chris Weber on LinkedIn" target="_blank"><i class="fa fa-linkedin fa-2x"></i></a>
+        
+        
+        <a href="https://www.flickr.com/photos/cosmicweb" title="Chris Weber on Flickr" target="_blank"><i class="fa fa-flickr fa-2x"></i></a>
+        <a href="https://github.com/cweb" title="Chris Weber on Github" target="_blank"><i class="fa fa-github fa-2x"></i></a>
+        
+        </div><!-- /.social-icons -->
+      </div>
+    </nav>
+  </div>
+
+</div>
+
+
+    <div class="content container">
+      <div class="post">
+  <h1 class="post-title">How to: Fuzzing Web Services on IIS 6.0 and ASP.NET</h1>
+  <span class="post-date">14 Jan 2007</span>
+  <div class="css-full-post-content js-full-post-content">
+So we want to fuzz something SOAPy, again.  Well here's how we're gonna do it.  The approach I like to take with clients is a gray-box, or code-assisted penetration testing.  <strong>Gray box</strong> analysis is a powerful technique combining input testing with source analysis, runtime tracing, profiling, and debugging to identify real issues in the software. In this example we're taking from the last post to <a href="http://chrisweber.wordpress.com/2007/01/13/to-fuzz-or-not-to-fuzz-web-services/">fuzz or not to fuzz web services</a>. So we've got web services in managed code plus some unmanaged code modules handing user-input.<br/><br/>SOAP fuzzing should <strong>begin </strong>by taking the client requests for each service and isolating the element values to be manipulated.  In the first stage of fuzzing we will change the entire value, without conforming to the value format.  This should turn up gross errors in the consumption of the web service data or denial of service conditions from unexpected data formats.  In the <strong>second </strong>fuzzing sweep we'll present the value in the correct format, with just a portion of that value replaced with a malformed value.  This phase should find issues that would pass a validation gateway, but still cause problems when the data is consumed.<br/><br/>In all fuzzing cases we will start from a perspective of a most-correct request, where only a single value is fuzzed, before fuzzing multiple values concurrently.  Additional phases will be specific tests based on a deep understanding of the logic being tested, such as fuzzing a value that states <code>UserID=5</code>, with a range of integers.<br/><br/>For example, during phase one everything between the Value tags should be fuzzed as a single blob.  The string “<code>org:division/category/DATA=DATA</code>” will  be replaced as a whole with the fuzz strings.<br/><table class="MsoTableGrid" style="border:medium none;border-collapse:collapse;" border="1" cellpadding="0" cellspacing="0"><br/><tr><br/><td style="border:1pt solid windowtext;background:#d9d9d9 none repeat scroll 0 50%;width:92.05pt;padding:0 5.4pt;" valign="top" width="123"><br/><p class="MsoNormal"><strong><span style="font-size:10pt;font-family:Verdana;">Original</span></strong><span style="font-size:10pt;font-family:Verdana;"></span></p><br/></td><br/><td style="background:#d9d9d9 none repeat scroll 0 50%;width:272.95pt;border-color:windowtext windowtext windowtext #000000;border-style:solid solid solid none;border-width:1pt 1pt 1pt medium;padding:0 5.4pt;" valign="top" width="364"><br/><p class="MsoNormal"><span>&lt;Value&gt;org:division/category/DATA=DATA&lt;/Value&gt;</span></p><br/></td><br/></tr><br/><tr><br/><td style="width:92.05pt;border-color:#000000 windowtext windowtext;border-style:none solid solid;border-width:medium 1pt 1pt;padding:0 5.4pt;" valign="top" width="123"><br/><p class="MsoNormal"><strong><span style="font-size:10pt;font-family:Verdana;">Fuzzed </span></strong></p><br/></td><br/><td style="width:272.95pt;border-style:none solid solid none;border-width:medium 1pt 1pt medium;padding:0 5.4pt;" valign="top" width="364"><br/><p class="MsoNormal" style="page-break-after:avoid;"><span>&lt;Value&gt;AAAAAAAAAAAAAAAAAAAAAA&lt;/Value&gt;</span></p><br/></td><br/></tr><br/></table><br/>In phase two, the value will be separated into its subcomponents.  For each subcomponent a fuzzed value will be inserted until all portions of the value are individually fuzzed.<br/><table class="MsoTableGrid" style="border:medium none;border-collapse:collapse;" border="1" cellpadding="0" cellspacing="0"><br/><tr><br/><td style="border:1pt solid windowtext;background:#d9d9d9 none repeat scroll 0 50%;width:70pt;padding:0 5.4pt;" valign="top" width="93"><br/><p class="MsoNormal"><strong><span style="font-size:10pt;font-family:Verdana;">Original</span></strong><span style="font-size:10pt;font-family:Verdana;"></span></p><br/></td><br/><td style="background:#d9d9d9 none repeat scroll 0 50%;width:349.45pt;border-color:windowtext windowtext windowtext #000000;border-style:solid solid solid none;border-width:1pt 1pt 1pt medium;padding:0 5.4pt;" valign="top" width="466"><br/><p class="MsoNormal"><span>&lt;Value&gt;</span><span>org:division/category/DATA</span><span>&lt;/Value&gt;</span></p><br/></td><br/></tr><br/><tr><br/><td style="width:70pt;border-color:#000000 windowtext windowtext;border-style:none solid solid;border-width:medium 1pt 1pt;padding:0 5.4pt;" valign="top" width="93"><br/><p class="MsoNormal"><strong><span style="font-size:10pt;font-family:Verdana;">Fuzzed #1</span></strong></p><br/></td><br/><td style="width:349.45pt;border-style:none solid solid none;border-width:medium 1pt 1pt medium;padding:0 5.4pt;" valign="top" width="466"><br/><p class="MsoNormal"><span>&lt;Value&gt;</span><span>AAAAAAAAA:division/category/DATA</span><span>=DATA&lt;/Value&gt;</span></p><br/></td><br/></tr><br/><tr><br/><td style="width:70pt;border-color:#000000 windowtext windowtext;border-style:none solid solid;border-width:medium 1pt 1pt;padding:0 5.4pt;" valign="top" width="93"><br/><p class="MsoNormal"><strong><span style="font-size:10pt;font-family:Verdana;">Fuzzed #2</span></strong></p><br/></td><br/><td style="width:349.45pt;border-style:none solid solid none;border-width:medium 1pt 1pt medium;padding:0 5.4pt;" valign="top" width="466"><br/><p class="MsoNormal"><span>&lt;Value&gt;</span><span>org:AAAAAAAAAAAA/category/DATA</span><span>=DATA&lt;/Value&gt;</span></p><br/></td><br/></tr><br/><tr><br/><td style="width:70pt;border-color:#000000 windowtext windowtext;border-style:none solid solid;border-width:medium 1pt 1pt;padding:0 5.4pt;" valign="top" width="93"><br/><p class="MsoNormal"><strong><span style="font-size:10pt;font-family:Verdana;">Fuzzed #3</span></strong></p><br/></td><br/><td style="width:349.45pt;border-style:none solid solid none;border-width:medium 1pt 1pt medium;padding:0 5.4pt;" valign="bottom" width="466"><br/><p class="MsoNormal"><span>&lt;Value&gt;</span><span>org:division/AAAAAAAAAAAAA/DATA</span><span>=DATA&lt;/Value&gt;</span></p><br/></td><br/></tr><br/><tr><br/><td style="width:70pt;border-color:#000000 windowtext windowtext;border-style:none solid solid;border-width:medium 1pt 1pt;padding:0 5.4pt;" valign="top" width="93"><br/><p class="MsoNormal"><strong><span style="font-size:10pt;font-family:Verdana;">Fuzzed #4</span></strong></p><br/></td><br/><td style="width:349.45pt;border-style:none solid solid none;border-width:medium 1pt 1pt medium;padding:0 5.4pt;" valign="bottom" width="466"><br/><p class="MsoNormal"><span>&lt;Value&gt;</span><span>org:division/category/AAAAAAAAAA</span><span>=DATA&lt;/Value&gt;</span></p><br/></td><br/></tr><br/><tr><br/><td style="width:70pt;border-color:#000000 windowtext windowtext;border-style:none solid solid;border-width:medium 1pt 1pt;padding:0 5.4pt;" valign="top" width="93"><br/><p class="MsoNormal"><strong><span style="font-size:10pt;font-family:Verdana;">Fuzzed #5</span></strong></p><br/></td><br/><td style="width:349.45pt;border-style:none solid solid none;border-width:medium 1pt 1pt medium;padding:0 5.4pt;" valign="bottom" width="466"><br/><p class="MsoNormal" style="page-break-after:avoid;"><span>&lt;Value&gt;</span><span>org:division/category/DATA</span><span>=AAAAAAAAAA&lt;/Value&gt;</span></p><br/></td><br/></tr><br/></table><br/>And to keep it going, fuzzing should actually be <strong>expanded </strong>quite a bit beyond the example above.  In addition to fuzzing strings with other strings, INT’s should used, byte arrays, etc.  Also, the separator values (e.g. : and /  and =) should also included in testing.  Typical <strong>payloads </strong>used in fuzzing are shown below.  When testing we usually apply the relevant selection to the logic being tested.<br/><ul><br/>  <li>Character multiples</li><br/> <li>Max unsigned and signed integer values</li><br/>  <li>Variations on format strings using '%n'</li><br/> <li>Long strings</li><br/>  <li>Empty strings and null values</li><br/> <li>Extended ASCII</li><br/>  <li>Binary values</li><br/> <li>Base64 and HTML encoded values</li><br/>  <li>SQL Injection</li><br/> <li>Common bad ASCII (' " &lt; &gt;)</li><br/>  <li>All numbers</li><br/> <li>All letters</li><br/> <li>All spaces</li><br/>  <li>Invalid date formats</li><br/>  <li>Dictionaries relevant to the application</li><br/></ul><br/>To <strong>monitor the behavior </strong>of the web service during the fuzzing runs we attach <strong>WinDbg </strong>to the worker process with heap checking enabled.  We break on any significant exceptions to investigate the call stack and relevant code sections.  The event log is scrubbed for any reported errors, which are then investigated.  To determine denial of service conditions we use Perfmon to observe the process's CPU and memory usage.  In our SOAP fuzzing we should also insert a <strong>unique marker </strong>into each request, and also log each sent request, so that we can later reproduce the condition that caused the error.  In this case we will place an incremented number in the User Agent value of the SOAP requests, which is readable in the IIS logs.  In addition, the randomness of fuzzing could be seeded with a value which would allow for reproducibility.  This is possible with some of the <strong>fuzzing frameworks </strong>out there, we we haven't talked about too much, such as Peach.
+</div>
+<div class="css-full-comments-content js-full-comments-content">
+<div class="css-full-comment js-full-comment">
+  <div class="css-comment-user-link js-comment-user-link">
+  <a href="undefined">
+  <div class="css-comment-name js-comment-name">
+    Saam Choy
+  </div>
+  </a>
+  <div class="css-comment-date js-comment-date">
+    2007-09-10T08:21:22.000Z
+  </div>
+  </div>
+  <div class="css-comment-content js-comment-content">
+    A lot of what you are talking about is automated by tools like WSBang and OWASP&#39;s WSFuzzer.  They do a great job of auto-generating massive, and in some cases intelligent, attack vectors.
+  </div>
+  <br/>
+</div>
+<div class="css-full-comment js-full-comment">
+  <div class="css-comment-user-link js-comment-user-link">
+  <a href="http://www.lookout.net">
+  <div class="css-comment-name js-comment-name">
+    Chris Weber
+  </div>
+  </a>
+  <div class="css-comment-date js-comment-date">
+    2007-09-20T08:51:40.000Z
+  </div>
+  </div>
+  <div class="css-comment-content js-comment-content">
+    Absolutely, we leverage those tools quite a bit.  Not the one&#39;s you&#39;ve mentioned specifically, but usually we build from frameworks such as Peach as I mentioned.  I often find the WS I&#39;m dealing with have too many complexities that are more easily tested this way.  The canned WS fuzzing tools are usually fine for simple web services though.  Although I argue that there&#39;s only a few specific areas where fuzzing managed code is even useful.
+  </div>
+  <br/>
+</div>
+</div>
+</div>
+    
+
+<!-- <div class="related">
+  <h2>Related Posts</h2>
+  <ul class="related-posts">
+    
+      <li>
+        <h3>
+          <a href="/articles/spring-break-road-trip-washington.html">
+            Spring break road trip - Palouse, Stonehenge, Skamania, Ape Caves
+            <small>15 Apr 2018</small>
+          </a>
+        </h3>
+      </li>
+    
+      <li>
+        <h3>
+          <a href="/articles/children-online-privacy-and-security-guide.html">
+            Children, devices, and going online.  A guide to security and privacy.
+            <small>06 Apr 2017</small>
+          </a>
+        </h3>
+      </li>
+    
+      <li>
+        <h3>
+          <a href="/articles/Building-SDL-Program-Part-1.html">
+            Building an SDL Program - Part 1 - Where to start?
+            <small>15 Mar 2017</small>
+          </a>
+        </h3>
+      </li>
+    
+  </ul>
+</div> -->
+
+    </div>
+    <script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-1741389-10', 'auto');
+  ga('send', 'pageview');
+
+</script>
+  </body>
+</html>

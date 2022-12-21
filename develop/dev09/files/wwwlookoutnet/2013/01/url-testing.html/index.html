@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="en-us">
+
+  <head>
+  <link href="https://gmpg.org/xfn/11" rel="profile">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+  
+
+  <!-- Enable responsiveness on mobile devices-->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+
+  <title>
+    
+      URL Testing &middot; lookout.net
+    
+  </title>
+
+  <!-- CSS -->
+  <link rel="stylesheet" href="/css/poole.css">
+  <link rel="stylesheet" href="/css/syntax.css">
+  <link rel="stylesheet" href="/css/hyde.css">
+  <link rel="stylesheet" href="/css/my.css">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=PT+Sans:400,400italic,700|Abril+Fatface">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
+
+  <!-- Icons -->
+  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/apple-touch-icon-144-precomposed.png">
+                                 <link rel="shortcut icon" href="/favicon.ico">
+
+  <!-- RSS -->
+  <link rel="alternate" type="application/rss+xml" title="RSS" href="/atom.xml">
+</head>
+
+
+  <body>
+
+    <div class="sidebar">
+  <div class="container sidebar-sticky">
+    <div class="sidebar-about">
+      <h1>
+        <a href="/">
+          lookout.net
+        </a>
+      </h1>
+
+      <p class="lead">Chris Weber's personal homepage</p>
+    </div>
+
+    <nav class="sidebar-nav">
+        
+          
+            <a href="https://www.lookout.net/" class="sidebar-nav-item">Home</a>
+           
+        
+          
+            <a href="https://www.lookout.net/about" class="sidebar-nav-item">About</a>
+           
+        
+          
+            <a href="https://www.lookout.net/articles" class="sidebar-nav-item">Articles</a>
+           
+        
+          
+            <a href="https://www.lookout.net/test" class="sidebar-nav-item">Tests</a>
+           
+        
+          
+            <a href="https://www.casaba.com" class="sidebar-nav-item">Casaba</a>
+           
+        
+          
+            <a href="https://web.smugmug.com" class="sidebar-nav-item">Photos</a>
+           
+        
+          
+            <a href="https://encrypt.to/0x59c66c997002e847" class="sidebar-nav-item">Contact</a>
+           
+        
+      <div class="sidebar-footer">
+        <span>&copy; 2018 Chris Weber</span>
+        <div class="social-icons">
+        <a href="https://www.lookout.net/feed.xml" title="Atom/RSS feed"><i class="fa fa-rss fa-2x"></i></a>
+        <a href="https://twitter.com/w3be" title="Chris Weber on Twitter" target="_blank"><i class="fa fa-twitter fa-2x"></i></a>
+        
+        <a href="https://plus.google.com/ChrisWeber1" title="Chris Weber on Google+" target="_blank"><i class="fa fa-google-plus fa-1x"></i></a>
+        <a href="https://linkedin.com/in/chrisweber" title="Chris Weber on LinkedIn" target="_blank"><i class="fa fa-linkedin fa-2x"></i></a>
+        
+        
+        <a href="https://www.flickr.com/photos/cosmicweb" title="Chris Weber on Flickr" target="_blank"><i class="fa fa-flickr fa-2x"></i></a>
+        <a href="https://github.com/cweb" title="Chris Weber on Github" target="_blank"><i class="fa fa-github fa-2x"></i></a>
+        
+        </div><!-- /.social-icons -->
+      </div>
+    </nav>
+  </div>
+
+</div>
+
+
+    <div class="content container">
+      <div class="post">
+  <h1 class="post-title">URL Testing</h1>
+  <span class="post-date">14 Jan 2013</span>
+  <div class="css-full-post-content js-full-post-content">
+URLs are a cornerstone protocol of the Internet and the Web, but they are often misunderstood, occasionally abused, and quite often&nbsp;manipulated during&nbsp;security testing. &nbsp;I've put up some&nbsp;<a href="http://www.lookout.net/test/url/">Web pages to test URL parsing</a> including one that works in a more live-view sort of way. I've also compiled over 500&nbsp;<a href="https://github.com/cweb/url-testing/blob/master/urls.json">test cases</a>&nbsp;into JSON format from a number of sources including <a class="g-profile" href="http://plus.google.com/102907710238326025954" target="_blank">+WebKit</a>,&nbsp;<a class="g-profile" href="http://plus.google.com/107651864577259151853" target="_blank">+Julian Reschke</a>, and&nbsp;<a class="g-profile" href="http://plus.google.com/100610951871586794452" target="_blank">+Eduardo Vela</a>, as well as myself, which were&nbsp;improved by <a class="g-profile" href="http://plus.google.com/111991826926222544385" target="_blank">+Michael Smith</a>&nbsp;and <a class="g-profile" href="http://plus.google.com/112284435661490019880" target="_blank">+Anne van Kesteren</a>. <br /><br />URLs have been a <a href="http://lists.w3.org/Archives/Public/uri/2012Oct/">hot topic</a>&nbsp;for quite a while, and as a co-chair of the IETF's <a href="http://tools.ietf.org/wg/iri/">IRI Working Group</a>, I witnessed some of the conversations around the specs. &nbsp;The Internationalized Resource Identifier specifications were intended to define how the <a href="http://tools.ietf.org/html/rfc3986">RFC 3986 URIs</a> could be made to include Unicode primarily, as well as other character encodings for legacy purposes.<br /><br />The URL test page at&nbsp;<a href="http://www.lookout.net/test/url/">http://www.lookout.net/test/url/</a> includes a few links, and the code and test cases can be found at&nbsp;<a href="https://github.com/cweb/url-testing">https://github.com/cweb/url-testing</a>.<br /><br />1. <a href="http://www.lookout.net/test/url/url-liveview.html">A URL Live Viewer</a><br />A page that dynamically displays URL components as parsed by the browser's DOM, and by the URL.js prototype implementation. &nbsp;The live view idea came from&nbsp;<a class="g-profile" href="http://plus.google.com/112284435661490019880" target="_blank">+Anne van Kesteren</a>'s live URL DOM viewer page which I lost the link to. <br /><br />2. <a href="http://www.lookout.net/test/url/url-runner.html">A URL test runner</a><br />A page that runs <a href="https://github.com/cweb/url-testing/blob/master/urls.json">500+ URL test cases</a> through the testharness.js hosted by W3C.<br /><br /><span style="font-family: inherit;">3. Test URL parsing in DOM versus HTTP GET requests</span><br /><div style="border: 0px; color: #333333; line-height: 22px; margin-bottom: 15px; padding: 0px;"><span style="font-family: inherit;">Run all tests from urls-local.json using testharness.js to compare the Web browser's DOM properties with the resultant HTTP request's path and hostname parts. &nbsp;The value of this test scenario is that we can compare the results of the HTTP GET against the browser's DOM properties to detect when URL components differ between the two.</span></div><div style="border: 0px; color: #333333; line-height: 22px; margin-bottom: 15px; margin-top: 15px; padding: 0px;"><span style="font-family: inherit;">This test is more complicated because it has the following server-side&nbsp;<strong style="border: 0px; margin: 0px; padding: 0px;">requirements</strong>:</span></div><ul style="border: 0px; color: #333333; line-height: 22px; margin: 15px 0px; padding: 0px 0px 0px 30px;"><li style="border: 0px; margin: 0px; padding: 0px;"><span style="font-family: inherit;"><strong style="border: 0px; margin: 0px; padding: 0px;">mod_rewrite</strong>&nbsp;configured to proxy all requests for a pre-determined hostname pattern:</span></li></ul><pre style="background-color: #f8f8f8; border-bottom-left-radius: 3px; border-bottom-right-radius: 3px; border-top-left-radius: 3px; border-top-right-radius: 3px; border: 1px solid rgb(204, 204, 204); color: #333333; font-family: Consolas, 'Liberation Mono', Courier, monospace; font-size: 13px; line-height: 19px; margin-bottom: 15px; margin-top: 15px; overflow: auto; padding: 6px 10px;"><code style="background-color: transparent; border-bottom-left-radius: 3px; border-bottom-right-radius: 3px; border-top-left-radius: 3px; border-top-right-radius: 3px; border: none; font-family: Consolas, 'Liberation Mono', Courier, monospace; font-size: 12px; margin: 0px; padding: 0px;"># Redirect everything that includes urltest.lookout.net in the hostname for URL testing<br />RewriteCond %{HTTP_HOST} ^.*urltest\.lookout\.net$ [NC]<br />RewriteRule ^.*$ /cgi-bin/httpreq.pl<br /></code></pre><div style="border: 0px; color: #333333; line-height: 22px; margin-bottom: 15px; margin-top: 15px; padding: 0px;"><span style="font-family: inherit;">With the above RewriteCond, each test case must point to a URL that includes urltest.lookout.net in the hostname. The RewriteRule will send the request to /cgi-bin/httpreq.pl, a CGI Perl script which will return the HTTP GET request's Host header value, and GET path. These values are returned as javascript variables to be used in evaluating how the URL was parsed. For example, the following HTTP request:</span></div><pre style="background-color: #f8f8f8; border-bottom-left-radius: 3px; border-bottom-right-radius: 3px; border-top-left-radius: 3px; border-top-right-radius: 3px; border: 1px solid rgb(204, 204, 204); color: #333333; font-family: Consolas, 'Liberation Mono', Courier, monospace; font-size: 13px; line-height: 19px; margin-bottom: 15px; margin-top: 15px; overflow: auto; padding: 6px 10px;"><code style="background-color: transparent; border-bottom-left-radius: 3px; border-bottom-right-radius: 3px; border-top-left-radius: 3px; border-top-right-radius: 3px; border: none; font-family: Consolas, 'Liberation Mono', Courier, monospace; font-size: 12px; margin: 0px; padding: 0px;">GET /foo/bar HTTP/1.1<br />Host: foo.urltest.lookout.net<br /></code></pre><div style="border: 0px; color: #333333; line-height: 22px; margin-bottom: 15px; margin-top: 15px; padding: 0px;"><span style="font-family: inherit;">would return:</span></div><div class="highlight" style="background-color: white; border: 0px; color: #333333; font-family: Helvetica, arial, freesans, clean, sans-serif; font-size: 14px; line-height: 22px; margin: 0px; padding: 0px;"><pre style="background-color: #f8f8f8; border-bottom-left-radius: 3px; border-bottom-right-radius: 3px; border-top-left-radius: 3px; border-top-right-radius: 3px; border: 1px solid rgb(204, 204, 204); font-family: Consolas, 'Liberation Mono', Courier, monospace; font-size: 13px; line-height: 19px; margin-bottom: 15px; margin-top: 15px; overflow: auto; padding: 6px 10px;"><span class="kd" style="border: 0px; font-weight: bold; margin: 0px; padding: 0px;">var</span> <span class="nx" style="border: 0px; margin: 0px; padding: 0px;">pathname</span> <span class="o" style="border: 0px; font-weight: bold; margin: 0px; padding: 0px;">=</span> <span class="s2" style="border: 0px; color: #dd1144; margin: 0px; padding: 0px;">"/foo/bar"</span><br /><span class="kd" style="border: 0px; font-weight: bold; margin: 0px; padding: 0px;">var</span> <span class="nx" style="border: 0px; margin: 0px; padding: 0px;">hostname</span> <span class="o" style="border: 0px; font-weight: bold; margin: 0px; padding: 0px;">=</span> <span class="s2" style="border: 0px; color: #dd1144; margin: 0px; padding: 0px;">"foo.urltest.lookout.net"</span><br /></pre></div><ul style="border: 0px; color: #333333; line-height: 22px; margin-bottom: 0px !important; margin-left: 0px; margin-right: 0px; margin-top: 15px; padding: 0px 0px 0px 30px;"><li style="border: 0px; margin: 0px; padding: 0px;"><span style="font-family: inherit;"><strong style="border: 0px; margin: 0px; padding: 0px;">DNS wildcard</strong>&nbsp;record for the host For this to work, the DNS must be setup with a wildcard&nbsp;<strong style="border: 0px; margin: 0px; padding: 0px;">A</strong>&nbsp;record so that requests to *.lookout.net all resolve to the same IP address</span></li></ul><br />
+</div>
+<div class="css-full-comments-content js-full-comments-content">
+<div class="css-full-comment js-full-comment">
+  <div class="css-comment-user-link js-comment-user-link">
+  <a href="http://www.blogger.com/profile/17419730572984706346">
+  <div class="css-comment-name js-comment-name">
+    Michael(tm) Smith
+  </div>
+  </a>
+  <div class="css-comment-date js-comment-date">
+    2013-01-14T06:16:42.496Z
+  </div>
+  </div>
+  <div class="css-comment-content js-comment-content">
+    http://www.lookout.net/test/url/test-url.html for &quot;A URL Live Viewer&quot; is 404. I guess you want to that to be http://www.lookout.net/test/url/url-liveview.html<br /><br />By the way, great stuff man :)
+  </div>
+  <br/>
+</div>
+<div class="css-full-comment js-full-comment">
+  <div class="css-comment-user-link js-comment-user-link">
+  <a href="http://getfiddler.com/">
+  <div class="css-comment-name js-comment-name">
+    Eric Lawrence
+  </div>
+  </a>
+  <div class="css-comment-date js-comment-date">
+    2013-01-14T22:41:27.921Z
+  </div>
+  </div>
+  <div class="css-comment-content js-comment-content">
+    If only there was some tool that could watch all of the network requests without regard to the client or server technology. Some sort of &quot;proxy&quot; maybe? Of course, it would need to be scriptable or extensible to enable injection of the desired logic. Ideally it would be based on a technology which you/Casaba has experience with? Hrm... I bet you get where I&#39;m going with this. :-)
+  </div>
+  <br/>
+</div>
+<div class="css-full-comment js-full-comment">
+  <div class="css-comment-user-link js-comment-user-link">
+  <a href="http://www.blogger.com/profile/13379556110278063970">
+  <div class="css-comment-name js-comment-name">
+    Chris Weber
+  </div>
+  </a>
+  <div class="css-comment-date js-comment-date">
+    2013-01-14T22:51:39.475Z
+  </div>
+  </div>
+  <div class="css-comment-content js-comment-content">
+    Bah, that&#39;s what I get for cramming in site changes and a blog post before bedtime, thanks for the report : -)
+  </div>
+  <br/>
+</div>
+<div class="css-full-comment js-full-comment">
+  <div class="css-comment-user-link js-comment-user-link">
+  <a href="http://www.blogger.com/profile/13379556110278063970">
+  <div class="css-comment-name js-comment-name">
+    Chris Weber
+  </div>
+  </a>
+  <div class="css-comment-date js-comment-date">
+    2013-01-14T23:09:19.813Z
+  </div>
+  </div>
+  <div class="css-comment-content js-comment-content">
+    Hmmm what on Earth could you be talking about?  :-P  At one point I was using Fiddler for this!  And it filled the need perfectly well in my personal lab, I even found some interesting bugs.  Currently I want the testing to be a server-side solution - it could be done easily with an IIS HTTP module, but I&#39;m running Apache and thinking mod_rewrite or an Apache module would be required.
+  </div>
+  <br/>
+</div>
+</div>
+</div>
+    
+
+<!-- <div class="related">
+  <h2>Related Posts</h2>
+  <ul class="related-posts">
+    
+      <li>
+        <h3>
+          <a href="/articles/spring-break-road-trip-washington.html">
+            Spring break road trip - Palouse, Stonehenge, Skamania, Ape Caves
+            <small>15 Apr 2018</small>
+          </a>
+        </h3>
+      </li>
+    
+      <li>
+        <h3>
+          <a href="/articles/children-online-privacy-and-security-guide.html">
+            Children, devices, and going online.  A guide to security and privacy.
+            <small>06 Apr 2017</small>
+          </a>
+        </h3>
+      </li>
+    
+      <li>
+        <h3>
+          <a href="/articles/Building-SDL-Program-Part-1.html">
+            Building an SDL Program - Part 1 - Where to start?
+            <small>15 Mar 2017</small>
+          </a>
+        </h3>
+      </li>
+    
+  </ul>
+</div> -->
+
+    </div>
+    <script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-1741389-10', 'auto');
+  ga('send', 'pageview');
+
+</script>
+  </body>
+</html>

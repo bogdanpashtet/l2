@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en-us">
+
+  <head>
+  <link href="https://gmpg.org/xfn/11" rel="profile">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+  
+
+  <!-- Enable responsiveness on mobile devices-->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+
+  <title>
+    
+      How Web browsers display a standard SSL connection compared with an EVSSL connection &middot; lookout.net
+    
+  </title>
+
+  <!-- CSS -->
+  <link rel="stylesheet" href="/css/poole.css">
+  <link rel="stylesheet" href="/css/syntax.css">
+  <link rel="stylesheet" href="/css/hyde.css">
+  <link rel="stylesheet" href="/css/my.css">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=PT+Sans:400,400italic,700|Abril+Fatface">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
+
+  <!-- Icons -->
+  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/apple-touch-icon-144-precomposed.png">
+                                 <link rel="shortcut icon" href="/favicon.ico">
+
+  <!-- RSS -->
+  <link rel="alternate" type="application/rss+xml" title="RSS" href="/atom.xml">
+</head>
+
+
+  <body>
+
+    <div class="sidebar">
+  <div class="container sidebar-sticky">
+    <div class="sidebar-about">
+      <h1>
+        <a href="/">
+          lookout.net
+        </a>
+      </h1>
+
+      <p class="lead">Chris Weber's personal homepage</p>
+    </div>
+
+    <nav class="sidebar-nav">
+        
+          
+            <a href="https://www.lookout.net/" class="sidebar-nav-item">Home</a>
+           
+        
+          
+            <a href="https://www.lookout.net/about" class="sidebar-nav-item">About</a>
+           
+        
+          
+            <a href="https://www.lookout.net/articles" class="sidebar-nav-item">Articles</a>
+           
+        
+          
+            <a href="https://www.lookout.net/test" class="sidebar-nav-item">Tests</a>
+           
+        
+          
+            <a href="https://www.casaba.com" class="sidebar-nav-item">Casaba</a>
+           
+        
+          
+            <a href="https://web.smugmug.com" class="sidebar-nav-item">Photos</a>
+           
+        
+          
+            <a href="https://encrypt.to/0x59c66c997002e847" class="sidebar-nav-item">Contact</a>
+           
+        
+      <div class="sidebar-footer">
+        <span>&copy; 2018 Chris Weber</span>
+        <div class="social-icons">
+        <a href="https://www.lookout.net/feed.xml" title="Atom/RSS feed"><i class="fa fa-rss fa-2x"></i></a>
+        <a href="https://twitter.com/w3be" title="Chris Weber on Twitter" target="_blank"><i class="fa fa-twitter fa-2x"></i></a>
+        
+        <a href="https://plus.google.com/ChrisWeber1" title="Chris Weber on Google+" target="_blank"><i class="fa fa-google-plus fa-1x"></i></a>
+        <a href="https://linkedin.com/in/chrisweber" title="Chris Weber on LinkedIn" target="_blank"><i class="fa fa-linkedin fa-2x"></i></a>
+        
+        
+        <a href="https://www.flickr.com/photos/cosmicweb" title="Chris Weber on Flickr" target="_blank"><i class="fa fa-flickr fa-2x"></i></a>
+        <a href="https://github.com/cweb" title="Chris Weber on Github" target="_blank"><i class="fa fa-github fa-2x"></i></a>
+        
+        </div><!-- /.social-icons -->
+      </div>
+    </nav>
+  </div>
+
+</div>
+
+
+    <div class="content container">
+      <div class="post">
+  <h1 class="post-title">How Web browsers display a standard SSL connection compared with an EVSSL connection</h1>
+  <span class="post-date">27 May 2011</span>
+  <div class="css-full-post-content js-full-post-content">
+Secure Sockets Layer (SSL) is a peer to peer (or client to server) communication protocol designed to encrypt the data being transmitted between two computers over the Internet.  This protects the data from "man-in-the-middle" attacks where a third computer could eavesdrop on the conversation and not only read the data but also modify it in transit.  SSL is certainly one of the earliest security protection added to Web browsers and after several revisions has led to its successor the Transport Layer Security (TLS) protocol.  To use SSL, a webmaster much purchase a certificate from a Certificate Authority and install it on their Web server.  When visiting the site, a Web browser will read the sever's certificate and use its key information to set up an encrypted connection between the browser and the server.<br/><br/>Each of the most popular modern Web browsers notifies end users that SSL is active through the use of special icons, colors, or other visual notifiers added to the browser chrome that make it clear something good is happening.  In fact the display if quite different depending on the *type* of SSL certificate purchased and used on the site.  The prominent Extended Validation (EVSSL) certificate obviously gets the best branding currently.  Use of an EVSSL certificate will often be presented with colorful green indicators in the Web browser, a sure sign that something even better is happening, right?<br/><br/>Unfortunately each browser presents this information in a different and sometimes confusing way.  To add to the fragmentation, many browsers have a history of changing even their own presentation habits for SSL.  Perhaps that factor is just a product evolution from years of user feedback and usability testing, but modifying significant design elements does change the game for better or worse.  Here's a look at how the following browsers display an active and error-free SSL connection to the end user.<br/><ul><br/>  <li>Internet Explorer 9</li><br/> <li>Internet Explorer 8</li><br/> <li>Firefox 4</li><br/> <li>Firefox 3</li><br/> <li>Opera 11</li><br/>  <li>Safari 5</li><br/>  <li>Konqueror 4</li><br/> <li>Chrome 11</li><br/></ul><br/>Note that in the case of SSL connections which do contain errors, such as invalid host name or expired SSL certificate, the presentation changes, often significantly, to warn the end user that something bad is happening.  I'm not showing what those look like though.<br/><br/>The following screenshots compare the display of a standard SSL certificateare only from valid, error-free SSL certificates and connections.  Summarized as a table:<br/><table style="width: 90%;"><br/><tbody><br/><tr style="color: black; font-color: white;"><br/><td><span style="text-decoration: underline;"><strong>Browser</strong></span></td><br/><td><strong><span style="text-decoration: underline;">Standard SSL</span></strong></td><br/><td><span style="text-decoration: underline;"><strong>EVSSL</strong></span></td><br/></tr><br/><tr><br/><td>Internet Explorer 9</td><br/><td>Gray padlock in address bar</td><br/><td>Gray padlock plus full <span style="color: #339966;">green </span>address bar with company name or CA</td><br/></tr><br/><tr><br/><td>Internet Explorer 8</td><br/><td><span style="color: #ffff00;">Yellow </span>padlock in address bar</td><br/><td><span style="color: #ffff00;">Yellow </span>padlock plus full <span style="color: #339966;">green </span>address bar with company name or CA</td><br/></tr><br/><tr><br/><td>Firefox 4</td><br/><td><span style="color: #0000ff;">Blue </span>security emblem in address bar</td><br/><td><span style="color: #008000;">Green </span>security emblem in address bar with company name</td><br/></tr><br/><tr><br/><td>Firefox 3</td><br/><td><span style="color: #0000ff;"><span style="color: #000000;">Padlock at bottom plus</span> blue </span>security emblem in address bar</td><br/><td>Padlock at bottom plus <span style="color: #339966;">green </span>emblem in address bar with company name</td><br/></tr><br/><tr><br/><td>Chrome 11</td><br/><td><span style="color: #339966;">Green </span>padlock in address bar</td><br/><td><span style="color: #339966;">Green </span>padlock plus <span style="color: #339966;">green </span>emblem in address bar with company name</td><br/></tr><br/><tr><br/><td>Opera 11</td><br/><td>Dark padlock plus <span style="color: #ffff00;">yellow </span>emblem in address bar written as "Secure"</td><br/><td>Dark padlock plus <span style="color: #339966;">green </span>emblem in address bar written as "Trusted"</td><br/></tr><br/><tr><br/><td>Konqueror 4</td><br/><td><span style="color: #339966;">Green </span>shield with white check mark in address bar</td><br/><td><span style="color: #339966;">Green </span>shield with white check mark in address bar</td><br/></tr><br/><tr><br/><td>Safari 5</td><br/><td>Gray padlock in address bar</td><br/><td>Gray padlock plus green company name in address bar</td><br/></tr><br/></tbody><br/></table><br/>For more information about how browsers handle SSL certificates see the <a href="http://code.google.com/p/browsersec/wiki/Part2#Protocol-level_encryption_facilities">Browser Security Handbook</a>.<br/><h2>Internet Explorer 9</h2><br/>&nbsp;<br/><br/><a href="http://www.lookout.net/wp-content/uploads/2011/05/ie9.png"><img class="alignnone size-full wp-image-522" title="IE9 displaying a basic SSL certificate and security connection" src="http://www.lookout.net/wp-content/uploads/2011/05/ie9.png" alt="IE9 displaying a basic SSL certificate and security connection" width="845" height="715" /></a><br/><br/>With the basic SSL certificate above you can see a small, almost discreet, gray padlock icon in the right hand side of the address bar.  There are no other visual signs.<br/><br/><a href="http://www.lookout.net/wp-content/uploads/2011/05/ie9-evssl.png"><img class="alignnone size-full wp-image-523" title="IE9 displaying an EVSSL certificate and security connection" src="http://www.lookout.net/wp-content/uploads/2011/05/ie9-evssl.png" alt="IE9 displaying an EVSSL certificate and security connection" width="845" height="715" /></a><br/><br/>With an EVSSL certificate the same padlock exists but the entire address bar is also colored green.<br/><h2>Internet Explorer 8</h2><br/><a href="http://www.lookout.net/wp-content/uploads/2011/05/ie8.png"><img class="alignnone size-full wp-image-522" title="IE8 displaying a basic SSL certificate and security connection" src="http://www.lookout.net/wp-content/uploads/2011/05/ie8.png" alt="IE8 displaying a basic SSL certificate and security connection" width="845" height="715" /></a><br/><br/>With the standard SSL certificate above there's a colored padlock displayed on the area to the right of the address bar.<br/><br/><a href="http://www.lookout.net/wp-content/uploads/2011/05/ie8-evssl.png"><img class="alignnone size-full wp-image-523" title="IE8 displaying an EVSSL certificate and security connection" src="http://www.lookout.net/wp-content/uploads/2011/05/ie8-evssl.png" alt="IE8 displaying an EVSSL certificate and security connection" width="845" height="715" /></a><br/><br/>With an EVSSL certificate above there's the same colored padlock displayed along with identify information plus the entire address bar is colored green.<br/><h2>Firefox 4</h2><br/>&nbsp;<br/><br/><a href="http://www.lookout.net/wp-content/uploads/2011/05/ff4.png"><img class="alignnone size-full wp-image-523" title="FF4 displaying a standard certificate and security connection" src="http://www.lookout.net/wp-content/uploads/2011/05/ff4.png" alt="FF4 displaying a standard certificate and security connection" width="842" height="701" /></a><br/><br/>With a standard certificate above there's no padlock displayed anywhere, but there is an informational emblem displayed between the favicon and the URL in the address bar.  It's standard color is blue for any site so this is not meant to look branded to Facebook even though it happens to be using the same colors.<br/><br/><a href="http://www.lookout.net/wp-content/uploads/2011/05/ff4-evssl.png"><img class="alignnone size-full wp-image-523" title="FF4 displaying an EVSSL certificate and security connection" src="http://www.lookout.net/wp-content/uploads/2011/05/ff4-evssl.png" alt="FF4 displaying an EVSSL certificate and security connection" width="842" height="701" /></a><br/><br/>With an EVSSL certificate above there's no padlock displayed anywhere, but there is an informational emblem displayed between the favicon and the URL in the address bar.  It's colored green.<br/><br/><a href="http://www.lookout.net/wp-content/uploads/2011/05/ff4-google.png"><img class="alignnone size-full wp-image-523" title="FF4 displaying an EVSSL certificate and security connection" src="http://www.lookout.net/wp-content/uploads/2011/05/ff4-google.png" alt="FF4 displaying an EVSSL certificate and security connection" width="842" height="701" /></a><br/><br/>The above shot of https://encrypted.google.com is just to emphasize that the security emblem has a standard blue color.<br/><h2>Firefox 3</h2><br/>&nbsp;<br/><br/><a href="http://www.lookout.net/wp-content/uploads/2011/05/ff3-ubuntu.png"><img class="alignnone size-full wp-image-523" title="ff3 displaying a standard certificate and security connection" src="http://www.lookout.net/wp-content/uploads/2011/05/ff3-ubuntu.png" alt="ff3 displaying a standard SSL certificate and security connection" /></a><br/><br/>With standard certificate above there's a padlock displayed in the bottom right, and an informational blue-colored emblem displayed between the favicon and the URL in the address bar.<br/><br/><a href="http://www.lookout.net/wp-content/uploads/2011/05/ff3-evssl-ubuntu.png"><img class="alignnone size-full wp-image-523" title="FF3 displaying an EVSSL certificate and security connection" src="http://www.lookout.net/wp-content/uploads/2011/05/ff3-evssl-ubuntu.png" alt="FF3 displaying an EVSSL certificate and security connection" /></a><br/><br/>With an EVSSL certificate above there's a padlock displayed in the bottom right, and an informational green-colored emblem displayed between the favicon and the URL in the address bar.<br/><h2>Google Chrome 11</h2><br/><a href="http://www.lookout.net/wp-content/uploads/2011/05/chrome11.png"><img class="alignnone size-full wp-image-522" title="Chrome 11 displaying a basic SSL certificate and security connection" src="http://www.lookout.net/wp-content/uploads/2011/05/chrome11.png" alt="Chrome 11 displaying a basic SSL certificate and security connection" width="845" height="715" /></a><br/><br/>With a standard certificate above there's a small green padlock displayed in the left-hand side of the address bar.<br/><br/><a href="http://www.lookout.net/wp-content/uploads/2011/05/chrome11-evssl.png"><img class="alignnone size-full wp-image-522" title="Chrome 11 displaying an EVSSL certificate and security connection" src="http://www.lookout.net/wp-content/uploads/2011/05/chrome11-evssl.png" alt="Chrome 11 displaying an EVSSL certificate and security connection" width="845" height="715" /></a><br/><br/>With an EVSSL certificate above there's a small green padlock displayed in the left-hand side of the address bar along with a green-colored informational emblem.<br/><h2>Opera 11</h2><br/><a href="http://www.lookout.net/wp-content/uploads/2011/05/opera11.png"><img class="alignnone size-full wp-image-522" title="Opera 11 displaying a basic SSL certificate and security connection" src="http://www.lookout.net/wp-content/uploads/2011/05/opera11.png" alt="Opera 11  displaying a basic SSL certificate and security connection" width="845" height="715" /></a><br/><br/>With  a standard certificate above there's a small dark padlock displayed in the left-hand side of the address bar along with a yellow-colored "Secure" emblem.<br/><br/><a href="http://www.lookout.net/wp-content/uploads/2011/05/opera11-evssl.png"><img class="alignnone size-full wp-image-522" title="Opera 11  displaying am EVSSL certificate and security connection" src="http://www.lookout.net/wp-content/uploads/2011/05/opera11-evssl.png" alt="Opera 11  displaying am EVSSL certificate and security connection" width="845" height="715" /></a><br/><br/>With  an EVSSL certificate above there's a small dark padlock displayed in the left-hand side of the address bar along with a green-colored "Trusted" emblem.<br/><h2>Konqueror 4</h2><br/><a href="http://www.lookout.net/wp-content/uploads/2011/05/konqueror4-ubuntu.png"><img class="alignnone size-full wp-image-522" title="Konqueror 4 displaying a basic SSL certificate and security connection" src="http://www.lookout.net/wp-content/uploads/2011/05/konqueror4-ubuntu.png" alt="Konqueror 4 displaying a basic SSL certificate and security connection" width="845" height="715" /></a><br/><br/>With  a standard certificate above there's a small green shield with a white check mark in the right-hand side of the address bar.<br/><br/><a href="http://www.lookout.net/wp-content/uploads/2011/05/konqueror4-evssl-ubuntu.png"><img class="alignnone size-full wp-image-522" title="Konqueror 4 displaying an EVSSL certificate and security connection" src="http://www.lookout.net/wp-content/uploads/2011/05/konqueror4-evssl-ubuntu.png" alt="Konqueror 4 displaying an EVSSL certificate and security connection" /></a><br/><br/>With  an EVSSL certificate above there's the same small green shield with a white check mark in the right-hand side of the address bar.<br/><h2>Safari 5</h2><br/><a href="http://www.lookout.net/wp-content/uploads/2011/05/safar5.png"><img class="alignnone size-full wp-image-522" title="Safari displaying a basic SSL certificate and security connection" src="http://www.lookout.net/wp-content/uploads/2011/05/safar5.png" alt="IE9 displaying a basic SSL certificate and security connection" width="845" height="715" /></a><br/><br/>With  a standard certificate above there's a small gray padlock in the right-hand side of the address bar.<br/><br/><a href="http://www.lookout.net/wp-content/uploads/2011/05/safari5-evssl.png"><img class="alignnone size-full wp-image-522" title="Safari 5 displaying an EVSSL certificate and security connection" src="http://www.lookout.net/wp-content/uploads/2011/05/safari5-evssl.png" alt="Safari 5displaying a basic SSL certificate and security connection" width="845" height="715" /></a><br/><br/>With  an EVSSL certificate above there's a small gray padlock in the right-hand side of the address bar.<br/><br/><a href="http://www.lookout.net/wp-content/uploads/2011/05/safari5-error.png"><img class="alignnone size-full wp-image-522" title="Safari displaying an SSL certificate with errors" src="http://www.lookout.net/wp-content/uploads/2011/05/safari5-error.png" alt="Safari 5displaying an EVSSL certificate and security connection" width="845" height="715" /></a><br/><br/>Just couldn't resist putting in a shot of a standard certificate with errors (host name does not match).
+</div>
+<div class="css-full-comments-content js-full-comments-content">
+<div class="css-full-comment js-full-comment">
+  <div class="css-comment-user-link js-comment-user-link">
+  <a href="http://www.exploringstuff.com">
+  <div class="css-comment-name js-comment-name">
+    Bob Lamberson
+  </div>
+  </a>
+  <div class="css-comment-date js-comment-date">
+    2011-12-17T12:27:00.000Z
+  </div>
+  </div>
+  <div class="css-comment-content js-comment-content">
+    excellent information, thanks
+  </div>
+  <br/>
+</div>
+</div>
+</div>
+    
+
+<!-- <div class="related">
+  <h2>Related Posts</h2>
+  <ul class="related-posts">
+    
+      <li>
+        <h3>
+          <a href="/articles/spring-break-road-trip-washington.html">
+            Spring break road trip - Palouse, Stonehenge, Skamania, Ape Caves
+            <small>15 Apr 2018</small>
+          </a>
+        </h3>
+      </li>
+    
+      <li>
+        <h3>
+          <a href="/articles/children-online-privacy-and-security-guide.html">
+            Children, devices, and going online.  A guide to security and privacy.
+            <small>06 Apr 2017</small>
+          </a>
+        </h3>
+      </li>
+    
+      <li>
+        <h3>
+          <a href="/articles/Building-SDL-Program-Part-1.html">
+            Building an SDL Program - Part 1 - Where to start?
+            <small>15 Mar 2017</small>
+          </a>
+        </h3>
+      </li>
+    
+  </ul>
+</div> -->
+
+    </div>
+    <script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-1741389-10', 'auto');
+  ga('send', 'pageview');
+
+</script>
+  </body>
+</html>

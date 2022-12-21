@@ -1,0 +1,74 @@
+
+
+.entry-date {
+    font-size: 0.875rem;
+    text-transform: uppercase;
+    color: #555555;
+    font-size: .8rem;
+}
+
+.fa {
+    margin: 2px;
+}
+
+article {
+    margin-top: 1em;
+    border-bottom: 1px solid
+}
+
+.sidebar-sticky {
+    position: relative;
+}
+
+.sidebar-footer {
+    font-size: .8rem;
+    margin-top: 2rem;
+}
+
+.sidebar-about h1 {
+    font-size: 2rem;
+}
+
+.lead {
+    font-size: .8rem;
+}
+
+.wrap, .left {
+  float: left;
+  margin: 10px 10px 0 0;
+}
+
+img.thumb {
+    width: 150px;
+}
+
+img.centered {
+    display: block;
+    margin: auto;
+}
+
+h2:after {
+  background: #ddd;
+  content: "";
+  display: block;
+  height: 1px;
+    top: 50%;
+  width: 80%;
+}
+
+h2:before {
+  left: 0;
+}
+
+
+h3:before {
+  content: ": ";
+}
+
+h4:before {
+  content: " :: ";
+}
+
+h5:before {
+  content: "  ::: ";
+}

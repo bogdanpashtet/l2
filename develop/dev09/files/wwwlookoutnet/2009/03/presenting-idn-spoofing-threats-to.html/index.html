@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en-us">
+
+  <head>
+  <link href="https://gmpg.org/xfn/11" rel="profile">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+  
+
+  <!-- Enable responsiveness on mobile devices-->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+
+  <title>
+    
+      Presenting IDN spoofing threats to ICANN’s security committee &middot; lookout.net
+    
+  </title>
+
+  <!-- CSS -->
+  <link rel="stylesheet" href="/css/poole.css">
+  <link rel="stylesheet" href="/css/syntax.css">
+  <link rel="stylesheet" href="/css/hyde.css">
+  <link rel="stylesheet" href="/css/my.css">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=PT+Sans:400,400italic,700|Abril+Fatface">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
+
+  <!-- Icons -->
+  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/apple-touch-icon-144-precomposed.png">
+                                 <link rel="shortcut icon" href="/favicon.ico">
+
+  <!-- RSS -->
+  <link rel="alternate" type="application/rss+xml" title="RSS" href="/atom.xml">
+</head>
+
+
+  <body>
+
+    <div class="sidebar">
+  <div class="container sidebar-sticky">
+    <div class="sidebar-about">
+      <h1>
+        <a href="/">
+          lookout.net
+        </a>
+      </h1>
+
+      <p class="lead">Chris Weber's personal homepage</p>
+    </div>
+
+    <nav class="sidebar-nav">
+        
+          
+            <a href="https://www.lookout.net/" class="sidebar-nav-item">Home</a>
+           
+        
+          
+            <a href="https://www.lookout.net/about" class="sidebar-nav-item">About</a>
+           
+        
+          
+            <a href="https://www.lookout.net/articles" class="sidebar-nav-item">Articles</a>
+           
+        
+          
+            <a href="https://www.lookout.net/test" class="sidebar-nav-item">Tests</a>
+           
+        
+          
+            <a href="https://www.casaba.com" class="sidebar-nav-item">Casaba</a>
+           
+        
+          
+            <a href="https://web.smugmug.com" class="sidebar-nav-item">Photos</a>
+           
+        
+          
+            <a href="https://encrypt.to/0x59c66c997002e847" class="sidebar-nav-item">Contact</a>
+           
+        
+      <div class="sidebar-footer">
+        <span>&copy; 2018 Chris Weber</span>
+        <div class="social-icons">
+        <a href="https://www.lookout.net/feed.xml" title="Atom/RSS feed"><i class="fa fa-rss fa-2x"></i></a>
+        <a href="https://twitter.com/w3be" title="Chris Weber on Twitter" target="_blank"><i class="fa fa-twitter fa-2x"></i></a>
+        
+        <a href="https://plus.google.com/ChrisWeber1" title="Chris Weber on Google+" target="_blank"><i class="fa fa-google-plus fa-1x"></i></a>
+        <a href="https://linkedin.com/in/chrisweber" title="Chris Weber on LinkedIn" target="_blank"><i class="fa fa-linkedin fa-2x"></i></a>
+        
+        
+        <a href="https://www.flickr.com/photos/cosmicweb" title="Chris Weber on Flickr" target="_blank"><i class="fa fa-flickr fa-2x"></i></a>
+        <a href="https://github.com/cweb" title="Chris Weber on Github" target="_blank"><i class="fa fa-github fa-2x"></i></a>
+        
+        </div><!-- /.social-icons -->
+      </div>
+    </nav>
+  </div>
+
+</div>
+
+
+    <div class="content container">
+      <div class="post">
+  <h1 class="post-title">Presenting IDN spoofing threats to ICANN’s security committee</h1>
+  <span class="post-date">05 Mar 2009</span>
+  <div class="css-full-post-content js-full-post-content">
+I had the chance to present to the <a href="http://www.icann.org/en/committees/security/">ICANN Security and Stability Advisory Committee</a> during their ICANN Mexico conference. It was an opportunity to give a portion of my upcoming presentation on Exploiting Unicode-enabled Software, focusing just on IDN visual spoofing attacks. These issues have been discussed for years, going back to before 2000 when IDN was being first discussed, to <a href="http://www.shmoo.com/idn/homograph.txt">Eric Johanson</a>’s Paypal spoof in 2005, up to <a href="http://thoughtcrime.org/">Moxie Marlinspike</a>’s recent Black Hat demo. Mark Davis has discussed the homograph and syntax spoofing issues in the past, as have <a href="http://www.unicodeconference.org/iuc32/bios.htm#Heninger">Andy Heninger</a>.<br/><br/>So where does my presentation add more to the discussion? I’ve demonstrated a few things that are shocking still today - more IDN attacks for which no defenses exist:<br/><ul><br/>  <li>In both      Opera and Safari, I can still spoof <a href="http://www.google.com">http://www.google.com</a> today just as the old Paypal spoof worked.</li><br/> <li>In      Opera, Safari, and Firefox I can spoof <a href="http://www.mozilla.org">http://www.mozilla.org</a></li><br/>  <li>Syntax      spoofing crosses more boundaries than many might think - punctuation and      symbols aren’t all you need.</li><br/></ul><br/>The net result is something a bit unnerving:<br/><ul><br/>  <li>The      divergence in IDN implementations could be creating a mess of confusion      for end users.</li><br/>  <li>Phishing      attacks with IDN domains can be visually unrecognizable and deadly.</li><br/> <li>Those      screaming ‘Down with IDN’ are finding more torches and rocks to pick up.</li><br/></ul><br/>I plan to go into this more at <a href="http://www.sourceconference.com/index.php/source-boston-2009/boston-2009-sessions">SOURCE Boston</a> and <a href="http://cansecwest.com/index.html">CanSecWest</a>.<br/><br/>Where do we go from here? I believe we’ve got to keep IDN alive, don’t stifle such a phenomenon because of fear and doubt. So who should start fixing it - the registrars, the user-agents? I’ve got my own answers for that, and also some upcoming corss-platform API components that will fix the issue for any user-agent who wants it. For now, let’s just say that IDNA2008 is in draft and does take the defenses to a new level.
+</div>
+</div>
+    
+
+<!-- <div class="related">
+  <h2>Related Posts</h2>
+  <ul class="related-posts">
+    
+      <li>
+        <h3>
+          <a href="/articles/spring-break-road-trip-washington.html">
+            Spring break road trip - Palouse, Stonehenge, Skamania, Ape Caves
+            <small>15 Apr 2018</small>
+          </a>
+        </h3>
+      </li>
+    
+      <li>
+        <h3>
+          <a href="/articles/children-online-privacy-and-security-guide.html">
+            Children, devices, and going online.  A guide to security and privacy.
+            <small>06 Apr 2017</small>
+          </a>
+        </h3>
+      </li>
+    
+      <li>
+        <h3>
+          <a href="/articles/Building-SDL-Program-Part-1.html">
+            Building an SDL Program - Part 1 - Where to start?
+            <small>15 Mar 2017</small>
+          </a>
+        </h3>
+      </li>
+    
+  </ul>
+</div> -->
+
+    </div>
+    <script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-1741389-10', 'auto');
+  ga('send', 'pageview');
+
+</script>
+  </body>
+</html>

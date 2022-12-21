@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en-us">
+
+  <head>
+  <link href="https://gmpg.org/xfn/11" rel="profile">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+  
+
+  <!-- Enable responsiveness on mobile devices-->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+
+  <title>
+    
+      Open Redirects - what's the problem? &middot; lookout.net
+    
+  </title>
+
+  <!-- CSS -->
+  <link rel="stylesheet" href="/css/poole.css">
+  <link rel="stylesheet" href="/css/syntax.css">
+  <link rel="stylesheet" href="/css/hyde.css">
+  <link rel="stylesheet" href="/css/my.css">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=PT+Sans:400,400italic,700|Abril+Fatface">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
+
+  <!-- Icons -->
+  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/apple-touch-icon-144-precomposed.png">
+                                 <link rel="shortcut icon" href="/favicon.ico">
+
+  <!-- RSS -->
+  <link rel="alternate" type="application/rss+xml" title="RSS" href="/atom.xml">
+</head>
+
+
+  <body>
+
+    <div class="sidebar">
+  <div class="container sidebar-sticky">
+    <div class="sidebar-about">
+      <h1>
+        <a href="/">
+          lookout.net
+        </a>
+      </h1>
+
+      <p class="lead">Chris Weber's personal homepage</p>
+    </div>
+
+    <nav class="sidebar-nav">
+        
+          
+            <a href="https://www.lookout.net/" class="sidebar-nav-item">Home</a>
+           
+        
+          
+            <a href="https://www.lookout.net/about" class="sidebar-nav-item">About</a>
+           
+        
+          
+            <a href="https://www.lookout.net/articles" class="sidebar-nav-item">Articles</a>
+           
+        
+          
+            <a href="https://www.lookout.net/test" class="sidebar-nav-item">Tests</a>
+           
+        
+          
+            <a href="https://www.casaba.com" class="sidebar-nav-item">Casaba</a>
+           
+        
+          
+            <a href="https://web.smugmug.com" class="sidebar-nav-item">Photos</a>
+           
+        
+          
+            <a href="https://encrypt.to/0x59c66c997002e847" class="sidebar-nav-item">Contact</a>
+           
+        
+      <div class="sidebar-footer">
+        <span>&copy; 2018 Chris Weber</span>
+        <div class="social-icons">
+        <a href="https://www.lookout.net/feed.xml" title="Atom/RSS feed"><i class="fa fa-rss fa-2x"></i></a>
+        <a href="https://twitter.com/w3be" title="Chris Weber on Twitter" target="_blank"><i class="fa fa-twitter fa-2x"></i></a>
+        
+        <a href="https://plus.google.com/ChrisWeber1" title="Chris Weber on Google+" target="_blank"><i class="fa fa-google-plus fa-1x"></i></a>
+        <a href="https://linkedin.com/in/chrisweber" title="Chris Weber on LinkedIn" target="_blank"><i class="fa fa-linkedin fa-2x"></i></a>
+        
+        
+        <a href="https://www.flickr.com/photos/cosmicweb" title="Chris Weber on Flickr" target="_blank"><i class="fa fa-flickr fa-2x"></i></a>
+        <a href="https://github.com/cweb" title="Chris Weber on Github" target="_blank"><i class="fa fa-github fa-2x"></i></a>
+        
+        </div><!-- /.social-icons -->
+      </div>
+    </nav>
+  </div>
+
+</div>
+
+
+    <div class="content container">
+      <div class="post">
+  <h1 class="post-title">Open Redirects - what's the problem?</h1>
+  <span class="post-date">27 Feb 2008</span>
+  <div class="css-full-post-content js-full-post-content">
+Been getting this question a bit lately.  First off, what's an open redirect?  It's a function in your application which sends the user to some other location.  The redirect could be a response from the server, such as an HTTP 301 or 302 response code, or a META redirect.  The redirect can be delivered in several forms, the important part is that when an attacker can control the redirect location, they can exploit it for nefarious purposes - usually this means spam or phishing attacks.<br/><br/>For example, your application takes a request from the user, maybe it's a GET request for a certain page.  Included in the request is a value indicating the location where the user should be redirected once they've finished on the page.  So, the user requests a page like:<br/><br/><code>http://somesite.tld/page.aspx?name=value&amp;returnUrl=http://somesite.tld/referringpage.aspx</code><br/><br/>As you can see, the <strong>returnUrl </strong>takes a value of the redirect location.  Then your code acts on it somewhere by redirecting the user with something like:<br/><code><br/>Response.Redirect(returnUrl);<br/></code><br/><br/><strong>Spammers and phishers</strong> love this, it gives them <strong>good camouflage</strong>.  For example:<br/><br/><code>http://somesite.tld/page.aspx?name=value&amp;returnUrl=http://evil.tld/installMalware.bad</code><br/><br/>Now imagine the spammer has crafted up a nice email that looks like it originates from somesite.tld, includes all the logos, fonts, etc.  They coerce the victim into clicking this link by saying something like "your account needs immediate attention" or "you've won 500 points".  User clicks the link, gets redirected to evil.tld, and may not realize that the domain has switched before they say <strong>Yes</strong> to install the thing that the spammer wants them to download.<br/><br/>Tricky, right.  In fact this is a favorite of spam, malware, and phish, next to the old XSS bug.<br/><br/><strong>What's the solution</strong><br/>Well, simply, don't redirect openly, rather, implement a SafeRedirect() function that looks something like:<br/><br/><code><br/>public static SafeRedirect(string url) {<br/>// check that protocol is either http:// https:// ftp:// or other specific protos you want to allow<br/>// check that domain is in fact yourdomain.tld<br/>// If these checks pass, then you can go ahead<br/>Response.Redirect(returnUrl);<br/>// If the checks fail, you can try to clean up the URL, but probably best to just fail and redirect to a safe landing page<br/>}<br/></code><br/>That's about all there is too it.
+</div>
+</div>
+    
+
+<!-- <div class="related">
+  <h2>Related Posts</h2>
+  <ul class="related-posts">
+    
+      <li>
+        <h3>
+          <a href="/articles/spring-break-road-trip-washington.html">
+            Spring break road trip - Palouse, Stonehenge, Skamania, Ape Caves
+            <small>15 Apr 2018</small>
+          </a>
+        </h3>
+      </li>
+    
+      <li>
+        <h3>
+          <a href="/articles/children-online-privacy-and-security-guide.html">
+            Children, devices, and going online.  A guide to security and privacy.
+            <small>06 Apr 2017</small>
+          </a>
+        </h3>
+      </li>
+    
+      <li>
+        <h3>
+          <a href="/articles/Building-SDL-Program-Part-1.html">
+            Building an SDL Program - Part 1 - Where to start?
+            <small>15 Mar 2017</small>
+          </a>
+        </h3>
+      </li>
+    
+  </ul>
+</div> -->
+
+    </div>
+    <script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-1741389-10', 'auto');
+  ga('send', 'pageview');
+
+</script>
+  </body>
+</html>

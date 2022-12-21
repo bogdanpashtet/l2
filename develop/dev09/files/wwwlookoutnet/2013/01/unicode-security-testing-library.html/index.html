@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en-us">
+
+  <head>
+  <link href="https://gmpg.org/xfn/11" rel="profile">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+  
+
+  <!-- Enable responsiveness on mobile devices-->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+
+  <title>
+    
+      Unicode security testing library &middot; lookout.net
+    
+  </title>
+
+  <!-- CSS -->
+  <link rel="stylesheet" href="/css/poole.css">
+  <link rel="stylesheet" href="/css/syntax.css">
+  <link rel="stylesheet" href="/css/hyde.css">
+  <link rel="stylesheet" href="/css/my.css">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=PT+Sans:400,400italic,700|Abril+Fatface">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
+
+  <!-- Icons -->
+  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/apple-touch-icon-144-precomposed.png">
+                                 <link rel="shortcut icon" href="/favicon.ico">
+
+  <!-- RSS -->
+  <link rel="alternate" type="application/rss+xml" title="RSS" href="/atom.xml">
+</head>
+
+
+  <body>
+
+    <div class="sidebar">
+  <div class="container sidebar-sticky">
+    <div class="sidebar-about">
+      <h1>
+        <a href="/">
+          lookout.net
+        </a>
+      </h1>
+
+      <p class="lead">Chris Weber's personal homepage</p>
+    </div>
+
+    <nav class="sidebar-nav">
+        
+          
+            <a href="https://www.lookout.net/" class="sidebar-nav-item">Home</a>
+           
+        
+          
+            <a href="https://www.lookout.net/about" class="sidebar-nav-item">About</a>
+           
+        
+          
+            <a href="https://www.lookout.net/articles" class="sidebar-nav-item">Articles</a>
+           
+        
+          
+            <a href="https://www.lookout.net/test" class="sidebar-nav-item">Tests</a>
+           
+        
+          
+            <a href="https://www.casaba.com" class="sidebar-nav-item">Casaba</a>
+           
+        
+          
+            <a href="https://web.smugmug.com" class="sidebar-nav-item">Photos</a>
+           
+        
+          
+            <a href="https://encrypt.to/0x59c66c997002e847" class="sidebar-nav-item">Contact</a>
+           
+        
+      <div class="sidebar-footer">
+        <span>&copy; 2018 Chris Weber</span>
+        <div class="social-icons">
+        <a href="https://www.lookout.net/feed.xml" title="Atom/RSS feed"><i class="fa fa-rss fa-2x"></i></a>
+        <a href="https://twitter.com/w3be" title="Chris Weber on Twitter" target="_blank"><i class="fa fa-twitter fa-2x"></i></a>
+        
+        <a href="https://plus.google.com/ChrisWeber1" title="Chris Weber on Google+" target="_blank"><i class="fa fa-google-plus fa-1x"></i></a>
+        <a href="https://linkedin.com/in/chrisweber" title="Chris Weber on LinkedIn" target="_blank"><i class="fa fa-linkedin fa-2x"></i></a>
+        
+        
+        <a href="https://www.flickr.com/photos/cosmicweb" title="Chris Weber on Flickr" target="_blank"><i class="fa fa-flickr fa-2x"></i></a>
+        <a href="https://github.com/cweb" title="Chris Weber on Github" target="_blank"><i class="fa fa-github fa-2x"></i></a>
+        
+        </div><!-- /.social-icons -->
+      </div>
+    </nav>
+  </div>
+
+</div>
+
+
+    <div class="content container">
+      <div class="post">
+  <h1 class="post-title">Unicode security testing library</h1>
+  <span class="post-date">30 Jan 2013</span>
+  <div class="css-full-post-content js-full-post-content">
+Oftentimes, I want to break software, mostly Web applications, but occasionally platform-related, such as protocols or OS code. &nbsp;When it comes to testing string input to find bugs, or vulnerabilities, Unicode can be a tester's best friend. &nbsp;Strings are not simple things for software engineers - they require a lot of planning - buffers, encodings, transmission, and storage are just a few concerns.<br /><br />I've had some success over the years finding nasty bugs, things that get critical ratings and require the world to reboot, for which Unicode has often been a useful creative tool. &nbsp;I've leveraged the Unicode specifications for this quite a bit, and learned by past research by other bug hunters. &nbsp;I've also managed to work on a few tools, one being <a href="http://xss.codeplex.com/">x5s, a cross-site scripting tester</a> which was implemented by John Hernandez. &nbsp;It's novelty was in sending various Unicode characters and detecting when they transform into an ASCII equivalent. &nbsp;Character transformations can lead to dangerous scenarios.<br /><br />I also wanted to document more interesting Unicode characters so they could be easily accessible, and pre-defined. &nbsp;Often people ask me, what characters should I use for testing? &nbsp;Which ones flip text around? &nbsp;Which ones cause problems? &nbsp;Which one maps to an apostrophe for SQL injection, or a less-than sign for XSS? &nbsp; To answer these questions, I put everything I knew of (well most of it) into a <a href="https://github.com/cweb/unicode-hax">small utility library, unicode-hax</a>, available on Github for your security testing pleasures.<br /><br /><b><u>Major features:</u></b><br /><br /><ul><li>Contains methods to get <b>best fit mappings</b>. &nbsp;For example, you want to know all the characters in various legacy encodings that transform to "&lt;" or some other ASCII character.</li><li>Contains methods to get <b>Unicode normalization mappings</b>. &nbsp;For example, you wan to know if any special Unicode characters will transform to "&gt;" or some other ASCII character.</li><li>Contains a small set of hard-coded <b>Unicode characters useful in fuzzing</b>, as well as some functions for returning invalid byte sequences or characters that .NET would not allow by itself (because they're not well-formed). &nbsp;</li><ul><li>ill-formed byte sequences</li><li>Unicode non-characters (an oxymoron?)</li><li>private use area (PUA)</li><li>unassigned code points</li><li>code points with special meaning such as the BOM and RLO</li><li>half-surrogate values like U+DEAD, a very nasty little guy all by itself</li></ul></ul><br />I wanted to reduce the number of iterations during fuzzing to a very small group of characters with special meaning which historically cause problems in software.<br /><br />If you have any suggestions for improvement, additions etc., please let me know. &nbsp;Find the code here:<br /><br /><a href="https://github.com/cweb/unicode-hax">https://github.com/cweb/unicode-hax</a><br /><br />Happy bug hunting.<br /><div><br /></div>
+</div>
+
+</div>
+    
+
+<!-- <div class="related">
+  <h2>Related Posts</h2>
+  <ul class="related-posts">
+    
+      <li>
+        <h3>
+          <a href="/articles/spring-break-road-trip-washington.html">
+            Spring break road trip - Palouse, Stonehenge, Skamania, Ape Caves
+            <small>15 Apr 2018</small>
+          </a>
+        </h3>
+      </li>
+    
+      <li>
+        <h3>
+          <a href="/articles/children-online-privacy-and-security-guide.html">
+            Children, devices, and going online.  A guide to security and privacy.
+            <small>06 Apr 2017</small>
+          </a>
+        </h3>
+      </li>
+    
+      <li>
+        <h3>
+          <a href="/articles/Building-SDL-Program-Part-1.html">
+            Building an SDL Program - Part 1 - Where to start?
+            <small>15 Mar 2017</small>
+          </a>
+        </h3>
+      </li>
+    
+  </ul>
+</div> -->
+
+    </div>
+    <script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-1741389-10', 'auto');
+  ga('send', 'pageview');
+
+</script>
+  </body>
+</html>

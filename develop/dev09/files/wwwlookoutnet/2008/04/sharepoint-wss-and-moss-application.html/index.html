@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en-us">
+
+  <head>
+  <link href="https://gmpg.org/xfn/11" rel="profile">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+  
+
+  <!-- Enable responsiveness on mobile devices-->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+
+  <title>
+    
+      Sharepoint, WSS and MOSS application development and security testing &middot; lookout.net
+    
+  </title>
+
+  <!-- CSS -->
+  <link rel="stylesheet" href="/css/poole.css">
+  <link rel="stylesheet" href="/css/syntax.css">
+  <link rel="stylesheet" href="/css/hyde.css">
+  <link rel="stylesheet" href="/css/my.css">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=PT+Sans:400,400italic,700|Abril+Fatface">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
+
+  <!-- Icons -->
+  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/apple-touch-icon-144-precomposed.png">
+                                 <link rel="shortcut icon" href="/favicon.ico">
+
+  <!-- RSS -->
+  <link rel="alternate" type="application/rss+xml" title="RSS" href="/atom.xml">
+</head>
+
+
+  <body>
+
+    <div class="sidebar">
+  <div class="container sidebar-sticky">
+    <div class="sidebar-about">
+      <h1>
+        <a href="/">
+          lookout.net
+        </a>
+      </h1>
+
+      <p class="lead">Chris Weber's personal homepage</p>
+    </div>
+
+    <nav class="sidebar-nav">
+        
+          
+            <a href="https://www.lookout.net/" class="sidebar-nav-item">Home</a>
+           
+        
+          
+            <a href="https://www.lookout.net/about" class="sidebar-nav-item">About</a>
+           
+        
+          
+            <a href="https://www.lookout.net/articles" class="sidebar-nav-item">Articles</a>
+           
+        
+          
+            <a href="https://www.lookout.net/test" class="sidebar-nav-item">Tests</a>
+           
+        
+          
+            <a href="https://www.casaba.com" class="sidebar-nav-item">Casaba</a>
+           
+        
+          
+            <a href="https://web.smugmug.com" class="sidebar-nav-item">Photos</a>
+           
+        
+          
+            <a href="https://encrypt.to/0x59c66c997002e847" class="sidebar-nav-item">Contact</a>
+           
+        
+      <div class="sidebar-footer">
+        <span>&copy; 2018 Chris Weber</span>
+        <div class="social-icons">
+        <a href="https://www.lookout.net/feed.xml" title="Atom/RSS feed"><i class="fa fa-rss fa-2x"></i></a>
+        <a href="https://twitter.com/w3be" title="Chris Weber on Twitter" target="_blank"><i class="fa fa-twitter fa-2x"></i></a>
+        
+        <a href="https://plus.google.com/ChrisWeber1" title="Chris Weber on Google+" target="_blank"><i class="fa fa-google-plus fa-1x"></i></a>
+        <a href="https://linkedin.com/in/chrisweber" title="Chris Weber on LinkedIn" target="_blank"><i class="fa fa-linkedin fa-2x"></i></a>
+        
+        
+        <a href="https://www.flickr.com/photos/cosmicweb" title="Chris Weber on Flickr" target="_blank"><i class="fa fa-flickr fa-2x"></i></a>
+        <a href="https://github.com/cweb" title="Chris Weber on Github" target="_blank"><i class="fa fa-github fa-2x"></i></a>
+        
+        </div><!-- /.social-icons -->
+      </div>
+    </nav>
+  </div>
+
+</div>
+
+
+    <div class="content container">
+      <div class="post">
+  <h1 class="post-title">Sharepoint, WSS and MOSS application development and security testing</h1>
+  <span class="post-date">22 Apr 2008</span>
+  <div class="css-full-post-content js-full-post-content">
+Here's a few things to lookout for when auditing or security testing a Sharepoint/WSS/MOSS application, or when building one.  But first: a new Microsoft MVP article on the subject just came out:<br/><a href="http://www.microsoft.com/technet/community/columns/secmvp/sv0408.mspx"> Security and Application Development in SharePoint: First Steps</a><br/><br/>And some other documents from Microsoft do exist:<br/><br/><a href="http://msdn.microsoft.com/en-us/library/aa973248.aspx">Best Practices: Common Coding Issues When Using the SharePoint Object Model<br/>Best Practices: Using Disposable Windows SharePoint Services Objects</a><br/><a href="http://go.microsoft.com/fwlink/?LinkID=94375">Office SharePoint Server Security</a><br/><a href="http://go.microsoft.com/fwlink/?LinkID=94370">Windows SharePoint Services Security</a><br/><br/>However I haven't been able to find much documentation on the following things, which you should be aware of if auditing, security testing, or deploying a Sharepoint,WSS,MOSS application:<br/><br/><strong>1.</strong> Watchout for <code>SPSecurity.RunWithElevatedPermissions()</code><br/>As the name suggests, we should watch for the use of this method.  In normal requests, SharePoint will execute code under the identity of the calling user.  But when this method is leveraged, SharePoint will execute object model code with elevated permissions as the app pool account identity, which normally has full rights to the site collections it hosts.<br/><br/><strong>2.</strong> <code>SPListItem </code> versus doclib<br/>SPListItem sanitizes user input to mitigate XSS attacks.  However, documents in the document library (doclib) are not afforded this protection.  It is possible for contributors to upload malicious content into the doclib.  Meaning, you can upload html files to a doclib and they'll be loaded as any hosted html file in that domain.  So if you have uploaded a file called 'myfile.html' and you navigate to:<br/><br/>http://mysharepoint/Shared%20Documents/myfile.html<br/><br/>Then myfile.html loads in the browser as any other html file would in that domain (as Content-Type: text/html).  There might be a setting to mitigate this by forcing a Content-Disposition: attachment header (a download dialog prompt) but I'm not sure.  Someone with more Sharepoint knowledge would know.  Otherwise you could customize the code yourself to force this.<br/><br/><strong>3.</strong> Leverage <code>SPUtility.ValidateFormDigest() </code> for CSRF mitigation<br/>This can be considered on par with ASP.NET's ViewStateUserKey.  To protect against cross-site request forgery, be sure your custom built aspx pages call SPUtility.ValidateFormDigest().  Sharepoint pages includes a hidden token in the postback which is unique to the user and the request.  ValidateFormRequest() can be called in your custom aspx pages directly, or if you inherit from the WSS master page, to ensure you're leveraging this same protection.<br/><br/><strong>4.</strong> Calling <code>.Close()</code> on SPWeb and SPSite objects<br/>Be sure to close objects before loosing references to them, otherwise you'll wind up with memory leaks fast.  The two 'Best Practices' docs I've listed above will give more details.<br/><br/><strong>5.</strong> Don't enable <a href="http://msdn.microsoft.com/en-us/library/microsoft.sharepoint.spsite.allowunsafeupdates.aspx">AllowUnsafeUpdates </a><br/>When set to true the AllowUnsafeUpdates value tells Sharepoint to allow actions and data from GET requests to modify the database.  By not allowing GET requests to modify data (this is the default), you've effectively protected against CSRF attacks which exploit GET requests.  This is supplementary to ValidateFormRequest() above which only works with POST requests.<br/><br/>Update:  July 2008 - updated with #5 above and found this <a href="http://hristopavlov.wordpress.com/2008/05/16/what-you-need-to-know-about-allowunsafeupdates/">interesting blog post </a>on the subject from Hristo Pavlov’s Blog.
+</div>
+</div>
+    
+
+<!-- <div class="related">
+  <h2>Related Posts</h2>
+  <ul class="related-posts">
+    
+      <li>
+        <h3>
+          <a href="/articles/spring-break-road-trip-washington.html">
+            Spring break road trip - Palouse, Stonehenge, Skamania, Ape Caves
+            <small>15 Apr 2018</small>
+          </a>
+        </h3>
+      </li>
+    
+      <li>
+        <h3>
+          <a href="/articles/children-online-privacy-and-security-guide.html">
+            Children, devices, and going online.  A guide to security and privacy.
+            <small>06 Apr 2017</small>
+          </a>
+        </h3>
+      </li>
+    
+      <li>
+        <h3>
+          <a href="/articles/Building-SDL-Program-Part-1.html">
+            Building an SDL Program - Part 1 - Where to start?
+            <small>15 Mar 2017</small>
+          </a>
+        </h3>
+      </li>
+    
+  </ul>
+</div> -->
+
+    </div>
+    <script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-1741389-10', 'auto');
+  ga('send', 'pageview');
+
+</script>
+  </body>
+</html>

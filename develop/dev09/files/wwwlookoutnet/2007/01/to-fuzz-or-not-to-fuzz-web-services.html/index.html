@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en-us">
+
+  <head>
+  <link href="https://gmpg.org/xfn/11" rel="profile">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+  
+
+  <!-- Enable responsiveness on mobile devices-->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+
+  <title>
+    
+      To fuzz or not to fuzz web services… &middot; lookout.net
+    
+  </title>
+
+  <!-- CSS -->
+  <link rel="stylesheet" href="/css/poole.css">
+  <link rel="stylesheet" href="/css/syntax.css">
+  <link rel="stylesheet" href="/css/hyde.css">
+  <link rel="stylesheet" href="/css/my.css">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=PT+Sans:400,400italic,700|Abril+Fatface">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
+
+  <!-- Icons -->
+  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/apple-touch-icon-144-precomposed.png">
+                                 <link rel="shortcut icon" href="/favicon.ico">
+
+  <!-- RSS -->
+  <link rel="alternate" type="application/rss+xml" title="RSS" href="/atom.xml">
+</head>
+
+
+  <body>
+
+    <div class="sidebar">
+  <div class="container sidebar-sticky">
+    <div class="sidebar-about">
+      <h1>
+        <a href="/">
+          lookout.net
+        </a>
+      </h1>
+
+      <p class="lead">Chris Weber's personal homepage</p>
+    </div>
+
+    <nav class="sidebar-nav">
+        
+          
+            <a href="https://www.lookout.net/" class="sidebar-nav-item">Home</a>
+           
+        
+          
+            <a href="https://www.lookout.net/about" class="sidebar-nav-item">About</a>
+           
+        
+          
+            <a href="https://www.lookout.net/articles" class="sidebar-nav-item">Articles</a>
+           
+        
+          
+            <a href="https://www.lookout.net/test" class="sidebar-nav-item">Tests</a>
+           
+        
+          
+            <a href="https://www.casaba.com" class="sidebar-nav-item">Casaba</a>
+           
+        
+          
+            <a href="https://web.smugmug.com" class="sidebar-nav-item">Photos</a>
+           
+        
+          
+            <a href="https://encrypt.to/0x59c66c997002e847" class="sidebar-nav-item">Contact</a>
+           
+        
+      <div class="sidebar-footer">
+        <span>&copy; 2018 Chris Weber</span>
+        <div class="social-icons">
+        <a href="https://www.lookout.net/feed.xml" title="Atom/RSS feed"><i class="fa fa-rss fa-2x"></i></a>
+        <a href="https://twitter.com/w3be" title="Chris Weber on Twitter" target="_blank"><i class="fa fa-twitter fa-2x"></i></a>
+        
+        <a href="https://plus.google.com/ChrisWeber1" title="Chris Weber on Google+" target="_blank"><i class="fa fa-google-plus fa-1x"></i></a>
+        <a href="https://linkedin.com/in/chrisweber" title="Chris Weber on LinkedIn" target="_blank"><i class="fa fa-linkedin fa-2x"></i></a>
+        
+        
+        <a href="https://www.flickr.com/photos/cosmicweb" title="Chris Weber on Flickr" target="_blank"><i class="fa fa-flickr fa-2x"></i></a>
+        <a href="https://github.com/cweb" title="Chris Weber on Github" target="_blank"><i class="fa fa-github fa-2x"></i></a>
+        
+        </div><!-- /.social-icons -->
+      </div>
+    </nav>
+  </div>
+
+</div>
+
+
+    <div class="content container">
+      <div class="post">
+  <h1 class="post-title">To fuzz or not to fuzz web services…</h1>
+  <span class="post-date">13 Jan 2007</span>
+  <div class="css-full-post-content js-full-post-content">
+Is it worth the time to run input fuzzing tests against web services?  When engaging a client for a security review I'm often the one to pose this question.  Sure, <strong>why not</strong>... right?  Well honestly there's a more precise way to answer this question.  First we really need to understand the <strong>goals </strong>of the security review, so a few questions are in order.<br/><ol><br/>  <li>Has <strong>threat modeling </strong>been done or is this my job?</li><br/> <li>How much <strong>time and budget </strong>do we have for a security review?</li><br/> <li>How complex are the web services? e.g. how many parameters do they take and in what format</li><br/>  <li>Are the web services written in managed code?</li><br/> <li>Is user-input passed to unmanaged code?</li><br/></ol><br/>Let's take these answers from a common scenario:<br/><ol><br/> <li>Yes threat modeling is complete</li><br/> <li>We have about 2 or 3 weeks that you can use to test</li><br/> <li>Very complex, they use WS-Security, take hundreds of parameters, some encrypted, using custom formats, SOAP, as well as embedded XML blobs</li><br/>  <li>Yes, they're written in C# using the .NET Framework</li><br/> <li>Some specific elements of user-input are handled by unmanaged code modules</li><br/></ol><br/>Some things not obvious in these questions are:<br/><ul><br/> <li> that the client is highly interested in finding Denial of Service (<strong>DoS</strong>) issues</li><br/>  <li>that millions of people will be using these Web Services whether they know it or not</li><br/>  <li>that no input fuzzing has been done to date</li><br/></ul><br/>With 2-3 weeks we could get a lot done in a security review focused just one the web services.  It's becoming clear that fuzzing input would be a <strong>worthwhile </strong>venture.  We'll likely turn up some DoS issues, possibly some unmanaged code issues as well.  Since we have a decent timeframe, we'll be checking for the following issues, not all of which fuzzing is good for:<br/><ul><br/>  <li>elevation of privilege (<strong>EoP</strong>)</li><br/> <li><strong>repurposing </strong>attacks</li><br/>  <li>cross-site scripting (yes, even web services in some cases)</li><br/> <li>information disclosure</li><br/>  <li>session replay</li><br/>  <li>SQL Injection</li><br/> <li>DTD attacks</li><br/> <li>XML validation</li><br/>  <li>script injection</li><br/>  <li>repudiation</li><br/> <li>denial of service</li><br/> <li>buffer overrun</li><br/></ul><br/>Fuzzing will help with some of these, so at this point the answer is yes, let's do it.  We'll also be doing some <strong>code review</strong>, which is great for identifying issues such as DoS, XML validation, and DTD attacks quickly.  And we'll be studying the specs and architecture along the way to keep a clear <strong>understanding </strong>of the system and help identify repurposing attacks, which will be tested for confirmation.<br/><br/>Ok let's go!
+</div>
+</div>
+    
+
+<!-- <div class="related">
+  <h2>Related Posts</h2>
+  <ul class="related-posts">
+    
+      <li>
+        <h3>
+          <a href="/articles/spring-break-road-trip-washington.html">
+            Spring break road trip - Palouse, Stonehenge, Skamania, Ape Caves
+            <small>15 Apr 2018</small>
+          </a>
+        </h3>
+      </li>
+    
+      <li>
+        <h3>
+          <a href="/articles/children-online-privacy-and-security-guide.html">
+            Children, devices, and going online.  A guide to security and privacy.
+            <small>06 Apr 2017</small>
+          </a>
+        </h3>
+      </li>
+    
+      <li>
+        <h3>
+          <a href="/articles/Building-SDL-Program-Part-1.html">
+            Building an SDL Program - Part 1 - Where to start?
+            <small>15 Mar 2017</small>
+          </a>
+        </h3>
+      </li>
+    
+  </ul>
+</div> -->
+
+    </div>
+    <script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-1741389-10', 'auto');
+  ga('send', 'pageview');
+
+</script>
+  </body>
+</html>

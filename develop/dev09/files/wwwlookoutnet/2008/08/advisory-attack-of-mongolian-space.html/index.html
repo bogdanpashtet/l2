@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="en-us">
+
+  <head>
+  <link href="https://gmpg.org/xfn/11" rel="profile">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+  
+
+  <!-- Enable responsiveness on mobile devices-->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+
+  <title>
+    
+      Advisory: Attack of the Mongolian space evaders! (and other Medieval XSS vectors) &middot; lookout.net
+    
+  </title>
+
+  <!-- CSS -->
+  <link rel="stylesheet" href="/css/poole.css">
+  <link rel="stylesheet" href="/css/syntax.css">
+  <link rel="stylesheet" href="/css/hyde.css">
+  <link rel="stylesheet" href="/css/my.css">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=PT+Sans:400,400italic,700|Abril+Fatface">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
+
+  <!-- Icons -->
+  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/apple-touch-icon-144-precomposed.png">
+                                 <link rel="shortcut icon" href="/favicon.ico">
+
+  <!-- RSS -->
+  <link rel="alternate" type="application/rss+xml" title="RSS" href="/atom.xml">
+</head>
+
+
+  <body>
+
+    <div class="sidebar">
+  <div class="container sidebar-sticky">
+    <div class="sidebar-about">
+      <h1>
+        <a href="/">
+          lookout.net
+        </a>
+      </h1>
+
+      <p class="lead">Chris Weber's personal homepage</p>
+    </div>
+
+    <nav class="sidebar-nav">
+        
+          
+            <a href="https://www.lookout.net/" class="sidebar-nav-item">Home</a>
+           
+        
+          
+            <a href="https://www.lookout.net/about" class="sidebar-nav-item">About</a>
+           
+        
+          
+            <a href="https://www.lookout.net/articles" class="sidebar-nav-item">Articles</a>
+           
+        
+          
+            <a href="https://www.lookout.net/test" class="sidebar-nav-item">Tests</a>
+           
+        
+          
+            <a href="https://www.casaba.com" class="sidebar-nav-item">Casaba</a>
+           
+        
+          
+            <a href="https://web.smugmug.com" class="sidebar-nav-item">Photos</a>
+           
+        
+          
+            <a href="https://encrypt.to/0x59c66c997002e847" class="sidebar-nav-item">Contact</a>
+           
+        
+      <div class="sidebar-footer">
+        <span>&copy; 2018 Chris Weber</span>
+        <div class="social-icons">
+        <a href="https://www.lookout.net/feed.xml" title="Atom/RSS feed"><i class="fa fa-rss fa-2x"></i></a>
+        <a href="https://twitter.com/w3be" title="Chris Weber on Twitter" target="_blank"><i class="fa fa-twitter fa-2x"></i></a>
+        
+        <a href="https://plus.google.com/ChrisWeber1" title="Chris Weber on Google+" target="_blank"><i class="fa fa-google-plus fa-1x"></i></a>
+        <a href="https://linkedin.com/in/chrisweber" title="Chris Weber on LinkedIn" target="_blank"><i class="fa fa-linkedin fa-2x"></i></a>
+        
+        
+        <a href="https://www.flickr.com/photos/cosmicweb" title="Chris Weber on Flickr" target="_blank"><i class="fa fa-flickr fa-2x"></i></a>
+        <a href="https://github.com/cweb" title="Chris Weber on Github" target="_blank"><i class="fa fa-github fa-2x"></i></a>
+        
+        </div><!-- /.social-icons -->
+      </div>
+    </nav>
+  </div>
+
+</div>
+
+
+    <div class="content container">
+      <div class="post">
+  <h1 class="post-title">Advisory: Attack of the Mongolian space evaders! (and other Medieval XSS vectors)</h1>
+  <span class="post-date">26 Aug 2008</span>
+  <div class="css-full-post-content js-full-post-content">
+<strong>Damage</strong>: Filter evasion, cross-site scripting<br/><strong>Exploit</strong>: Bypass XSS filters, IPS/IDS, AV, or WAF's with specially crafted white_space characters to execute XSS attacks.<br/><strong>Root Cause</strong>: Interpreting syntax replacements<br/><strong>Product Version</strong>: Opera 9.51 and earlier<br/><br/>Or should we call this "<strong>Druidic magical symbols enable filter evasion and cross-site scripting</strong>"...<br/><br/>If only I had some Danel Clowe skills to illustrate this!  It's not often we can use <strong>Ogham Space Marks</strong> and <strong>Mongolian Vowel Separators </strong>to deliver cross-site scripting attacks.<br/><br/><a href="http://lookout.net/wp-content/uploads/2008/09/ogham.jpg"><img class="alignnone size-full wp-image-142" title="ogham" src="http://lookout.net/wp-content/uploads/2008/09/ogham.jpg" alt="" width="500" height="140" /></a><br/><br/>What am I talking about?  Okay enough fun, read on...<br/><br/>Opera released <a title="Opera version 9.52" href="http://www.opera.com/docs/changelogs/windows/952/">version 9.52 </a>of their flagship browser about a month ago to address an issue in the way certain Unicode characters were being interpreted as white space.  This behavior enabled cross-site scripting (XSS) attacks which might not otherwise be possible.  Perhaps exploiting this issue would also be useful to evade HTML filters, WAFs, or other detection systems which try to prevent XSS attacks.<br/><br/>The <a href="http://www.w3.org/TR/html401/struct/text.html#h-9.1">HTML 4.01 specification</a> defines four whitespace characters, and explicitly does not define other cases.  <strong>Note to XSS filter developers</strong>:  <em>Any character can be treated as whitespace by an HTML4 conforming User-Agent. </em><span style="font-size: 11pt; font-family: &quot;Calibri&quot;,&quot;sans-serif&quot;;"><br/></span><br/><br/>The HTML 5 specification defines five types of "space characters", and explicitly nothing else.   However, the HTML 5 spec is in flux which is a much bigger issue... more on that later.<br/><br/>The Unicode spec assigns binary property meta-data to code points, one of which is the 'white_space' property.  In Opera's case, we could use almost any character with a Unicode white_space property to represent a normal whitespace character like U+0020.<br/><br/>The following characters all get treated as a space.  Making things like:<br/><br/><code>&lt;a href=#[U+180E]onclick=alert()&gt;</code><br/><br/>possible. This list includes many of the Unicode characters with the white_space property:<br/><br/>U+2002 to U+200A<br/>U+205F<br/>U+3000<br/>U+180E Mongolian Vowel Separator<br/>U+1680 Ogham Space Mark<br/><br/><a href="../wp-content/uploads/2008/08/opera_whitespace_exploits.html#%E1%9A%80onmouseover=alert%28%27onmouseover%27%29"></a><br/><br/><a href="http://lookout.net/wp-content/uploads/2008/08/opera_whitespace_exploits.html">Here's a link to the test case: Opera Unicode white_space<br/></a>
+</div>
+<div class="css-full-comments-content js-full-comments-content">
+<div class="css-full-comment js-full-comment">
+  <div class="css-comment-user-link js-comment-user-link">
+  <a href="http://log0.wordpress.com">
+  <div class="css-comment-name js-comment-name">
+    Log0
+  </div>
+  </a>
+  <div class="css-comment-date js-comment-date">
+    2008-09-16T07:45:33.000Z
+  </div>
+  </div>
+  <div class="css-comment-content js-comment-content">
+    In my environment, it seems U+00A0, U+180F, U+2000, U+2001, U+2028, U+2029, U+202F, U+205F also happens to be treated as space. I am using Windows XP with Opera 9.51 .<br><br>Interesting though! You never know what could go wrong. =)
+  </div>
+  <br/>
+</div>
+<div class="css-full-comment js-full-comment">
+  <div class="css-comment-user-link js-comment-user-link">
+  <a href="http://log0.wordpress.com/2008/09/16/interesting-xss-in-opera-951/">
+  <div class="css-comment-name js-comment-name">
+    Interesting XSS In Opera 9.51 « Paralliverse
+  </div>
+  </a>
+  <div class="css-comment-date js-comment-date">
+    2008-09-16T07:54:52.000Z
+  </div>
+  </div>
+  <div class="css-comment-content js-comment-content">
+    [...] onerror callback, and free javascript for everyone who comes along… in Opera 9.51. Credits to Chris Weber to the [...]
+  </div>
+  <br/>
+</div>
+<div class="css-full-comment js-full-comment">
+  <div class="css-comment-user-link js-comment-user-link">
+  <a href="http://www.casabasecurity.com">
+  <div class="css-comment-name js-comment-name">
+    Chris Weber
+  </div>
+  </a>
+  <div class="css-comment-date js-comment-date">
+    2008-09-16T11:48:03.000Z
+  </div>
+  </div>
+  <div class="css-comment-content js-comment-content">
+    Good catch logo, it looks like anything that has:<br><br>1) white space assigned as its binary property<br>or 2) Zs assigned as its general category<br><br>will have the same effect.<br><br>Did you run these tests manually or create a harness?
+  </div>
+  <br/>
+</div>
+<div class="css-full-comment js-full-comment">
+  <div class="css-comment-user-link js-comment-user-link">
+  <a href="http://log0.wordpress.com">
+  <div class="css-comment-name js-comment-name">
+    Log0
+  </div>
+  </a>
+  <div class="css-comment-date js-comment-date">
+    2008-09-16T18:32:13.000Z
+  </div>
+  </div>
+  <div class="css-comment-content js-comment-content">
+    Heh your font shows a &quot;zero&quot; as &quot;o&quot;.<br><br>Interesting point, I should dig deeper to why it happens. =) Gotta check it out tonight. I just started looked into such character evasion stuffs.<br><br>Well, I tested it manually. Generated the pages with the scripts and appended the results to a list which I come back to see later on. That isn&#39;t the smartest, that I should use Selenium to do the automation to start all the other browsers. ( It was a private repository for manual testing )<br><br>How would you automate browsers? I&#39;m like to hear some other alternatives, been looking into them a bit.
+  </div>
+  <br/>
+</div>
+<div class="css-full-comment js-full-comment">
+  <div class="css-comment-user-link js-comment-user-link">
+  <a href="http://log0.wordpress.com/2008/09/17/xss-characters-in-opera/">
+  <div class="css-comment-name js-comment-name">
+    More About the Characters Causing XSS in Opera « Paralliverse
+  </div>
+  </a>
+  <div class="css-comment-date js-comment-date">
+    2008-09-17T08:43:43.000Z
+  </div>
+  </div>
+  <div class="css-comment-content js-comment-content">
+    [...] - http://lookout.net/2008/08/26/advisory-attack-of-the-mongolian-space-evaders-and-other-medieval-xss-... [2] - http://srfi.schemers.org/srfi-14/srfi-14.html [3] - [...]
+  </div>
+  <br/>
+</div>
+<div class="css-full-comment js-full-comment">
+  <div class="css-comment-user-link js-comment-user-link">
+  <a href="http://log0.wordpress.com">
+  <div class="css-comment-name js-comment-name">
+    Log0
+  </div>
+  </a>
+  <div class="css-comment-date js-comment-date">
+    2008-09-18T06:24:35.000Z
+  </div>
+  </div>
+  <div class="css-comment-content js-comment-content">
+    Instead of using remote logging, I just appended the results to a div tag. <br><br>So I trigger the page by opening the page with the scripts as a new page. Due to poor specification, I have to split the scripts to 8000~10000 tags ( so, 7 pages ). It is slow and waste of time to click many browsers. <br><br>An automated way :<br>1. Follow your setup.<br>2. Selenium setup a script to load the pages one by one, with different browsers.<br>3. WaitForPageToLoad(LONG_PERIOD_OF_TIME).<br><br>There you go, execute the selenium it should do its own job. What is bad is that you still need to write a short script.<br><br>I have been trying to figure out a way to do automated AJAX crawling... and that means I can&#39;t rely on scripting for each particular website. I am starting to believe it isn&#39;t going to happen that way... and you need to do a simple HTTP request crawler and then do a more comprehensive scan with site-specific scripts.<br><br>I am still thinking...
+  </div>
+  <br/>
+</div>
+<div class="css-full-comment js-full-comment">
+  <div class="css-comment-user-link js-comment-user-link">
+  <a href="undefined">
+  <div class="css-comment-name js-comment-name">
+    kL
+  </div>
+  </a>
+  <div class="css-comment-date js-comment-date">
+    2008-10-07T04:25:07.000Z
+  </div>
+  </div>
+  <div class="css-comment-content js-comment-content">
+    duuh. It&#39;s not the first of this kind and not last. It only affects fundamentally broken anti-XSS &quot;filters&quot;.<br><br>You should parse and re-generate HTML, outputting only known safe elements, attributes and their values.<br><br>Otherwise *any* difference in parsing of arbitrarily broken HTML may be used to evade the filter.<br><br>OR just don&#39;t allow unescaped HTML. Translate less-than character to equivalent entity. That&#39;s it!
+  </div>
+  <br/>
+</div>
+</div>
+</div>
+    
+
+<!-- <div class="related">
+  <h2>Related Posts</h2>
+  <ul class="related-posts">
+    
+      <li>
+        <h3>
+          <a href="/articles/spring-break-road-trip-washington.html">
+            Spring break road trip - Palouse, Stonehenge, Skamania, Ape Caves
+            <small>15 Apr 2018</small>
+          </a>
+        </h3>
+      </li>
+    
+      <li>
+        <h3>
+          <a href="/articles/children-online-privacy-and-security-guide.html">
+            Children, devices, and going online.  A guide to security and privacy.
+            <small>06 Apr 2017</small>
+          </a>
+        </h3>
+      </li>
+    
+      <li>
+        <h3>
+          <a href="/articles/Building-SDL-Program-Part-1.html">
+            Building an SDL Program - Part 1 - Where to start?
+            <small>15 Mar 2017</small>
+          </a>
+        </h3>
+      </li>
+    
+  </ul>
+</div> -->
+
+    </div>
+    <script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-1741389-10', 'auto');
+  ga('send', 'pageview');
+
+</script>
+  </body>
+</html>

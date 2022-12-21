@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en-us">
+
+  <head>
+  <link href="https://gmpg.org/xfn/11" rel="profile">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+  
+
+  <!-- Enable responsiveness on mobile devices-->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+
+  <title>
+    
+      Testing registerProtocolHandler and the web+ scheme prefix &middot; lookout.net
+    
+  </title>
+
+  <!-- CSS -->
+  <link rel="stylesheet" href="/css/poole.css">
+  <link rel="stylesheet" href="/css/syntax.css">
+  <link rel="stylesheet" href="/css/hyde.css">
+  <link rel="stylesheet" href="/css/my.css">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=PT+Sans:400,400italic,700|Abril+Fatface">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
+
+  <!-- Icons -->
+  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/apple-touch-icon-144-precomposed.png">
+                                 <link rel="shortcut icon" href="/favicon.ico">
+
+  <!-- RSS -->
+  <link rel="alternate" type="application/rss+xml" title="RSS" href="/atom.xml">
+</head>
+
+
+  <body>
+
+    <div class="sidebar">
+  <div class="container sidebar-sticky">
+    <div class="sidebar-about">
+      <h1>
+        <a href="/">
+          lookout.net
+        </a>
+      </h1>
+
+      <p class="lead">Chris Weber's personal homepage</p>
+    </div>
+
+    <nav class="sidebar-nav">
+        
+          
+            <a href="https://www.lookout.net/" class="sidebar-nav-item">Home</a>
+           
+        
+          
+            <a href="https://www.lookout.net/about" class="sidebar-nav-item">About</a>
+           
+        
+          
+            <a href="https://www.lookout.net/articles" class="sidebar-nav-item">Articles</a>
+           
+        
+          
+            <a href="https://www.lookout.net/test" class="sidebar-nav-item">Tests</a>
+           
+        
+          
+            <a href="https://www.casaba.com" class="sidebar-nav-item">Casaba</a>
+           
+        
+          
+            <a href="https://web.smugmug.com" class="sidebar-nav-item">Photos</a>
+           
+        
+          
+            <a href="https://encrypt.to/0x59c66c997002e847" class="sidebar-nav-item">Contact</a>
+           
+        
+      <div class="sidebar-footer">
+        <span>&copy; 2018 Chris Weber</span>
+        <div class="social-icons">
+        <a href="https://www.lookout.net/feed.xml" title="Atom/RSS feed"><i class="fa fa-rss fa-2x"></i></a>
+        <a href="https://twitter.com/w3be" title="Chris Weber on Twitter" target="_blank"><i class="fa fa-twitter fa-2x"></i></a>
+        
+        <a href="https://plus.google.com/ChrisWeber1" title="Chris Weber on Google+" target="_blank"><i class="fa fa-google-plus fa-1x"></i></a>
+        <a href="https://linkedin.com/in/chrisweber" title="Chris Weber on LinkedIn" target="_blank"><i class="fa fa-linkedin fa-2x"></i></a>
+        
+        
+        <a href="https://www.flickr.com/photos/cosmicweb" title="Chris Weber on Flickr" target="_blank"><i class="fa fa-flickr fa-2x"></i></a>
+        <a href="https://github.com/cweb" title="Chris Weber on Github" target="_blank"><i class="fa fa-github fa-2x"></i></a>
+        
+        </div><!-- /.social-icons -->
+      </div>
+    </nav>
+  </div>
+
+</div>
+
+
+    <div class="content container">
+      <div class="post">
+  <h1 class="post-title">Testing registerProtocolHandler and the web+ scheme prefix</h1>
+  <span class="post-date">30 Jan 2012</span>
+  <div class="css-full-post-content js-full-post-content">
+<p class="note">Note: jump straight to the <a href="http://www.lookout.net/test/handler/">test page for navigator.registerProtocolHandler and web+</a> if you'd rather...</p><p>A <a href="http://tools.ietf.org/html/rfc3986">URI (Uniform Resource Identifier)</a> is easily the most recognizable protocol element of the Web.  A URL (Uniform Resource Locator) is a form of URI which includes an access mechanism (e.g. a network location).  The terms are often used interchangeably, and to add to the terminology, these protocol elements may also be <a href="http://tools.ietf.org/wg/iri">IRIs (Internationalized Resource Identifiers)</a>, which can be thought of as a fork of URI that may include characters outside of the US-ASCII character set.  So, <span class="code">http://www.lookout.net/index.html</span> would qualify as a URL, a URI, and an IRI.  The 'scheme' part of this URI would be 'http', which refers to the specification that further defines how the URI parts should be processed.</p><p>The ABNF grammar for a <a href="http://tools.ietf.org/html/rfc3986#section-3.1">URI scheme</a> is defined by RFC3986 as: <br /><pre>scheme = ALPHA *( ALPHA / DIGIT / "+" / "-" / "." )</pre></p><p>Quite simply, scheme names can only consist of the letters a-z, the numbers 0-9, and the three special characters '+', '-', and '.'.   Uppercase letters A-Z in a scheme name would be canonicalized to lowercase as defined by the spec and as we see in most implementations.  The syntax rules for a scheme are simple and do not impose arbitrary length limits, although most implementations will enforce their own length limit.  Schemes are registered through an official <a href="http://www.iana.org/assignments/uri-schemes.html">IANA registry</a>.  Depending on who you ask, the process is not difficult but does involve some time and a manual review.  The registry was designed to centrally coordinate and organize scheme registrations so they would be documented and publicly available.  However over the years, many scheme names have been invented by application owners who did not use this process.</p> <h2>Protocol handlers in the Web browser</h2><p>The DOM function <a href="https://developer.mozilla.org/en/DOM/window.navigator.registerProtocolHandler">navigator.registerProtocolHandler</a> takes three parameters - a URI, a scheme name, and a title.  These are used to register a protocol scheme name, such as http or mailto, to an arbitrary URI that should be used to handle that scheme.  For example, you might want to let Hotmail register the 'mailto' protocol to be handled by some URI like <span class="code">https://www.hotmail.com/?email=%s</span>  The '%s' is required in the URI registration and will be replaced with the entire reference URI.</p> <p>For example using the above registration, if you clicked on a link like <span class="code">mailto:chris@lookout.net</span> the browser would open <span class="code">https://www.hotmail.com?email=mailto%3Achris%40lookout.net</span>.  In fact, the registration may persist at the OS layer, in which case it would be available to any application. </p> <p>web+ is a new scheme <b>prefix</b> introduced by HTML5.  I'm not clear on the purpose of this new prefix, but I can imagine seeing future schemes like web+tweet, web+like, and web+comment.  In practice I suppose that application developers could register ad hoc schemes and would likely never go through the official IETF/IANA process.  Some schemes would end up becoming popular and persisting while others would just fade away.</p> <h2>Risks to Security and Privacy</h2><p>Many risks have been documented in the W3C specification including the following:</p><ul><li>Hijacking all Web usage</li><li>Hijacking defaults</li><li>Registration spamming</li><li>Misleading titles</li><li>Hostile handler metadata</li><li>Leaking Intranet URLs</li><li>Leaking secure URLs</li><li>Leaking credentials</li></ul><p>Others perhaps had not been considered or clearly listed, such as the capability to track users through unique identifiers appended to the web+ prefix, discussed more below.</p> <h2>Test results</h2><p>The table below <a href="https://docs.google.com/spreadsheet/pub?hl=en_US&hl=en_US&key=0At1OFOiVqCrvdFo3aFc1elhXS2pnVkpxOFZORjQ1cUE&single=true&gid=1&output=html">can also be opened in a separate window</a> summarizes the test results, which are discussed a bit more below.  The <a href="http://www.lookout.net/test/handler/">test page</a> is available online where you can quickly run the canned tests or create ad hoc tests.</p> <iframe style="width: 100%; height: 800px; border: 0px;" src="https://docs.google.com/spreadsheet/pub?hl=en_US&hl=en_US&key=0At1OFOiVqCrvdFo3aFc1elhXS2pnVkpxOFZORjQ1cUE&single=true&gid=1&output=html"></iframe> <p>As you can imagine, it would be devastating if one could register an arbitrary web+ scheme to the 'javascript' handler.  As many XSS filters around the web intentionally block 'javascript:' in forums and comments, they would be immediately hosed when web+foo could achieve the same affect.  It would be just as devastating if the 'http' handler could be controlled, so that all links ended up going to http://nottrusted.com?stealing=your%20data.  Fortunately, all browsers tested prohibited such registration attempts.</p> <p>Also fortunate, all of the browsers tested properly prohibited cross-origin registrations, even within the same general domain - registrations to a subdomain and parent domain were both prohibited, as were registrations to completely different domains.  However, both Firefox and Opera allowed registrations to https from an http domain, but only Firefox allowed the reverse - registration from an https origin to http.  Additionally, Firefox was the only browser to allow registrations to URIs with completely arbitrary ports, e.g. 23.</p> <p>And what characters are allowed in a web+ scheme? The specification allows only the letters a-z after the prefix, but does not propose limits on length.  Opera did not allow web+ registrations during testing, and both Chrome and Firefox allowed more than the small set of characters a-z.  In fact, Firefox allowed any character whatsover to be registered, <b>with or without the prefix</b>, including any Unicode code point.  Chrome only allowed the characters +, -, ., a-z, A-Z, and 0-9, in the ASCII range.  Chrome was also liberal with Unicode and would allow most, but not all, code points above U+00FF.  Of course this is pointless, because having anything but the URI-defined set of limited ASCII in the scheme would be prohibited and instead interpreted as a relative path in all modern Web browsers.</p> <p>The User Interface seemed quite confusing in all cases except for Opera, which set the clearest message of the bunch.  Both Chrome and Firefox used confusing messages that I cannot imagine a non-technical user would understand.  Heck they were even confusing to me.  Take a look at the following and judge for yourself, from top to bottom they are Opera, Firefox, and Chrome.</p><div class="separator" style="clear: both; text-align: center;"><a href="http://1.bp.blogspot.com/-vqCAdpUphYc/TybYGiQKbrI/AAAAAAAAAMY/ritoua3mU14/s1600/ui-confusion-opera.JPG" imageanchor="1" style="margin-left:1em; margin-right:1em"><img border="0" height="40" width="400" src="http://1.bp.blogspot.com/-vqCAdpUphYc/TybYGiQKbrI/AAAAAAAAAMY/ritoua3mU14/s400/ui-confusion-opera.JPG" /></a></div> <div class="separator" style="clear: both; text-align: center;"><a href="http://1.bp.blogspot.com/-ejgdWiLQzkM/TybYJjnWLDI/AAAAAAAAAMk/09rceqbO4FI/s1600/ui-confusion-ff.JPG" imageanchor="1" style="margin-left:1em; margin-right:1em"><img border="0" height="33" width="400" src="http://1.bp.blogspot.com/-ejgdWiLQzkM/TybYJjnWLDI/AAAAAAAAAMk/09rceqbO4FI/s400/ui-confusion-ff.JPG" /></a></div> <div class="separator" style="clear: both; text-align: center;"><a href="http://1.bp.blogspot.com/-9qXCvXgCAq0/TybYJmQ-43I/AAAAAAAAAMs/UnBmpqLVlm4/s1600/ui-confusion-chrome.JPG" imageanchor="1" style="margin-left:1em; margin-right:1em"><img border="0" height="48" width="400" src="http://1.bp.blogspot.com/-9qXCvXgCAq0/TybYJmQ-43I/AAAAAAAAAMs/UnBmpqLVlm4/s400/ui-confusion-chrome.JPG" /></a></div> <p>The primary spam protection is the infobar and requirement that a user must click 'yes' or 'no' to accept the registration or not.  The UI could easily be flooded with infobars in Chrome, which tiled them vertically, making the Web page completely unusable after the window filled up, as in the image below.</p> <div class="separator" style="clear: both; text-align: center;"><a href="http://3.bp.blogspot.com/-b2yMmLaTb4U/TybYWEbGCAI/AAAAAAAAAM8/5hlppHEbfX4/s1600/chrome-register-protocol-cascade.png" imageanchor="1" style="margin-left:1em; margin-right:1em"><img border="0" height="351" width="400" src="http://3.bp.blogspot.com/-b2yMmLaTb4U/TybYWEbGCAI/AAAAAAAAAM8/5hlppHEbfX4/s400/chrome-register-protocol-cascade.png" /></a></div> <p>One could also create a really long title, which would overflow the UI so the user would only see one big button, and would likely have little idea about what to do other than click the big button.</p> <div class="separator" style="clear: both; text-align: center;"><a href="http://1.bp.blogspot.com/-YjKTu9JdkfU/TybYWcHnkfI/AAAAAAAAANE/ATY97KeYCBM/s1600/chrome-ui-overflow.png" imageanchor="1" style="margin-left:1em; margin-right:1em"><img border="0" height="172" width="400" src="http://1.bp.blogspot.com/-YjKTu9JdkfU/TybYWcHnkfI/AAAAAAAAANE/ATY97KeYCBM/s400/chrome-ui-overflow.png" /></a></div> <p>Firefox and Opera both at least overlapped the infobars so you would only ever see one at a time.  Closing one would reveal the next one behind it.</p> <p>It's also interesting to note how the registered protocol handlers would be stored.  Chrome was the only browser that registered handlers at the OS-layer, making them available to all applications.  In Windows this meant storing the registrations in the registry under the <span style="font-family: 'Bitstream Vera Sans Mono', 'Courier New', 'Lucida Console', monospace, fixed;">HKEY_CLASSES_ROOT</span> hive, which required administrative elevation to register.  In Ubuntu, they'd be stored in <span style="font-family: 'Bitstream Vera Sans Mono', 'Courier New', 'Lucida Console', monospace, fixed;">~/.local/share/applications/mimeapps.list</span>.  Opera stored registered protocol handlers in <span style="font-family: 'Bitstream Vera Sans Mono', 'Courier New', 'Lucida Console', monospace, fixed;">C:\Users\chris\AppData\Roaming\Opera\Opera\handlers.ini</span> where they were only available to Opera, and Firefox took the same approach, storing them in <span style="font-family: 'Bitstream Vera Sans Mono', 'Courier New', 'Lucida Console', monospace, fixed;">C:\Users\chris\AppData\Roaming\Mozilla\Firefox\Profiles\wj7x1dmj.default\mimeTypes.rdf</span> where they were actually mapped using the URN protocol.</p> <p>Here's what a 'mailto' scheme registration looks like stored in Opera's handler.ini file:</p><pre><br />[mailto]<br />Type=Protocol<br />Handler<br />Webhandler=http://www.lookout.net/?mail=%s<br />Description=mailto scheme<br />Flags=16<br /></pre> <p>And here's what some snippets of a 'foobar' scheme registration looks like stored in Firefox's mimeTypes.rdf file:</p><pre><br />&lt;RDF:li RDF:resource=&quot;urn:scheme:foobar&quot;/&gt;<br />&lt;RDF:Description RDF:about=&quot;urn:handler:web:http://www.lookout.net/foobar=%s&quot;<br />                 NC:prettyName=&quot;The foobar scheme&quot;<br />                 NC:uriTemplate=&quot;http://www.lookout.net/foobar=%s&quot; /&gt;<br />&lt;RDF:Description RDF:about=&quot;urn:scheme:foobar&quot;<br />                 NC:value=&quot;foobar&quot;&gt;<br />&lt;NC:handlerProp RDF:resource=&quot;urn:scheme:handler:foobar&quot;/&gt;<br />&lt;RDF:Description RDF:about=&quot;urn:scheme:handler:foobar&quot;<br />                 NC:alwaysAsk=&quot;true&quot;&gt;<br />&lt;NC:possibleApplication RDF:resource=&quot;urn:handler:web:http://www.lookout.net/foobar=%s&quot;/&gt;<br /></pre> <h2>Further testing</h2><p>I tried clobbering some registration entries in Firefox using certain Unicode characters that would be best-fit mapped to ASCII. In other tests, some characters seem like they obviously should not be allowed in a scheme name, like control characters, for example, 0x09 and 0x01.  However, tests at using these combined with <a href="http://shazzer.co.uk/vector/Characters-allowed-before-protocol-in-js-url">some Shazzer vectors for characters allowed before the javascript scheme name</a> did not work.  While the registrations were allowed in Firefox, such as " javascript" with a leading SPACE, I believe some pre-processing removes that when encountered in an href attribute. </p><p>As far as penetration testing Web applications, we'll want to keep an eye out for usage of navigator.registerProtocolHandler, and closely inspect what the use case and implementation details might be.  For example, it makes sense that GMail or Hotmail would want to register the mailto handler to their URL.  Is that URL dynamically generated and can it be controlled by user-input?  If an attacker could for example inject the hostname part of the URL then they could cause some mischief, or at the least steal email addresses and other data present in the mailto link.  We'll also want to keep an eye out for registrations of web+foo schemes for similar issues including data ex-filtration and URL-control.  I'm sure other folks can think of more threats and abuse cases, if so please let me know!  Otherwise, time will tell.</p> <h2>Risks to user-tracking and fingerprinting</h2><p>Another threat to consider is the way the web+ prefix would allow sites to set persistent unique identifiers in a user's Web browser.   This issue was brought up by James Hawkins, author of <a href="http://dvcs.w3.org/hg/web-intents/raw-file/tip/spec/Overview.html">Web Intents draft</a>, on the <a href="http://lists.whatwg.org/htdig.cgi/whatwg-whatwg.org/2012-February/034881.html">WHATWG mailing list</a>.  It also became evident to me during testing when I realized I could set a unique identifier through the web+ protocol scheme - something like web+[some_unique_id].  Sites (from any origin) could later use the isProtocolHandlerRegistered(scheme, url) to identify its visitors, and even track their movement across the Web.  As we've seen with trickery employed by advertising agencies in the past, those unique ids could be bundled and shared.  However, the isProtocolHandlerRegistered API was not implemented during testing so I could not confirm this. </p>
+</div>
+</div>
+    
+
+<!-- <div class="related">
+  <h2>Related Posts</h2>
+  <ul class="related-posts">
+    
+      <li>
+        <h3>
+          <a href="/articles/spring-break-road-trip-washington.html">
+            Spring break road trip - Palouse, Stonehenge, Skamania, Ape Caves
+            <small>15 Apr 2018</small>
+          </a>
+        </h3>
+      </li>
+    
+      <li>
+        <h3>
+          <a href="/articles/children-online-privacy-and-security-guide.html">
+            Children, devices, and going online.  A guide to security and privacy.
+            <small>06 Apr 2017</small>
+          </a>
+        </h3>
+      </li>
+    
+      <li>
+        <h3>
+          <a href="/articles/Building-SDL-Program-Part-1.html">
+            Building an SDL Program - Part 1 - Where to start?
+            <small>15 Mar 2017</small>
+          </a>
+        </h3>
+      </li>
+    
+  </ul>
+</div> -->
+
+    </div>
+    <script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-1741389-10', 'auto');
+  ga('send', 'pageview');
+
+</script>
+  </body>
+</html>
